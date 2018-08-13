@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vport.usermanage.mapper.CustomerMapper">
+	<sql id="selector">
+		select * from customer
+	</sql>
+	<!-- 通过email查询用户 -->
+	<select id="findCustomerByEmail" parameterType="String" resultType="Customer">
+		<include refid="selector"/>
+			where email = #{email}
+	</select>
+	
+
+</mapper>
