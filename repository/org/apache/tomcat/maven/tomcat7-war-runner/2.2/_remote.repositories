@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Dec 27 22:27:18 CST 2017
+tomcat7-war-runner-2.2.jar>repo2=
+tomcat7-war-runner-2.2.pom>repo2=
+tomcat7-war-runner-2.2.jar>nexus=
+tomcat7-war-runner-2.2.pom>nexus=

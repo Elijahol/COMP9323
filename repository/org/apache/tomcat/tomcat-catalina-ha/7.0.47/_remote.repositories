@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Dec 27 22:27:18 CST 2017
+tomcat-catalina-ha-7.0.47.jar>nexus=
+tomcat-catalina-ha-7.0.47.pom>repo2=
+tomcat-catalina-ha-7.0.47.pom>nexus=
+tomcat-catalina-ha-7.0.47.jar>repo2=

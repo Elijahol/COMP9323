@@ -1,0 +1,6 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Wed Dec 27 22:25:54 CST 2017
+maven-war-plugin-2.2.pom>repo2=
+maven-war-plugin-2.2.jar>repo2=
+maven-war-plugin-2.2.jar>nexus=
+maven-war-plugin-2.2.pom>nexus=

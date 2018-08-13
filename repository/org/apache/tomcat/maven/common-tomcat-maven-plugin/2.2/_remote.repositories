@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Dec 27 22:27:18 CST 2017
+common-tomcat-maven-plugin-2.2.pom>repo2=
+common-tomcat-maven-plugin-2.2.pom>nexus=
+common-tomcat-maven-plugin-2.2.jar>repo2=
+common-tomcat-maven-plugin-2.2.jar>nexus=

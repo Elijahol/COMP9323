@@ -1,0 +1,6 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Wed Dec 27 22:25:50 CST 2017
+aspectjweaver-1.8.4.pom>nexus=
+aspectjweaver-1.8.4.jar>repo2=
+aspectjweaver-1.8.4.jar>nexus=
+aspectjweaver-1.8.4.pom>repo2=

@@ -1,0 +1,6 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Wed Dec 27 22:25:50 CST 2017
+mysql-connector-java-5.1.32.jar>repo2=
+mysql-connector-java-5.1.32.pom>repo2=
+mysql-connector-java-5.1.32.jar>nexus=
+mysql-connector-java-5.1.32.pom>nexus=
