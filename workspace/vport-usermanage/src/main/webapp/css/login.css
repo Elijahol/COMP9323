@@ -1,0 +1,203 @@
+body{
+    background-color: #00629B;
+}
+/*nav part begin*/
+.vport-nav{
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*z-index: 1;*/
+    width: 100%;
+    height: 60px;
+    background-color: #00629B;
+    color: #000;
+}
+.vport-nav>.wrapper{
+    width: 80%;
+    height: 60px;
+    margin: 0 auto;
+}
+.vport-nav>.logo{
+    width: 111px;
+    height: 37px;
+    background: url("../images/vport.png") no-repeat center;
+    background-size: contain;
+    float: left;
+    margin: 10px 30px;
+}
+.vport-nav ul{
+    height: 60px;
+    margin: 0 auto;
+    float: right;
+}
+
+.vport-nav li{
+    float: left;
+    font: 400 14px/60px "Helvetica";
+    padding: 0 15px;
+    /*border-right: 1px solid #e4e4e4;*/
+    transition: background-color 0.3s;
+}
+.vport-nav li:first-child{
+    /*border-left: 1px solid #e4e4e4;*/
+}
+.vport-nav li:hover{
+    background-color: #004770;
+}
+.vport-nav li a{
+    display: block;
+    font-family: "Serif";
+    height: 60px;
+    color: #fff;
+}
+/*nav part end*/
+
+/*login-part begin*/
+.login-signup{
+    position: relative;
+    width: 100%;
+    height: 850px;
+    /*height: 100%;*/
+    background-color: #00629B;
+}
+.login-signup article{
+    cursor: pointer;
+    float: left;
+    margin-right: 15px;
+
+}
+.login-form{
+    padding: 30px;
+    height: 300px;
+    width: 460px;
+    position: absolute;
+    left: 50%;
+    margin-left: -230px;
+    top: 200px;
+    background-color: rgba(104,136,155,0.4);
+    border: 1px solid #00629B;
+    border-radius: 10px;
+}
+.login-form article{
+    font: 700 23px/23px "serif";
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+.login-form input{
+    box-sizing: border-box;
+    padding: 10px;
+    width: 420px;
+    height: 56px;
+    float: left;
+    margin: 17px 10px;
+    border: 1px solid rgba(104,136,155,0.4);
+}
+.login-form input:nth-of-type(-n+2){
+    border-radius: 5px;
+    font: 400 20px/56px "Serif";
+    color: #6b696c;
+    /*background-color: #003654;*/
+}
+.login-form .button{
+    border-radius: 22.5px;
+    background-color: #3caf3a;
+    color: #FFFFFF;
+    font: 400 20px/34px "Serif";
+    transition: background-color 0.3s, color 0.3s;
+}
+.login-form .button:hover{
+    cursor: pointer;
+    background-color: #fff;
+    color: #6b696c;
+}
+/*login-part end*/
+
+/*signup-part begin*/
+
+.signup-form{
+    display: none;
+    padding: 30px;
+    height: 480px;
+    width: 460px;
+    position: absolute;
+    left: 50%;
+    margin-left: -230px;
+    top: 150px;
+    background-color: rgba(104,136,155,0.4);
+    border: 1px solid #00629B;
+    border-radius: 10px;
+}
+.signup-form article{
+    font: 700 23px/23px "serif";
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+.signup-form > input{
+    box-sizing: border-box;
+    padding: 10px;
+    width: 420px;
+    height: 56px;
+    margin: 17px 10px;
+    border: 1px solid rgba(104,136,155,0.4);
+}
+.signup-form input:nth-of-type(-n+3){
+    border-radius: 5px;
+    font: 400 20px/56px "Serif";
+    color: #6b696c;
+    /*background-color: #003654;*/
+}
+.signup-form .button{
+    border-radius: 22.5px;
+    background-color: #3caf3a;
+    color: #FFFFFF;
+    font: 400 20px/34px "Serif";
+    transition: background-color 0.3s, color 0.3s;
+}
+.signup-form .button:hover{
+    cursor: pointer;
+    background-color: #fff;
+    color: #6b696c;
+}
+.signup-form >div{
+    width: 420px;
+    height: 30px;
+    margin: 15px;
+    color: #fff;
+}
+.signup-form>div>div{
+    float: left;
+    margin-right: 15px;
+}
+.login-signup lable{
+    margin-left: 10px;
+}
+/*signup-part end*/
+/*error message*/
+.error{
+    display: none;
+    width: 420px;
+    height: 20px;
+    background-color: #6d2926;
+    color: #FFFFFF;
+    font: 200 15px/20px "Serif";
+    border-radius: 4px;
+    text-align: center;
+}
+#error-email1{
+    position: absolute;
+    left: 40px;
+    top: 59px;
+}
+#error-email2{
+    display: none;
+    position: absolute;
+    left: 40px;
+    top: 59px;
+}
+#error-password{
+    display: none;
+    position: absolute;
+    left: 40px;
+    top: 149px;
+}
