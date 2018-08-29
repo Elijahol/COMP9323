@@ -1,6 +1,4 @@
 #NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
-#Wed Dec 27 22:25:50 CST 2017
+#Mon Aug 27 21:13:32 AEST 2018
 log4j-1.2.16.pom>nexus=
-log4j-1.2.16.jar>repo2=
 log4j-1.2.16.jar>nexus=
-log4j-1.2.16.pom>repo2=

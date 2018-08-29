@@ -29,7 +29,7 @@
 </nav>
 
 <section class="login-signup">
-    <form action="" class="login-form" method="post">
+    <form id="form1" action="" class="login-form" method="post">
         <article class="logbt">Log in</article>
         <article class="signbt">Sign up</article>
         <div class="error" id="error-email1"></div>
@@ -111,13 +111,17 @@
 	        })
     	}
     })
+    
 
     $(".login-form .button").click(function () {
+    	var form = new FormData(document.getElementById("form1"));
        $.ajax({
             url:'${pageContext.request.contextPath }/rest/customer/login',
             type: 'post',
-            data:$('.login-form').serialize(),
+            data:form,
             dataType: 'json',
+            contentType:false,
+            processData:false,
             success: function(res) {
             	if (res == 1) {
                     $("#error-email1").text("wrong email.");

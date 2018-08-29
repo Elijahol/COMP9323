@@ -1,6 +1,4 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Wed Dec 27 22:27:02 CST 2017
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Mon Aug 27 21:09:42 AEST 2018
 xbean-reflect-3.4.pom>nexus=
-xbean-reflect-3.4.jar>repo2=
 xbean-reflect-3.4.jar>nexus=
-xbean-reflect-3.4.pom>repo2=

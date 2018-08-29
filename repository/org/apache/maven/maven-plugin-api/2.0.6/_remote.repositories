@@ -1,6 +1,4 @@
 #NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
-#Wed Dec 27 22:26:41 CST 2017
-maven-plugin-api-2.0.6.jar>repo2=
-maven-plugin-api-2.0.6.pom>repo2=
+#Mon Aug 27 21:02:07 AEST 2018
 maven-plugin-api-2.0.6.jar>nexus=
 maven-plugin-api-2.0.6.pom>nexus=

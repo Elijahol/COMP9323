@@ -1,6 +1,4 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Wed Dec 27 22:27:18 CST 2017
-tomcat-coyote-7.0.47.pom>repo2=
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Mon Aug 27 21:26:47 AEST 2018
 tomcat-coyote-7.0.47.pom>nexus=
-tomcat-coyote-7.0.47.jar>repo2=
 tomcat-coyote-7.0.47.jar>nexus=
