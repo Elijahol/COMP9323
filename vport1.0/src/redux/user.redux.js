@@ -8,8 +8,6 @@ const ERROR_MSG = 'ERROR_MSG';
 const LOAD_DATA = 'LOAD_DATA';
 const DEL_MSG = 'DEL_MSG';
 const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
-const GETCOURSE_SUCCESS = 'GETCOURSE_SUCCESS';
-const TIMELINE_SUCCESS = 'TIMELINE_SUCCESS';
 
 const initState = {
     msgCode:'',
@@ -17,10 +15,10 @@ const initState = {
     redirectTo:'',
     isAuth:false,
     msg:'',
-    name:'123',
+    name:'',
     email:'',
     password:'',
-    role:'2',
+    role:'',
     phone:'',
     award:'',
     birthday:'',
@@ -31,28 +29,17 @@ const initState = {
     icon:'',
     id:'',
     status:'',
-    weight:'',
-    //
-    courses:[],
-    timeLine:[],
-    isCourses: false,
-    isTimeLine: false,
+    weight:''
 
 
 }
 //reducer
 export function user(state=initState, action) {
     switch (action.type){
-        case TIMELINE_SUCCESS:
-            return {...state, isTimeLine:true, timeLine: action.payload.data};
-        case GETCOURSE_SUCCESS:
-            console.log('in reducer!')
-            console.log(action.payload.data);
-            return {...state, isCourses:true, redirectTo:'/trainerMain', courses: action.payload.data};
         case REGISTER_SUCCESS:
             return {...state, code:1, msg:'Register Success', isAuth:true, redirectTo:'/login'};
         case LOGIN_SUCCESS:
-            return {...state, msgCode:1, msg:'登陆成功', isAuth:true, ...action.payload};
+            return {...state, msgCode:1, msg:'登陆成功', isAuth:true, redirectTo:getRedirectPath(action.payload.role), ...action.payload};
         case UPDATE_USER_SUCCESS:
             return {...state, code:1, msg:'Your profile has been updated', isAuth:true, redirectTo:'/profile', ...action.payload};
         case LOGOUT_SUCCESS:
@@ -87,16 +74,6 @@ function errorMsg(msg) {
 function updateUserSuccess(data) {
     return {type:UPDATE_USER_SUCCESS, payload:data}
 }
-function getCourseSuccess(data) {
-    return {type: GETCOURSE_SUCCESS, payload:data};
-}
-function getTimeLineSuccess(data) {
-
-    return {type: TIMELINE_SUCCESS, payload:data};
-}
-
-
-
 
 // 这是action
 export function register({name, email, password, role}) {
@@ -119,33 +96,7 @@ export function register({name, email, password, role}) {
     }
 }
 
-export function getCourses() {
-    return dispatch=>{
-        axios.post('https://www.easy-mock.com/mock/5b7f7a284a96987699e40630/getCourses').then(
-            res=>{
-                if(res.status===200 && res.data.code === 0){
-                    dispatch(getCourseSuccess(res.data))
-                }else{
-                    dispatch(errorMsg(res.data.msg))
-                }
-            }
-        )
-    }
-}
 
-export function getTimeLine() {
-    return dispatch=>{
-        axios.post('https://www.easy-mock.com/mock/5b7f7a284a96987699e40630/getTimeLine').then(
-            res=>{
-                if(res.status===200 && res.data.code === 0){
-                    dispatch(getTimeLineSuccess(res.data))
-                }else{
-                    dispatch(errorMsg(res.data.msg))
-                }
-            }
-        )
-    }
-}
 
 export function login({email, password}) {
     console.log('我在redux这里');
@@ -181,7 +132,7 @@ export function updateUser({ id, birthday, name, address, city, phone, gender, h
 // 用户登出请求后端更改cookie
 export function logout() {
     return dispatch=>{
-        axios.get('/user/logout').then(
+        axios.get('/rest/user/logout').then(
             res=>{
                 if(res.status===200 && res.data.code === 0){
                     dispatch(logoutSuccess())

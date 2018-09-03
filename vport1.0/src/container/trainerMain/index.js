@@ -188,13 +188,15 @@ const timeLineData = [
 ];
 @connect(
     state=>state.trainerMain,
-    { getCourses }
+    { getCourses, getTimeLine }
 )
 export default class TrainerMain extends React.Component{
     constructor(){
         super();
         this.state = {
-
+            courseList:'',
+            timeLine:'',
+            isLoading: true
         }
     }
 
@@ -231,7 +233,7 @@ export default class TrainerMain extends React.Component{
             >
             </List>
         )
-    }
+    };
 
     renderCourses = (data) => {
         return data.map(course=>{
@@ -245,6 +247,7 @@ export default class TrainerMain extends React.Component{
                         columns={columns}
                         pagination={false}
                         bordered={true}
+                        // loading={this.state.isLoading}
                     ></Table>
                     <br/>
                     <Button type='primary'><Icon type='plus-square'></Icon>Make a plan</Button>
@@ -252,7 +255,8 @@ export default class TrainerMain extends React.Component{
                 </Card>
             )
         })
-    }
+    };
+
     renderTimeLine = (timeLine) => {
         return timeLine.map(course=>{
             return (
@@ -264,45 +268,56 @@ export default class TrainerMain extends React.Component{
                     </Timeline.Item>
             )
         })
-    }
+    };
 
     componentWillMount(){
         // send request
-        // this.props.getCourses();
-        // this.props.getTimeLine();
+        this.props.getCourses();
+        this.props.getTimeLine();
         // get courses from store
         console.log('get courses in WillMount!');
         console.log(this.props.courses);
-        const courseList = this.renderCourses(this.props.courses);
+        // const courseList = this.renderCourses(this.props.courses);
         // this.setState({courses:this.props.courses});
         // const courseList = this.renderCourses(this.state.courses);
-        this.setState({courseList});
+        // this.setState({courseList});
         // // get timeLine from store
-        const timeLine = this.renderTimeLine(this.props.timeLine);
+        // const timeLine = this.renderTimeLine(this.props.timeLine);
         // const timeLine = this.renderTimeLine(timeLineData);
-        this.setState({timeLine});
+        // this.setState({timeLine});
     }
+    // componentDidUpdate(){
+    //     if (this.props.timeLine) {
+    //         const timeLine = this.renderTimeLine(this.props.timeLine);
+    //         this.setState({timeLine});
+    //     }
+    //     if (this.props.courses) {
+    //         const courseList = this.renderCourses(this.props.courses);
+    //         this.setState({courseList});
+    //     }
+    // }
     render(){
 
         return (
+
+
+
             <Row className='trainerMain'>
-                {/*<Card title='1-A class'>*/}
-                {/*<Table ></Table>*/}
-                {/*</Card>*/}
+                {/*{this.props.courses?this.setState({isLoading:false}):null}*/}
+
                 <Col className='card-wrap' span={17}>
-                    {this.state.courseList}
+                {this.renderCourses(this.props.courses)}
+                    {/*{this.props.courses}*/}
                 </Col>
 
                 <Col className='timeLine' span={7}>
                     <Card title="Course plan">
                         <Timeline mode='left'>
-                            {this.state.timeLine}
+                            {this.renderTimeLine(this.props.timeLine)}
                         </Timeline>
                     </Card>
                 </Col>
             </Row>
         )
     }
-
-
 }

@@ -3,13 +3,13 @@ import {Form, Input, Button, message, Icon, Checkbox} from 'antd'
 import { connect } from 'react-redux'
 import { NavLink, Redirect } from 'react-router-dom'
 import './index.less'
-import {delMsg, login, getCourses, getTimeLine} from "./../../redux/user.redux";
+import { delMsg, login } from "./../../redux/user.redux";
 
 const FormItem = Form.Item;
 
 @connect(
     state=>state.user,
-    {login, delMsg, getCourses, getTimeLine}
+    { login, delMsg }
 )
 class FormLogin extends React.Component{
 
@@ -34,8 +34,6 @@ class FormLogin extends React.Component{
                 console.log('查看login提交的信息');
                 console.log(this.state);
                 this.props.login(this.state);
-                this.props.getCourses();
-                this.props.getTimeLine();
             }
         })
     };

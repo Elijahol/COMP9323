@@ -6,6 +6,7 @@ const TIMELINE_SUCCESS = 'TIMELINE_SUCCESS';
 const ERROR_MSG = 'ERROR_MSG';
 
 const initState = {
+    isLoading:true,
     courses:[],
     timeLine:[],
     code: ''
@@ -70,7 +71,7 @@ export function getCourses() {
 
 export function getTimeLine() {
     return dispatch=>{
-        axios.post('/getCourses').then(
+        axios.post('https://www.easy-mock.com/mock/5b7f7a284a96987699e40630/getTimeLine').then(
             res=>{
                 if(res.status===200 && res.data.code === 0){
                     dispatch(getTimeLineSuccess(res.data))

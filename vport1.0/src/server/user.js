@@ -30,6 +30,7 @@ Router.post('/login', function(req, res){
     console.log(req.body)
     // const {email, password} = req.body;
     return res.json({code:0, email:'justwe77@163.com', name:'Jiaqi', role:'2'})
+    res.cookie('userid', '123456789');
     // User.findOne({email:email, password:password}, function(err, doc){
     //     if(!doc){
     //         return res.json({code:1, msg:'用户名不存在或密码错误', data:doc})
