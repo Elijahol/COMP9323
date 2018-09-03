@@ -19,8 +19,8 @@ export default class AuthRoute extends React.Component{
         }
         // console.log(this.props)
         // 获取用户信息
-
-        axios.get('/user/info').then(
+        console.log('aaaaaa')
+        axios.get('/user/info').then( // dude的是/rest/page/login
             res=>{
                 if(res.status == 200) {
                     if(res.data.code==0){

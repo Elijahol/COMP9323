@@ -10,15 +10,17 @@ const models = {
     user: {
         'name': {type: String, require:true},
         'password': {type: String, require:true},
-        'image': {type:String},
-        'desc': {type:String},
-        'title':{type:String},
-        'first_name':{type:String},
-        'last_name':{type:String},
-        'phone_number':{type:String},
-        'address':{type:String},
+        'icon': {type:String},
+        'email': {type:String},
+        'birthday':{type:String},
+        'weight':{type:String},
+        'height':{type:String},
+        'phone':{type:String},
+        'city':{type:String},
         'gender':{type:String},
-        'role':{type:String}
+        'role':{type:String},
+        'award':{type:String},
+        'experience':{type:String}
         // 如果是boss还有两个字段
 
     },
