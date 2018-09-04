@@ -1,5 +1,4 @@
-#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
-#Sat Aug 11 16:04:51 AEST 2018
-bonecp-0.8.0.RELEASE-sources.jar>nexus=
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Mon Aug 27 21:29:45 AEST 2018
 bonecp-0.8.0.RELEASE.pom>nexus=
 bonecp-0.8.0.RELEASE.jar>nexus=

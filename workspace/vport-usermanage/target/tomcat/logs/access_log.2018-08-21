@@ -1,0 +1,16 @@
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:24:17 +1000] "GET / HTTP/1.1" 200 4171 http-bio-80-exec-1 736
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:24:17 +1000] "GET /css/main.css HTTP/1.1" 200 3304 http-bio-80-exec-3 26
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:24:17 +1000] "GET /js/index.js HTTP/1.1" 200 894 http-bio-80-exec-7 26
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:24:17 +1000] "GET /js/html5shiv.js HTTP/1.1" 200 2732 http-bio-80-exec-2 85
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:24:17 +1000] "GET /js/jquery.stellar.js HTTP/1.1" 200 23077 http-bio-80-exec-4 91
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:24:17 +1000] "GET /css/index.css HTTP/1.1" 304 - http-bio-80-exec-5 27
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:24:17 +1000] "GET /js/jquery-3.3.1.js HTTP/1.1" 304 - http-bio-80-exec-6 50
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:24:32 +1000] "GET /vport-usermanage HTTP/1.1" 404 983 http-bio-80-exec-6 10
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:24:34 +1000] "GET /favicon.ico HTTP/1.1" 404 973 http-bio-80-exec-6 3
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:25:15 +1000] "GET /images/tennis-train1.jpg HTTP/1.1" 200 109018 http-bio-80-exec-8 19
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:25:15 +1000] "GET /images/tennis-train3.jpg HTTP/1.1" 200 120209 http-bio-80-exec-9 26
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:25:15 +1000] "GET /images/tennis4.jpg HTTP/1.1" 200 144489 http-bio-80-exec-5 30
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:25:15 +1000] "GET /images/tennis-train2.jpg HTTP/1.1" 200 140267 http-bio-80-exec-10 36
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:25:15 +1000] "GET /images/vport.png HTTP/1.1" 304 - http-bio-80-exec-9 4
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:25:46 +1000] "GET /rest/page/login HTTP/1.1" 200 6079 http-bio-80-exec-9 428
+0:0:0:0:0:0:0:1 - - [21/Aug/2018:20:25:46 +1000] "GET /css/login.css HTTP/1.1" 304 - http-bio-80-exec-9 7

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LoginPage</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="../html5练习/jquery-3.3.1.js"></script>
+
+</head>
+<body>
+<!--导航-->
+<nav class="vport-nav">
+    <a href="#" class="logo"></a>
+    <div class="wrapper">
+
+        <ul>
+            <li><a href="#">Tennis Course</a></li>
+            <li><a href="#">Shopping</a></li>
+            <li><a href="#">News</a></li>
+            <li><a href="#">Sign up</a></li>
+            <li><a href="#">Log in </a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="login-signup">
+    <form action="" class="login-form">
+        <article class="logbt">Log in</article>
+        <article class="signbt">Sign up</article>
+        <div class="error" id="error-email1"></div>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required pattern="[A-Z]">
+        <input type="button" class="button" value="Submit">
+    </form>
+    <form action="" class="signup-form">
+        <article class="logbt">Log in</article>
+        <article class="signbt">Sign up</article>
+        <span class="error" id="error-email2"></span>
+        <input type="email" name="email" placeholder="Email" required>
+        <span class="error" id="error-password"></span>
+        <input type="password" name="password" placeholder="Password" required pattern="[A-Z]">
+        <input type="text" name="username" placeholder="Username" required>
+        <div class="gender">
+            <div class="gender1">
+                <input id="gender1" type="radio" name="gender" value="male" required>
+                <label for="gender1">Male</label>
+            </div>
+            <div class="gender2">
+                <input id="gender2" type="radio" name="gender" value="female" required>
+                <label for="gender2">Female</label>
+            </div>
+        </div>
+        <div class="user-type">
+            <div class="type1">
+                <input id="type1" type="radio" name="type" value="student">
+                <label for="type1">Student</label>
+            </div>
+            <div class="type2">
+                <input id="type2" type="radio" name="type" value="trainer">
+                <label for="type2">Trainer</label>
+            </div>
+        </div>
+        <input type="button" class="button" value="Submit">
+    </form>
+</section>
+
+<script>
+
+    $("input[name=email]").on('invalid',function () {
+        this.setCustomValidity("Please enter the correct email");
+    });
+    $("input[name=password]").on('invalid',function () {
+        this.setCustomValidity("Please enter the correct password");
+    });
+    $("input[name=username]").on('invalid',function () {
+        this.setCustomValidity("Please enter the username");
+    });
+    /*change log in or sign up*/
+    $(".logbt").on('click', function () {
+        $(".login-form").css("display", "block");
+        $(".signup-form").css("display", "none");
+    })
+    $(".signbt").on('click', function () {
+        $(".login-form").css("display", "none");
+        $(".signup-form").css("display", "block");
+    })
+
+    /*validate information*/
+    $(".login-form input[name=email]").on('blur',function () {
+        $.post("", this.val(), function (res) {
+            if (res.status === 1) {
+                $("#error-email1").text("wrong email.");
+                $("#error-email1").css("display", "block");
+                setTimeout(function () {
+                    $("#error-email1").css("display", "none");
+                }, 2000)
+            }
+        })
+    })
+
+    $(".login-form .button").click(function () {
+        $.ajax({
+            url:'',
+            type: 'post',
+            data:$('.login-form').serialize(),
+            dataType: 'json',
+            success: function(res) {
+                alert(res);
+            }
+        })
+    })
+
+    $(".signup-form .button").click(function () {
+        $.ajax({
+            url:'',
+            type: 'post',
+            data:$('.signup-form').serialize(),
+            dataType: 'json',
+            success: function(res) {
+                alert(res);
+                if (res.status === 1) {
+                    $("#error-email2").text("wrong email.");
+                    $("#error-email2").css("display", "block");
+                    setTimeout(function () {
+                        $("#error-email2").css("display", "none");
+                    }, 2000)
+                } else if (res.status === 2) {
+                    $("#error-password").text("wrong password.");
+                    $("#error-password").css("display", "block");
+                    setTimeout(function () {
+                        $("#error-password").css("display", "none");
+                    }, 2000)
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

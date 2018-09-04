@@ -1,6 +1,4 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Wed Dec 27 22:26:49 CST 2017
-tomcat7-maven-plugin-2.2.pom>repo2=
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Mon Aug 27 21:12:33 AEST 2018
 tomcat7-maven-plugin-2.2.pom>nexus=
-tomcat7-maven-plugin-2.2.jar>repo2=
 tomcat7-maven-plugin-2.2.jar>nexus=

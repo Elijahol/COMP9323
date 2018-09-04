@@ -1,0 +1,172 @@
+/*nav part begin*/
+.vport-nav{
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 60px;
+}
+.vport-nav>.wrapper{
+    width: 1080px;
+    height: 60px;
+    margin: 0 auto;
+}
+.vport-nav>.logo{
+    width: 111px;
+    height: 37px;
+    background: url("../images/vport.png") no-repeat center;
+    background-size: contain;
+    float: left;
+    margin: 10px 30px;
+}
+.vport-nav ul{
+    height: 60px;
+    margin: 0 auto;
+    float: right;
+}
+
+.vport-nav li{
+    float: left;
+    font: 400 14px/60px "Helvetica";
+    padding: 0 15px;
+    /*border-right: 1px solid #e4e4e4;*/
+    transition: background-color 0.3s;
+}
+.vport-nav li:first-child{
+    /*border-left: 1px solid #e4e4e4;*/
+}
+.vport-nav li:hover{
+    background-color: #A9A9A9;
+}
+.vport-nav li a{
+    display: block;
+    font-family: "Serif";
+    height: 60px;
+    color: #fff;
+}
+/*nav part end*/
+/* video part begin*/
+.video-controls{
+    position: relative;
+
+}
+.video-controls video{
+    width: 100%;
+}
+.slogon{
+    position: absolute;
+    width: 290px;
+    height: 100px;
+    top: 300px;
+    left: 50%;
+    margin-left: -145px;
+    text-align: center;
+    color: #FFFFFF;
+    font: 700 40px/100px "";
+}
+/* video part end*/
+.para{
+    background-color: #fff;
+    text-align: center;
+    padding: 140px 0 130px;
+}
+.vport-content{
+    width: 100%;
+}
+.vport-content .para-title{
+    font-size: 24px;
+    font-weight: bold;
+}
+.vport-content .para-content{
+    font-size: 16px;
+    margin-top: 32px;
+}
+.vport-content .bg{
+    width: 100%;
+    height: 635px;
+    position: relative;
+    background: url("../images/tennis4.jpg") no-repeat center/cover;
+    background-attachment: fixed;
+}
+.training-inner{
+    position: relative;
+    /*width: 1440px;*/
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+}
+.training-block{
+    position: absolute;
+    left: 80px;
+    top: -25px;
+
+}
+.training-block li{
+    width: 355px;
+    height: 205px;
+    margin: 10px 0;
+    position: relative;
+}
+.training-block a{
+    position: absolute;
+    display: block;
+    width: 355px;
+    height: 205px;
+}
+.training-block .customization{
+    background: url("../images/tennis-train2.jpg") no-repeat center/cover;
+}
+.training-block .adult{
+    background: url("../images/tennis-train3.jpg") no-repeat center/cover;
+}
+.training-block .teenager{
+    background: url("../images/tennis-train1.jpg") no-repeat center/cover;
+}
+.training-detail{
+    box-sizing: border-box;
+    padding: 18px;
+}
+.training-block .training-title{
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: bold;
+}
+.view-course-icon{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    border: 1px solid #FFFFFF;
+    border-radius: 15px;
+    padding: 5px;
+    transition: background-color 0.3s;
+}
+.view-course-icon:hover{
+    background-color: #FFFFFF;
+}
+.view-course-icon>.view-course{
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    width: 56px;
+    height: 30px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 30px;
+    font-weight: bold;
+    margin-left: 13px;
+}
+.view-course-icon>.arrow{
+
+    display: inline-block;
+    float: right;
+    margin-right: 5px;
+    width: 10px;
+    height: 30px;
+    color: #A9A9A9;
+    font-size: 14px;
+    line-height: 30px;
+    font-weight: bold;
+}

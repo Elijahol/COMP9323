@@ -1,6 +1,4 @@
-#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
-#Wed Dec 27 22:27:18 CST 2017
-httpclient-4.3.1.jar>repo2=
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Mon Aug 27 21:26:47 AEST 2018
 httpclient-4.3.1.jar>nexus=
-httpclient-4.3.1.pom>repo2=
 httpclient-4.3.1.pom>nexus=
