@@ -12,12 +12,12 @@ Router.get('/list',function (req, res) {
 })
 Router.post('/register', function(req, res){
     console.log(req.body);
-    const {name, password, type} = req.body;
-    User.findOne({name:name}, function(err, doc){
+    const {name, password, email, role} = req.body;
+    User.findOne({email:email}, function(err, doc){
         if(doc){
             return res.json({code:1, msg:'用户名重复'})
         }
-        User.create({name, password, type}, function(err, doc){
+        User.create({name, password, email, role}, function(err, doc){
             if(err){
                 return res.json('后端出错了')
             }
@@ -28,28 +28,31 @@ Router.post('/register', function(req, res){
 Router.post('/login', function(req, res){
     console.log('server接到的...')
     console.log(req.body)
-    const {name, password} = req.body;
-    User.findOne({name:name, password:password}, function(err, doc){
-        if(!doc){
-            return res.json({code:1, msg:'用户名不存在或密码错误', data:name})
-        }
-        res.cookie('userid', doc._id);
-        return res.json({code:0, msg:'登陆成功', data:doc})
-    })
+    // const {email, password} = req.body;
+    return res.json({code:0, email:'justwe77@163.com', name:'Jiaqi', role:'2'})
+    res.cookie('userid', '123456789');
+    // User.findOne({email:email, password:password}, function(err, doc){
+    //     if(!doc){
+    //         return res.json({code:1, msg:'用户名不存在或密码错误', data:doc})
+    //     }
+    //     res.cookie('userid', doc._id);
+    //     console.log('返回用户登录信息...');
+    //     console.log(doc);
+    //     return res.json({code:0, msg:'登陆成功', data:doc})
+    // })
 })
 Router.post('/updateUser', function(req, res){
     console.log('获得用户更新信息...');
     console.log(req.body);
     const{userid} = req.cookies;
-    const {first_name,last_name, address, phone_number, gender} = req.body;
+    const {name, birthday, city, phone, gender, experience, award, height, weight} = req.body;
     const user = User.findOne({_id: userid});
-    user.update({first_name,last_name, address, phone_number, gender}, function(err, doc){
+    user.update({name, birthday, city, phone, gender, experience, award, height, weight}, function(err, doc){
         if(err){
             return res.json('后端出错了')
         }
         return res.json({code:0, msg:'更新成功'})
     })
-
 })
 Router.get('/info', function (req, res) {
     const { userid } = req.cookies;
@@ -64,7 +67,7 @@ Router.get('/info', function (req, res) {
         if(doc){
             console.log('返回用户校验信息...')
             console.log(doc)
-            return res.json({code:0, data: doc})
+            return res.json({code:0,data:doc})
         }
     })
 })

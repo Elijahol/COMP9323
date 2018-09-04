@@ -27,12 +27,15 @@ export default class NavTop extends React.Component{
     render(){
 
         const userMenu = (
-            <Menu style={{padding:15, width:100}}>
-                <NavLink to='/profile'>
+
+            <Menu style={{padding:15, width:100, float:'right'}}>
+                <NavLink to="/profile">
                     <Menu.Item>
                         <p>Edit Profile</p>
                     </Menu.Item>
                 </NavLink>
+
+
                 <Menu.Divider/>
                 <Menu.Item onClick={this.logOut}>
                     <p>Log out</p>
@@ -66,11 +69,11 @@ export default class NavTop extends React.Component{
                     </Col>
                     </NavLink>
 
-                    {this.props.username?<Dropdown placement="bottomCenter" overlay={userMenu} trigger={['click']}>
+                    {this.props.name?<Dropdown placement="bottomCenter" overlay={userMenu} trigger={['click']}>
                         <div>
                             <Col md={2} className="nav-element"/>
                             <Col md={2} xs={8} >
-                                <a className="userInfo">{this.props.username}</a>
+                                <a className="userInfo">{this.props.name}</a>
                             </Col>
                         </div>
                     </Dropdown>:

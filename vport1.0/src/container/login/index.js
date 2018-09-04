@@ -3,13 +3,13 @@ import {Form, Input, Button, message, Icon, Checkbox} from 'antd'
 import { connect } from 'react-redux'
 import { NavLink, Redirect } from 'react-router-dom'
 import './index.less'
-import {delMsg, login} from "./../../redux/user.redux";
+import { delMsg, login } from "./../../redux/user.redux";
 
 const FormItem = Form.Item;
 
 @connect(
     state=>state.user,
-    {login, delMsg}
+    { login, delMsg }
 )
 class FormLogin extends React.Component{
 
@@ -39,12 +39,22 @@ class FormLogin extends React.Component{
     };
 
     showMsg = ()=>{
-        if(this.props.msg&&this.props.code===1) {
-            message.success(`Welcome, ${this.props.username}`)
-        } else if(this.props.msg&&this.props.code===0){
+        if(this.props.msg&&this.props.msgCode===1) {
+            message.success(`Welcome, ${this.props.name}`)
+        } else if(this.props.msg&&this.props.msgCode===0){
             message.warn(this.props.msg)
         }
     };
+
+    redirectUtil = ()=>{
+        if(this.props.redirectTo) {
+            if(this.props.isCourses && this.props.isTimeLine){
+                return <Redirect to={this.props.redirectTo}></Redirect>
+            } else {
+                return null
+            }
+        }
+    }
 
     render(){
 
@@ -53,8 +63,9 @@ class FormLogin extends React.Component{
         this.props.delMsg();
         return(
             <div className="login-wrap">
-                {this.props.redirectTo?<Redirect to={this.props.redirectTo}></Redirect>:null}
+                {/*{this.props.redirectTo?<Redirect to={this.props.redirectTo}></Redirect>:null}*/}
 
+                {this.redirectUtil()}
                 <div className="wrap">
                     <Form layout='horizontal' style={{width: 300, margin: "0px auto", backgroundColor: 'rgba(0,0,0,0.3)', padding:25, borderRadius: 15}} className="form">
                         <FormItem>
@@ -65,7 +76,6 @@ class FormLogin extends React.Component{
                                             required: true,
                                             message: "please input email"
                                         },
-
                                     ]
                                 })(
                                     <Input name="email" prefix={<Icon type='mail'></Icon>} placeholder="email" onChange={this.onChange}/>

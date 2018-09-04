@@ -8,8 +8,9 @@ import Home from './container/home/index'
 import Login from './container/login'
 import Register from './container/register'
 import AuthRoute from './components/authRoute'
-
+import TrainerMain from './container/trainerMain'
 import StuProfile from './container/profile'
+
 import reducers from './reducer'
 import './config'
 
@@ -33,6 +34,7 @@ export default class IRouter extends React.Component {
                         </Route>
                         <Route path="/register" component={Register}></Route>
                         <Route path="/profile" component={StuProfile}></Route>
+                        <Route path="/trainerMain" component={TrainerMain}></Route>
 
                     </App>
                     </div>

@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import {getRedirectPath} from "../utils/utils";
 
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -10,6 +10,7 @@ const DEL_MSG = 'DEL_MSG';
 const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 const initState = {
+    msgCode:'',
     code:'',
     redirectTo:'',
     isAuth:false,
@@ -17,12 +18,19 @@ const initState = {
     name:'',
     email:'',
     password:'',
-    type:'',
-    first_name:'',
-    last_name:'',
-    phone_number:'',
-    address:'',
-    gender:''
+    role:'',
+    phone:'',
+    award:'',
+    birthday:'',
+    city:'',
+    gender:'',
+    experience:'',
+    height:'',
+    icon:'',
+    id:'',
+    status:'',
+    weight:''
+
 
 }
 //reducer
@@ -31,7 +39,7 @@ export function user(state=initState, action) {
         case REGISTER_SUCCESS:
             return {...state, code:1, msg:'Register Success', isAuth:true, redirectTo:'/login'};
         case LOGIN_SUCCESS:
-            return {...state, code:1, msg:'登陆成功', isAuth:true, redirectTo:'/home', ...action.payload};
+            return {...state, msgCode:1, msg:'登陆成功', isAuth:true, redirectTo:getRedirectPath(action.payload.role), ...action.payload};
         case UPDATE_USER_SUCCESS:
             return {...state, code:1, msg:'Your profile has been updated', isAuth:true, redirectTo:'/profile', ...action.payload};
         case LOGOUT_SUCCESS:
@@ -39,7 +47,7 @@ export function user(state=initState, action) {
         case LOAD_DATA:
             return {...state, ...action.payload};
         case ERROR_MSG:
-            return {...state, code:0, isAuth:false, msg:action.msg};
+            return {...state, msgCode:0, isAuth:false, msg:action.msg};
         case DEL_MSG:
             return {...state, msg:''};
         default:
@@ -67,9 +75,8 @@ function updateUserSuccess(data) {
     return {type:UPDATE_USER_SUCCESS, payload:data}
 }
 
-
 // 这是action
-export function register({name, email, password}) {
+export function register({name, email, password, role}) {
     if(!name||!password) {
         return errorMsg('Please input name/password')
     }
@@ -77,10 +84,10 @@ export function register({name, email, password}) {
     //     return errorMsg('password not same')
     // }
     return dispatch=>{
-        axios.post('/user/register/', {name, email, password}).then(
+        axios.post('/rest/user/register', {name, email, password, role}).then(
             res=>{
-                if(res.status===200 && res.data.code === 0){
-                    dispatch(registerSuccess({name, email, password}))
+                if(res.status==200 && res.data.code == 0){
+                    dispatch(registerSuccess({name, email, password, role}))
                 }else{
                     dispatch(errorMsg(res.data.msg))
                 }
@@ -89,14 +96,15 @@ export function register({name, email, password}) {
     }
 }
 
-export function login({name, password}) {
+
+
+export function login({email, password}) {
     console.log('我在redux这里');
     return dispatch=>{
-        axios.post('/user/login/', {name, password}).then(
+        axios.post('/rest/user/login', {email, password}).then(
             res=>{
-                if(res.status===200 && res.data.code===0){
-
-                    dispatch(loginSuccess(res.data.data))
+                if(res.status==200 && res.data.code==0){
+                    dispatch(loginSuccess(res.data.data[0]))  // 交给dude要写成data[0]
                 }else{
                     dispatch(errorMsg(res.data.msg))
                 }
@@ -105,15 +113,15 @@ export function login({name, password}) {
     }
 }
 // 更新用户profile(不包括头像)
-export function updateUser({first_name,last_name, address, phone_number, gender}) {
+export function updateUser({ id, birthday, name, address, city, phone, gender, height, weight, award, experience}) {
     // if(password!==repeatpassword){
     //     return errorMsg('password not same')
     // }
     return dispatch=>{
-        axios.post('/user/updateUser/', {first_name,last_name, address, phone_number, gender}).then(
+        axios.post('/rest/user/updateUser', { id, birthday, name, address, city, phone, gender, height, weight, award, experience}).then(
             res=>{
-                if(res.status===200 && res.data.code === 0){
-                    dispatch(updateUserSuccess({first_name,last_name, address, phone_number, gender}))
+                if(res.status == 200 && res.data.code == 0){
+                    dispatch(updateUserSuccess({ id, birthday, name, address, city, phone, gender, height, weight, award, experience}))
                 }else{
                     dispatch(errorMsg(res.data.msg))
                 }
@@ -124,7 +132,7 @@ export function updateUser({first_name,last_name, address, phone_number, gender}
 // 用户登出请求后端更改cookie
 export function logout() {
     return dispatch=>{
-        axios.get('/user/logout/').then(
+        axios.get('/rest/user/logout').then(
             res=>{
                 if(res.status===200 && res.data.code === 0){
                     dispatch(logoutSuccess())
@@ -137,7 +145,7 @@ export function logout() {
 }
 
 export function loadData(data) {
-    return {type:LOAD_DATA, payload:data}
+    return {type:LOAD_DATA, payload:data[0]}  // dude要加0
 }
 export function delMsg() {
     console.log('正在清除msg...');
