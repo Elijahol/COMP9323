@@ -2,6 +2,7 @@ package com.vport.system.pojo;
 
 
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.GeneratedValue;
@@ -11,30 +12,41 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Table(name = "training_hierarchy")
-public class PlanType {
+public class PlanType implements Serializable {
+    /**
+     * 
+     */
+    @Transient
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String chTypeName;
     private String typeName;
     private Long parentId;
     private Boolean isParent;
-    private Long unitId;
-    private Integer layerNum;
+    private String unitName;
     @Transient
-    private List<PlanType> chlidren;
+    private List<PlanType> children;
     
     
+    public String getChTypeName() {
+        return chTypeName;
+    }
+    public void setChTypeName(String chTypeName) {
+        this.chTypeName = chTypeName;
+    }
     public Long getParentId() {
         return parentId;
     }
     public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
-    public List<PlanType> getChlidren() {
-        return chlidren;
+    public List<PlanType> getChildren() {
+        return children;
     }
-    public void setChlidren(List<PlanType> chlidren) {
-        this.chlidren = chlidren;
+    public void setChildren(List<PlanType> children) {
+        this.children = children;
     }
     public Long getId() {
         return id;
@@ -54,23 +66,20 @@ public class PlanType {
     public void setIsParent(Boolean isParent) {
         this.isParent = isParent;
     }
-    public Long getUnitId() {
-        return unitId;
+    public String getUnitName() {
+        return unitName;
     }
-    public void setUnitId(Long unitId) {
-        this.unitId = unitId;
-    }
-    public Integer getLayerNum() {
-        return layerNum;
-    }
-    public void setLayerNum(Integer layerNum) {
-        this.layerNum = layerNum;
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
     @Override
     public String toString() {
-        return "PlanType [id=" + id + ", typeName=" + typeName + ", parentId=" + parentId + ", isParent="
-                + isParent + ", unitId=" + unitId + ", layerNum=" + layerNum + ", chlidren=" + chlidren + "]";
+        return "PlanType [id=" + id + ", chTypeName=" + chTypeName + ", typeName=" + typeName + ", parentId="
+                + parentId + ", isParent=" + isParent + ", unitName=" + unitName + ", children=" + children
+                + "]";
     }
+    
+    
     
     
 }

@@ -12,7 +12,7 @@ export function getRedirectPath(role) {
     // user.avatar /bossinfo /geniusinfo
     // let url = (type=='trainer')?'/trainer':'student';
     // 没头像，就去完善信息
-    if (role === '2'){
+    if (role === 1){
         console.log('正在跳往教练主页');
         return '/trainerMain'
     } else{

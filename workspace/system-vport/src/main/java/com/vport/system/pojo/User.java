@@ -1,12 +1,20 @@
 package com.vport.system.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
-public class User {
+import com.vport.system.utils.DateUtil;
+
+public class User implements Serializable{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,18 +23,33 @@ public class User {
     private String email;
     private String phone;
     private Date birthday;
-    private Integer gender;
+    private String gender;
     private Integer height;
     private Double weight;
     private String city;
     private String icon;
-    private String exprience;
+    private String experience;
     private String award;
     private Integer status; //1.已经激活 0.未激活
     private Integer role; //1.教练 2.成年人 3.未成年人
     private String code;
     private Date createtime;
     private Date updatetime;
+    
+    @Transient
+    private Integer age;
+    
+    
+    public String getExperience() {
+        return experience;
+    }
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+    public Integer getAge() {
+        return age;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -62,11 +85,12 @@ public class User {
     }
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+        this.age = DateUtil.getAgeByBirth(birthday);
     }
-    public Integer getGender() {
+    public String getGender() {
         return gender;
     }
-    public void setGender(Integer gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
     public Integer getHeight() {
@@ -94,10 +118,10 @@ public class User {
         this.icon = icon==null?null:icon.trim();;
     }
     public String getExprience() {
-        return exprience;
+        return experience;
     }
-    public void setExprience(String exprience) {
-        this.exprience = exprience==null?null:exprience.trim();;
+    public void setExprience(String experience) {
+        this.experience = experience==null?null:experience.trim();;
     }
     public String getAward() {
         return award;
@@ -139,7 +163,7 @@ public class User {
     public String toString() {
         return "User [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email
                 + ", phone=" + phone + ", birthday=" + birthday + ", gender=" + gender + ", height=" + height
-                + ", weight=" + weight + ", city=" + city + ", icon=" + icon + ", exprience=" + exprience
+                + ", weight=" + weight + ", city=" + city + ", icon=" + icon + ", experience=" + experience
                 + ", award=" + award + ", status=" + status + ", role=" + role + ", code=" + code
                 + ", createtime=" + createtime + ", updatetime=" + updatetime + "]";
     }

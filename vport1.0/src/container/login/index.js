@@ -63,7 +63,7 @@ class FormLogin extends React.Component{
         this.props.delMsg();
         return(
             <div className="login-wrap">
-                {/*{this.props.redirectTo?<Redirect to={this.props.redirectTo}></Redirect>:null}*/}
+                {this.props.redirectTo?<Redirect to={this.props.redirectTo}></Redirect>:null}
 
                 {this.redirectUtil()}
                 <div className="wrap">

@@ -79,7 +79,7 @@ class StuProfile extends React.Component{
                         <FormItem label="Height(cm)">
                             {
                                 getFieldDecorator('height', {
-                                    initialValue: this.props.address?this.props.address:null
+                                    initialValue: this.props.height?this.props.height:null
                                 })(
                                     <Input name='height' prefix={<Icon type='home'></Icon>} placeholder="height" type='number' onChange={this.handleOnchange.bind(this)}/>
                                 )
@@ -89,7 +89,7 @@ class StuProfile extends React.Component{
                         <FormItem label="Weight(kg)">
                         {
                             getFieldDecorator('weight', {
-                                initialValue: this.props.address?this.props.address:null
+                                initialValue: this.props.weight?this.props.weight:null
                             })(
                                 <Input name='weight' prefix={<Icon type='home'></Icon>} placeholder="weight" type='number' onChange={this.handleOnchange.bind(this)}/>
                             )
@@ -99,7 +99,7 @@ class StuProfile extends React.Component{
                         <FormItem label="Award">
                             {
                                 getFieldDecorator('award', {
-                                    initialValue: this.props.address?this.props.address:null
+                                    initialValue: this.props.award?this.props.award:null
                                 })(
                                     <Input name='award' prefix={<Icon type='home'></Icon>} placeholder="award" onChange={this.handleOnchange.bind(this)}/>
                                 )
@@ -109,7 +109,7 @@ class StuProfile extends React.Component{
                         <FormItem label="Experience">
                             {
                                 getFieldDecorator('experience', {
-                                    initialValue: this.props.email?this.props.email:null
+                                    initialValue: this.props.experience?this.props.experience:null
                                 })(
                                     <Input name="experience" prefix={<Icon type='mail'></Icon>} type='email' placeholder="experience" onChange={this.handleOnchange.bind(this)}/>
                                 )
@@ -119,7 +119,7 @@ class StuProfile extends React.Component{
                         <FormItem label="City">
                             {
                                 getFieldDecorator('city', {
-                                    initialValue: this.props.address?this.props.address:null
+                                    initialValue: this.props.city?this.props.city:null
                                 })(
                                     <Input name='city' prefix={<Icon type='home'></Icon>} placeholder="city" onChange={this.handleOnchange.bind(this)}/>
                                 )

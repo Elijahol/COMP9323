@@ -220,7 +220,7 @@ export default class TrainerMain extends React.Component{
     renderPlans = (data) => {
         let plans = [];
         data.map(plan=>{
-            plans.push(plan.trainingTime)
+            plans.push(plan.trainingDate)
         })
         return (
             <List

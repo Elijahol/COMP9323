@@ -17,5 +17,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
 	</select>
-
+	<select id="findUserByCode" parameterType="String" resultType="User">
+		<include refid="selector"/>
+		<where>
+			code = #{code}
+		</where>
+	</select>
+	
 </mapper>

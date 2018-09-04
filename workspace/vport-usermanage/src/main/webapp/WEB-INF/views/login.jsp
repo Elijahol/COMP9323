@@ -96,7 +96,7 @@
     $(".signup-form input[name=email]").on('blur',function () {
     	var $value = $(this).val();
     	if($value != ""){
-	        $.post("${pageContext.request.contextPath }/rest/customer/checkEmail", {"email":$value}, function (res) {
+	        $.post("${pageContext.request.contextPath }/rest/user/checkEmail", {"email":$value}, function (res) {
 	        	
 	            if (res == 1) {
 	                $("#error-email2").text("The email has been registered");

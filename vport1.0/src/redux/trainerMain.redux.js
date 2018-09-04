@@ -44,7 +44,7 @@ function getTimeLineSuccess(data) {
 
 export function getCourses() {
     return dispatch=>{
-        axios.post('https://www.easy-mock.com/mock/5b7f7a284a96987699e40630/getCourses').then(
+        axios.get('/rest/course/classInfo').then(
             res=>{
                 if(res.status===200 && res.data.code === 0){
                     dispatch(getCourseSuccess(res.data))
@@ -71,7 +71,7 @@ export function getCourses() {
 
 export function getTimeLine() {
     return dispatch=>{
-        axios.post('https://www.easy-mock.com/mock/5b7f7a284a96987699e40630/getTimeLine').then(
+        axios.get('/rest/course/timeTable').then(
             res=>{
                 if(res.status===200 && res.data.code === 0){
                     dispatch(getTimeLineSuccess(res.data))
