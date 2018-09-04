@@ -28,18 +28,18 @@ Router.post('/register', function(req, res){
 Router.post('/login', function(req, res){
     console.log('server接到的...')
     console.log(req.body)
-    // const {email, password} = req.body;
-    return res.json({code:0, email:'justwe77@163.com', name:'Jiaqi', role:'2'})
-    res.cookie('userid', '123456789');
-    // User.findOne({email:email, password:password}, function(err, doc){
-    //     if(!doc){
-    //         return res.json({code:1, msg:'用户名不存在或密码错误', data:doc})
-    //     }
-    //     res.cookie('userid', doc._id);
-    //     console.log('返回用户登录信息...');
-    //     console.log(doc);
-    //     return res.json({code:0, msg:'登陆成功', data:doc})
-    // })
+    const {email, password} = req.body;
+    // return res.json({code:0, email:'justwe77@163.com', name:'Jiaqi', role:'2'})
+    // res.cookie('userid', '123456789');
+    User.findOne({email:email, password:password}, function(err, doc){
+        if(!doc){
+            return res.json({code:1, msg:'用户名不存在或密码错误', data:doc})
+        }
+        res.cookie('userid', doc._id);
+        console.log('返回用户登录信息...');
+        console.log(doc);
+        return res.json({code:0, msg:'登陆成功', data:doc})
+    })
 })
 Router.post('/updateUser', function(req, res){
     console.log('获得用户更新信息...');
