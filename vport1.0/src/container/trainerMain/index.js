@@ -247,7 +247,7 @@ export default class TrainerMain extends React.Component{
                         columns={columns}
                         pagination={false}
                         bordered={true}
-                        // loading={this.state.isLoading}
+                        loading={this.state.isLoading}
                     ></Table>
                     <br/>
                     <Button type='primary'><Icon type='plus-square'></Icon>Make a plan</Button>
@@ -286,6 +286,15 @@ export default class TrainerMain extends React.Component{
         // const timeLine = this.renderTimeLine(timeLineData);
         // this.setState({timeLine});
     }
+    componentDidMount(){
+        if (this.props.courses){
+            console.log('in didmount!')
+            this.setState({
+                isLoading: false
+            })
+        }
+    }
+
     // componentDidUpdate(){
     //     if (this.props.timeLine) {
     //         const timeLine = this.renderTimeLine(this.props.timeLine);
@@ -311,7 +320,7 @@ export default class TrainerMain extends React.Component{
                 </Col>
 
                 <Col className='timeLine' span={7}>
-                    <Card title="Course plan">
+                    <Card title="Course plan" loading={this.state.isLoading}>
                         <Timeline mode='left'>
                             {this.renderTimeLine(this.props.timeLine)}
                         </Timeline>

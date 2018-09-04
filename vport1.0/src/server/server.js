@@ -36,7 +36,7 @@ const cookieParser = require('cookie-parser');
 const app = express()
 app.use(cookieParser())
 app.use(bodyParser.json())
-app.use('/user', userRouter);
+app.use('/rest/user', userRouter);
 
 app.get('/', function (req, res) {
     res.send('<h1>Hello, Joe</h1>')
