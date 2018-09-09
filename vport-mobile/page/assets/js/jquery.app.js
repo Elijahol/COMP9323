@@ -45,7 +45,7 @@
 
     function initEnlarge() {
         if ($(window).width() < 1025) {
-            $('body').addClass('enlarged');
+            // $('body').addClass('enlarged');
         } else {
             if ($('body').data('keep-enlarged') != true)
                 $('body').removeClass('enlarged');
