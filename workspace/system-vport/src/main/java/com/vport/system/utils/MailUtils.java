@@ -54,7 +54,7 @@ public class MailUtils {
             // 设置收件人:Vport Activation Email
             // TO:收件人   CC:抄送   BCC:暗送,密送.
             message.addRecipient(RecipientType.CC, new InternetAddress("wangsy0808km@gmail.com"));
-            message.addRecipient(RecipientType.TO, new InternetAddress("20432707@qq.com"));
+            message.addRecipient(RecipientType.TO, new InternetAddress(to));
             
             // 主题:
             message.setSubject("Vport Email!");

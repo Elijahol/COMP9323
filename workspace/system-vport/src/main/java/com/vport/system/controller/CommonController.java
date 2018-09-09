@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.vport.system.bean.ResponseData;
 import com.vport.system.exception.MessageException;
-import com.vport.system.pojo.User;
+import com.vport.system.pojo.person.User;
 import com.vport.system.service.UserService;
 import com.vport.system.utils.UUIDUtils;
 

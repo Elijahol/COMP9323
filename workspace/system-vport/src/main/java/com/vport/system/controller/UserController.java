@@ -25,8 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.vport.system.bean.ResponseData;
 import com.vport.system.exception.MessageException;
-import com.vport.system.pojo.User;
+import com.vport.system.pojo.person.User;
 import com.vport.system.service.UserService;
+import com.vport.system.utils.EncryptUtil;
 import com.vport.system.utils.UUIDUtils;
 
 @Controller
@@ -48,21 +49,20 @@ public class UserController {
     private UserService userService;
     
     @RequestMapping(value="register",method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseData register(@RequestBody User user) throws MessageException{
-        ResponseData responseData = null;
+    public String register(User user,Model model) throws MessageException{
         try{
             userService.register(user);
-            responseData = new ResponseData(0, "", null);
+            return "redirect:/rest/page/login";
         }catch(Exception e){
-            responseData = new ResponseData(1, "", null);
+            model.addAttribute("msg","register fialed");
+            return "register";
         }
-        return responseData;
         
     }
     
     @RequestMapping(value="checkEmail",method = RequestMethod.POST)
     public String checkEmail(String email) throws IOException{
+        System.out.println(email);
         User user = new User();
         user.setEmail(email);
         User existUser = userService.findByEmailandPassword(user);
@@ -71,7 +71,6 @@ public class UserController {
         }else{
             response.getWriter().println(1);
         }
-        System.out.println(request.getSession().getId());
         return null;
     }
     @RequestMapping(value="activate",method=RequestMethod.GET)
@@ -81,37 +80,36 @@ public class UserController {
             user.setCode(null);
             user.setStatus(1);
             userService.updateUser(user);
-            return "redirect://www.vport.com/login";
+            return "redirect:/rest/page/login";
         }
         return null;
         
     }
     
     @RequestMapping(value="login",method=RequestMethod.POST)
-    @ResponseBody
-    public ResponseData login(@RequestBody User user) throws IOException{
+    public String login(User user,Model model) throws IOException{
         User existUser = userService.findByEmailandPassword(user);
-        ResponseData responseData = null;
         if (existUser != null) {
             if (existUser.getStatus() == 0 && existUser.getCode() != null) {
-                responseData = new ResponseData(1, "账号未激活哦", null);
-                return responseData;
+                model.addAttribute("msg", "账号未激活哦");
+                return "login";
             }
-            System.out.println(request.getSession().getId());
-            System.out.println(session.getId());
             session.setAttribute("existUser", existUser);
-            Cookie cookie = new Cookie("SESSION_USER", existUser.getEmail()+"#"+existUser.getPassword());
-            cookie.setPath("/");
-            cookie.setMaxAge(24*60*60);
-            response.addCookie(cookie);
-            List<User> list = new ArrayList<User>();
-            list.add(existUser);
-            responseData =  new ResponseData(0, "", list);
+            String remember = request.getParameter("remember");
+            if ("1".equals(remember)) {
+                String email = EncryptUtil.encrypt(existUser.getEmail());
+                String password = EncryptUtil.encrypt(existUser.getPassword());
+                Cookie cookie = new Cookie("SESSION_USER", email+"#"+password);
+                cookie.setPath("/");
+                cookie.setMaxAge(24*60*60);
+                response.addCookie(cookie);
+            }
+           
         }else{
-            responseData = new ResponseData(1, "用户名或密码错误", null);
+            model.addAttribute("msg", "用户名或密码错误");
+            return "login";
         }
-        System.out.println(request.getSession().getId());
-        return responseData;
+        return "success";
     }
     @RequestMapping(value="logout",method=RequestMethod.GET)
     @ResponseBody

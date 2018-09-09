@@ -10,7 +10,7 @@ import com.github.abel533.entity.Example;
 import com.github.abel533.entity.Example.Criteria;
 import com.vport.system.exception.MessageException;
 import com.vport.system.mapper.UserMapper;
-import com.vport.system.pojo.User;
+import com.vport.system.pojo.person.User;
 import com.vport.system.service.UserService;
 import com.vport.system.utils.MailUtils;
 import com.vport.system.utils.UUIDUtils;

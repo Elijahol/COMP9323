@@ -9,10 +9,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="type_name" property="typeName"/>
 		<result column="parent_id" property="parentId"/>
 		<result column="is_parent" property="isParent"/>
-		<result column="unit_name" property="unitName"/>		
+		<result column="unit_name" property="unitName"/>
+		<result column="layer_num" property="layerNum"/>		
 	</resultMap>
 	<select id="selectTypeWithUnit" resultMap="planType">
-		SELECT th.id,th.ch_type_name,th.type_name,th.parent_id,th.is_parent,u.unit_name 
+		SELECT th.id,th.ch_type_name,th.type_name,th.parent_id,th.is_parent,th.layer_num,u.unit_name 
 		FROM training_hierarchy th LEFT JOIN unit u 
 		ON th.unit_id = u.id 
 		ORDER BY th.id;
@@ -24,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</selectKey>
 		INSERT INTO training_schema 
 		(chief_trainer_id,class_id,training_time,created,updated,assistant_trainer_id) 
-		VALUES(#{chiefTainer},#{classId},#{trainingTime},#{created},#{updated},#{assistantTrainer})
+		VALUES(#{chiefTrainer},#{classId},#{trainingTime},#{created},#{updated},#{assistantTrainer})
 	</insert>
 	
 	<insert id="insertPhysicalDetail" parameterType="PhysicalDetail">
@@ -54,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="training_time" property="trainingTime"/>
 		<result column="created" property="created"/>
 		<result column="updated" property="updated"/>
-		<result column="chief_trainer_id" property="chiefTainer"/>
+		<result column="chief_trainer_id" property="chiefTrainer"/>
 		<result column="class_id" property="classId"/>
 		<result column="assistant_trainer_id" property="assistantTrainer"/>
 	</resultMap>

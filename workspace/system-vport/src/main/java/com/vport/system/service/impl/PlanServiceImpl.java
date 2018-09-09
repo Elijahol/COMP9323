@@ -13,15 +13,15 @@ import org.springframework.stereotype.Service;
 import com.vport.system.bean.MakeTrainingPlan;
 import com.vport.system.bean.PlanTree;
 import com.vport.system.mapper.PlanMapper;
-import com.vport.system.pojo.PhysicalContent;
-import com.vport.system.pojo.PhysicalDetail;
-import com.vport.system.pojo.PhysicalDetailNonSpecilized;
-import com.vport.system.pojo.PhysicalDetailSpecilized;
-import com.vport.system.pojo.PlanType;
-import com.vport.system.pojo.SkillDetail;
-import com.vport.system.pojo.SkillDetailWithFullInfo;
-import com.vport.system.pojo.TrainingPlan;
-import com.vport.system.pojo.TrainingPlanInfo;
+import com.vport.system.pojo.training.PhysicalContent;
+import com.vport.system.pojo.training.PhysicalDetail;
+import com.vport.system.pojo.training.PhysicalDetailNonSpecilized;
+import com.vport.system.pojo.training.PhysicalDetailSpecilized;
+import com.vport.system.pojo.training.PlanType;
+import com.vport.system.pojo.training.SkillDetail;
+import com.vport.system.pojo.training.SkillDetailWithFullInfo;
+import com.vport.system.pojo.training.TrainingPlan;
+import com.vport.system.pojo.training.TrainingPlanInfo;
 import com.vport.system.service.PlanService;
 
 import net.sf.ehcache.Cache;
@@ -89,7 +89,9 @@ public class PlanServiceImpl implements PlanService {
         }
         trainingPlanInfo.setSkillPart(map);
     }
-    
+    /**
+     * 获取训练计划树形结构
+     */
     public PlanTree getPlanTree(){
         /**
          * 使用缓存优化程序，先从缓存中获取数据
@@ -104,7 +106,9 @@ public class PlanServiceImpl implements PlanService {
         if (element == null) {
             System.out.println("没有缓存，查询数据库=======");
             result = new PlanTree();
+            //所有的训练内容
             List<PlanType> types = planMapper.selectTypeWithUnit();
+            //key=parentid, value=chlidrenList
             Map<Long, List<PlanType>> typeMap = new HashMap<Long, List<PlanType>>();
             for (PlanType planType : types) {
                 if(!typeMap.containsKey(planType.getParentId())){
@@ -112,6 +116,7 @@ public class PlanServiceImpl implements PlanService {
                 }
                 typeMap.get(planType.getParentId()).add(planType);
             }
+            //得到最顶层的两个训练项目：体能和技战术
             List<PlanType> list = typeMap.get(0L);
             for (PlanType planType : list) {
                 planType.setChildren(new ArrayList<PlanType>());
@@ -127,7 +132,9 @@ public class PlanServiceImpl implements PlanService {
         
         return result;
     }
-
+    /**
+     * 创建新的训练计划
+     */
     @Override
     public void makeNewPlan(MakeTrainingPlan newPlan) {
 
@@ -146,7 +153,9 @@ public class PlanServiceImpl implements PlanService {
             planMapper.insertSkillSchemaDetail(plan.getId(), skillDetail.getId());
         }
     }
-    
+    /**
+     * 根据训练计划id提取训练计划内容
+     */
     public TrainingPlanInfo getTrainingPlanInfo(Long schemaId){
         
         TrainingPlanInfo trainingPlanInfo = planMapper.selectPlanInfoById(schemaId);

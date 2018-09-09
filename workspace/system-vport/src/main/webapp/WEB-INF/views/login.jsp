@@ -3,162 +3,119 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>LoginPage</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/index.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/login.css">
-    <script src="${pageContext.request.contextPath }/js/jquery-3.3.1.js"></script>
+    <meta charset="utf-8" />
+    <title>Vport</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="${pageContext.request.contextPath }/assets/images/favicon.ico">
+    <!-- App css -->
+    <link href="${pageContext.request.contextPath }/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath }/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath }/assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath }/assets/css/style.css" rel="stylesheet" type="text/css" />
+    <script src="${pageContext.request.contextPath }/assets/js/modernizr.min.js"></script>
 
 </head>
-<body>
-<!--导航-->
-<nav class="vport-nav">
-    <a href="#" class="logo"></a>
-    <div class="wrapper">
 
-        <ul>
-            <li><a href="#">Tennis Course</a></li>
-            <li><a href="#">Shopping</a></li>
-            <li><a href="#">News</a></li>
-            <li><a href="${pageContext.request.contextPath }/rest/page/login">Sign up</a></li>
-            <li><a href="${pageContext.request.contextPath }/rest/page/login">Log in </a></li>
-        </ul>
+
+<body class="">
+    <!-- Begin page -->
+    <div class="accountbg" style="background: url('${pageContext.request.contextPath }/assets/images/bg/tennis1.jpg');background-size: cover;"></div>
+    <div class="container margin-top-40">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <div class="wrapper-page bg-dark">
+
+                    <div class="card bg-dark ">
+                        <div class="card-block">
+
+                            <div class="account-box">
+
+                                <div class="card-box p-5 bg-dark">
+                                    <h2 class="text-uppercase text-center pb-4">
+                                        <a href="index.html" class="text-success">
+                                            <span><img src="${pageContext.request.contextPath }/assets/images/vport.png" alt="" height="50"></span>
+                                        </a>
+                                    </h2>
+
+                                    <form class="" action="${pageContext.request.contextPath }/rest/user/login" method="post">
+
+                                        <div class="form-group m-b-20 row">
+                                            <div class="col-12">
+                                                <label for="emailaddress" class="text-muted">Email address</label><span style="color:white;">${msg }</span>
+                                                <input class="form-control b-r-30" type="email" name="email" id="emailaddress" required="" placeholder=" Enter your email">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row m-b-20">
+                                            <div class="col-12">
+                                                <a href="page-recoverpw.html" class="text-muted pull-right"><small>Forgot your password?</small></a>
+                                                <label for="password" class="text-muted">Password</label>
+                                                <input class="form-control b-r-30" type="password" required="" name="password" id="password" placeholder=" Enter your password">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row m-b-20">
+                                            <div class="col-12">
+
+                                                <div class="checkbox checkbox-custom">
+                                                    <input id="remember" type="checkbox" checked="" name="remember" value="1">
+                                                    <label for="remember">
+                                                        Remember me
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row text-center m-t-10">
+                                            <div class="col-12">
+                                                <button class="btn btn-block btn-custom waves-effect waves-light b-r-30" type="submit">Sign In</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                    <div class="text-center">
+                                        <p class=""><a href="${pageContext.request.contextPath }/rest/page/register" class="text-muted">Don't have an account?</a></p>
+                                    </div>
+
+                                    <div class="row m-t-50">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</nav>
-
-<section class="login-signup">
-    <form id="form1" action="" class="login-form" method="post">
-        <article class="logbt">Log in</article>
-        <article class="signbt">Sign up</article>
-        <div class="error" id="error-email1"></div>
-        <input type="email" name="email" placeholder="Email" required>
-        <span class="error" id="error-password"></span>
-        <input type="password" name="password" placeholder="Password" required pattern=".*[A-Z].*">
-        <input type="button" class="button" value="Submit">
-    </form>
-    <form action="${pageContext.request.contextPath }/rest/user/register" class="signup-form" method="post">
-        <article class="logbt">Log in</article>
-        <article class="signbt">Sign up</article>
-        <span class="error" id="error-email2"></span>
-        <input type="email" name="email" placeholder="Email" required>
-        <span class="error" id="error-password"></span>
-        <input type="password" name="password" placeholder="Password" required pattern=".*[A-Z].*">
-        <input type="text" name="name" placeholder="Username" required>
-        <div class="gender">
-            <div class="gender1">
-                <input id="gender1" type="radio" name="gender" value="1" required>
-                <label for="gender1">Male</label>
+    <div class="m-t-40 text-center">
+                <p class="account-copyright">2018 © Vport. - vport.com.au</p>
             </div>
-            <div class="gender2">
-                <input id="gender2" type="radio" name="gender" value="0" required>
-                <label for="gender2">Female</label>
-            </div>
-        </div>
-        <div class="user-type">
-            <div class="type1">
-                <input id="type1" type="radio" name="role" value="2">
-                <label for="type1">Student</label>
-            </div>
-            <div class="type2">
-                <input id="type2" type="radio" name="role" value="1">
-                <label for="type2">Trainer</label>
-            </div>
-        </div>
-        <input type="submit" class="button" value="Submit">
-        
-    </form>
-</section>
 
-<script>
 
-    $("input[name=email]").on('invalid',function () {
-        this.setCustomValidity("Please enter the correct email");
-    });
-    $("input[name=password]").on('invalid',function () {
-        this.setCustomValidity("Please enter the correct password");
-    });
-    $("input[name=username]").on('invalid',function () {
-        this.setCustomValidity("Please enter the username");
-    });
-    /*change log in or sign up*/
-    $(".logbt").on('click', function () {
-        $(".login-form").css("display", "block");
-        $(".signup-form").css("display", "none");
-    })
-    $(".signbt").on('click', function () {
-        $(".login-form").css("display", "none");
-        $(".signup-form").css("display", "block");
-    })
 
-    /*validate information*/
-    $(".signup-form input[name=email]").on('blur',function () {
-    	var $value = $(this).val();
-    	if($value != ""){
-	        $.post("${pageContext.request.contextPath }/rest/user/checkEmail", {"email":$value}, function (res) {
-	        	
-	            if (res == 0) {
-	                $("#error-email2").text("The email has been registered");
-	                $("#error-email2").css("display", "block");
-	                setTimeout(function () {
-	                    $("#error-email2").css("display", "none");
-	                }, 2000)
-	                $(".signup-form input[type=submit]").attr("disabled", true);
-	            }else{
-	            	$(".signup-form input[type=submit]").attr("disabled", false);
-	            }
-	        })
-    	}
-    })
-    
 
-    $(".login-form .button").click(function () {
-    	var form = new FormData(document.getElementById("form1"));
-       $.ajax({
-            url:'${pageContext.request.contextPath }/rest/user/login',
-            type: 'post',
-            data:form,
-            dataType: 'json',
-            contentType:false,
-            processData:false,
-            success: function(res) {
-            	if (res == 1) {
-                    $("#error-email1").text("wrong email or password");
-                    $("#error-email1").css("display", "block");
-                    setTimeout(function () {
-                        $("#error-email1").css("display", "none");
-                    }, 2000);
-                    $("#error-password").text("wrong email or password");
-                    $("#error-password").css("display", "block");
-                    setTimeout(function () {
-                        $("#error-password").css("display", "none");
-                    }, 2000);
-                } else if (res == 2) {
-                	$("#error-email1").text("you have not activated your account");
-                    $("#error-email1").css("display", "block");
-                    setTimeout(function () {
-                        $("#error-email1").css("display", "none");
-                    }, 2000)
-                }else{
-                	window.location.href="${pageContext.request.contextPath}/rest/page/success";
-                }
-            }
-        })
-    })
 
-/*     $(".signup-form .button").click(function () {
-        $.ajax({
-            url:'',
-            type: 'post',
-            data:$('.signup-form').serialize(),
-            dataType: 'json',
-            success: function(res) {
-                alert(res);
-                
-            }
-        })
-    }) */
-</script>
+    <!-- jQuery  -->
+    <script src="${pageContext.request.contextPath }/assets/js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath }/assets/js/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath }/assets/js/metisMenu.min.js"></script>
+    <script src="${pageContext.request.contextPath }/assets/js/waves.js"></script>
+    <script src="${pageContext.request.contextPath }/assets/js/jquery.slimscroll.js"></script>
+
+    <!-- App js -->
+    <script src="${pageContext.request.contextPath }/assets/js/jquery.core.js"></script>
+    <script src="${pageContext.request.contextPath }/assets/js/jquery.app.js"></script>
+
 </body>
 </html>

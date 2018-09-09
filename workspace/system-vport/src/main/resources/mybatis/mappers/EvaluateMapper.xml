@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vport.system.mapper.EvaluateMapper">
+	<resultMap type="EvaluateType" id="evaluateType">
+		<id column="type" property="id"/>
+		<result column="name" property="name"/>
+		<result column="ch_name" property="chName"/>
+		<collection property="evaluateContents" ofType="EvaluateContent">
+			<id column="id" property="id"/>
+			<result column="content_name" property="name"/>
+			<result column="content_ch_name" property="chName"/>
+			<result column="type" property="type"/>
+		</collection>
+	</resultMap>
+	<select id="geEvaluateType" resultMap="evaluateType">
+		SELECT ec.id,ec.name AS content_name,ec.ch_name AS content_ch_name,ec.type,et.name,et.ch_name
+		FROM evaluation_content ec,evaluation_type et WHERE ec.type = et.id;
+	</select>
+	
+	
+	<insert id="insertPerformanceAssess" parameterType="PerformanceAssess">
+		<selectKey keyProperty="id" resultType="Long" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+		insert into performance_assess (player,time,comment,chief_trainer,assistant) 
+		values(#{player},#{time},#{comment},#{chiefTrainer},#{assistant})
+	</insert>
+	
+	<insert id="insertPerformanceContent" parameterType="PerformanceContent">
+		insert into performance_data (assess_id,content_id,count) values (#{assessId},#{contentId},#{count})
+	</insert>
+	
+	<select id="findAvgPerformanceByPlayerId" parameterType="Long" resultType="PerformanceScore">
+		SELECT ec.id AS contentId,ec.name AS contentName,ec.ch_name AS contentNameCh,AVG(pd.count) AS score,et.name AS typeName,et.ch_name AS typeNameCh,et.id AS typeId 
+		FROM performance_data pd,evaluation_content ec,evaluation_type et 
+		WHERE pd.content_id = ec.id AND ec.type = et.id AND pd.assess_id IN
+		(
+		SELECT id FROM performance_assess WHERE player=#{value})
+		GROUP BY contentId
+		ORDER BY contentId
+	</select>
+	<select id="findGeneralPerformanceOrderByTime" parameterType="Long" resultType="GeneralPerformanceDataOrderByTime">
+		SELECT pa.time,ROUND(AVG(pd.count),2) AS 'score'
+		FROM performance_data pd,performance_assess pa,evaluation_content ec
+		WHERE pd.assess_id = pa.id AND pd.content_id = ec.id AND pa.player=#{value}
+		GROUP BY pa.time
+		ORDER BY pa.time
+	</select>
+</mapper>

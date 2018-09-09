@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="period" property="period"/>
 		<result column="hour_to" property="hourTo"/>
 		<result column="rank" property="rank"/>
-		<result column="desc" property="desc"/>
+		<result column="description" property="description"/>
 		<result column="starttime" property="starttime"/>
 		<result column="createtime" property="createtime"/>
 		<result column="is_open" property="isOpen"/>
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="training_time" property="trainingTime"/>
 		<result column="created" property="created"/>
 		<result column="updated" property="updated"/>
-		<result column="chief_trainer_id" property="chiefTainer"/>
+		<result column="chief_trainer_id" property="chiefTrainer"/>
 		<result column="class_id" property="classId"/>
 		<result column="assistant_trainer_id" property="assistantTrainer"/>
 	</resultMap>

@@ -5,14 +5,14 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.github.abel533.mapper.Mapper;
-import com.vport.system.pojo.PhysicalDetail;
-import com.vport.system.pojo.PhysicalDetailNonSpecilized;
-import com.vport.system.pojo.PhysicalDetailSpecilized;
-import com.vport.system.pojo.PlanType;
-import com.vport.system.pojo.SkillDetail;
-import com.vport.system.pojo.SkillDetailWithFullInfo;
-import com.vport.system.pojo.TrainingPlan;
-import com.vport.system.pojo.TrainingPlanInfo;
+import com.vport.system.pojo.training.PhysicalDetail;
+import com.vport.system.pojo.training.PhysicalDetailNonSpecilized;
+import com.vport.system.pojo.training.PhysicalDetailSpecilized;
+import com.vport.system.pojo.training.PlanType;
+import com.vport.system.pojo.training.SkillDetail;
+import com.vport.system.pojo.training.SkillDetailWithFullInfo;
+import com.vport.system.pojo.training.TrainingPlan;
+import com.vport.system.pojo.training.TrainingPlanInfo;
 
 public interface PlanMapper extends Mapper<PlanType>{
     
