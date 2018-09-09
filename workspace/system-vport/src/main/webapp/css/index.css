@@ -1,0 +1,26 @@
+/*reset css*/
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-size: 14px;
+    font-family: "Microsoft Sans Serif";
+    color: #333;
+    /*height: 8000px;*/
+}
+ul, li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: #333;
+}
+
+
+
+
+
+.vport-footer{
+
+}

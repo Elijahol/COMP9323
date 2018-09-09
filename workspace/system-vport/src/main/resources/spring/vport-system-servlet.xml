@@ -18,4 +18,20 @@
 		<property name="prefix" value="/WEB-INF/views/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
+	<!-- 上传图片实现类 id不能变 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 最大上传尺寸 -->
+		<property name="maxUploadSize" value="5000000"/>
+	</bean>
+	
+	<!-- 拦截器 -->
+<!-- 	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.vport.system.interceptor.Interceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors> -->
+	
+	<!-- spirngmvc 异常处理器 -->
+	<bean class="com.vport.system.exception.CustomExceptionResovler"/>
 </beans>
