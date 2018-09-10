@@ -6007,3 +6007,104 @@ h3.timeline-title {
   }
 }
 /*# sourceMappingURL=style_dark.css.map */
+.user-box-1{
+    background:linear-gradient(to bottom,#02c0ce,#fff);
+    height: 150px;
+    text-align: center;
+}
+.user-box-1 img{
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin:10px auto;
+  position: relative;
+  top: -90px;
+  border:4px solid #fff;
+}
+.user-box-1 h4{
+  position: relative;
+  top: -90px;
+}
+.user-box-1 p{
+  position: relative;
+  top: -80px;
+  font-size: 16px;
+}
+.listgroup-title i{
+  float: right;
+  font-weight: 800;
+  font-size: 15px;
+}
+.listgroup-title h5{
+  display: inline-block;
+}
+.b-r-30{
+  border-radius: 30px !important;
+}
+.bg-transparent{
+  background-color: transparent!important;
+}
+.class-box-header h5{
+display: inline-block;
+}
+.class-box-time{
+  display: inline-block;
+  float: right;
+  line-height: 1.2;
+  margin:10px 15px;
+}
+.class-box-body{
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+.class-box-body img{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.class-box-body p{
+  display: inline-block;
+  margin:10px 0px;
+}
+.class-box-body button{
+  float: right;
+}
+
+.timetable > tbody > tr > td, .timetable > tbody > tr > th, .timetable > tfoot > tr > td, .timetable > tfoot > tr > th, .timetable > thead > tr > td, .timetable > thead > tr > th{
+  padding:.4rem;
+}
+.timetable > thead > tr > td{
+  padding-left: .7rem;
+}
+.timetable table{
+ text-align: center;
+}
+.timetable .btn-date{
+  width: 25px;
+  height: 25px;
+  margin:0px;
+  padding:2px;
+  color: #212529;
+  font-size: 14px;
+}
+.timetable .checked{
+  background-color: #02c0ce;
+  color:#fff;
+  border-radius: 50%;
+}
+.timetable-box h5{
+  text-align: center;
+  color:#626567;
+}
+.timetable-box .class-box-body .address{
+  float: right;
+}
+.timetable-box .class-box{
+  margin-top:20px;
+}
+.timetable-box .class-box-header h5{
+  color:#212529;
+}
+.card-header{
+  margin-bottom:10px !important;
+}
