@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.vport.system.pojo.User;
+import com.vport.system.pojo.person.User;
 
 public class Interceptor implements HandlerInterceptor{
 

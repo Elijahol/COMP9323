@@ -1,8 +1,10 @@
 /*package com.vport.system.test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,24 +12,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.vport.system.bean.CourseTime;
+import com.vport.system.bean.EvaluateData;
 import com.vport.system.bean.MakeTrainingPlan;
 import com.vport.system.bean.TimeTable;
+import com.vport.system.mapper.CourseMapper;
 import com.vport.system.mapper.PlanMapper;
-import com.vport.system.pojo.PhysicalDetail;
-import com.vport.system.pojo.PlanType;
-import com.vport.system.pojo.SkillDetail;
-import com.vport.system.pojo.TrainingClassInfo;
-import com.vport.system.pojo.TrainingPlan;
-import com.vport.system.pojo.TrainingPlanInfo;
-import com.vport.system.pojo.User;
+import com.vport.system.pojo.eval.AvgPerformanceData;
+import com.vport.system.pojo.eval.GeneralPerformanceDataOrderByTime;
+import com.vport.system.pojo.eval.PerformanceAssess;
+import com.vport.system.pojo.eval.PerformanceContent;
+import com.vport.system.pojo.person.User;
+import com.vport.system.pojo.training.PhysicalDetail;
+import com.vport.system.pojo.training.PlanType;
+import com.vport.system.pojo.training.SkillDetail;
+import com.vport.system.pojo.training.TrainingClass;
+import com.vport.system.pojo.training.TrainingClassInfo;
+import com.vport.system.pojo.training.TrainingPlan;
+import com.vport.system.pojo.training.TrainingPlanInfo;
 import com.vport.system.service.CourseService;
+import com.vport.system.service.EvaluateService;
 import com.vport.system.service.PlanService;
 import com.vport.system.service.UserService;
+import com.vport.system.utils.DateUtil;
 import com.vport.system.utils.MailUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring/application*.xml")
 public class Demo {
+    @Autowired
+    private EvaluateService evaluateService;
+    
     @Autowired
     private UserService userService;
     
@@ -41,7 +56,74 @@ public class Demo {
     private PlanMapper planMapper;
     
     @Autowired
+    private CourseMapper courseMapper;
+    
+    @Autowired
     private MailUtils mailUtils;
+    
+    @Test
+    public void fun11(){
+        List<GeneralPerformanceDataOrderByTime> list = evaluateService.getGeneralPerformanceWithTimeOrder(2L);
+        for (GeneralPerformanceDataOrderByTime generalPerformanceDataOrderByTime : list) {
+            System.out.println(generalPerformanceDataOrderByTime);
+        }
+    }
+    
+    @Test
+    public void fun10(){
+        AvgPerformanceData avgPerformanceDataByPlayer = evaluateService.getAvgPerformanceDataByPlayer(2L);
+        System.out.println(avgPerformanceDataByPlayer);
+    }
+    
+    @Test
+    public void fun9(){
+        PerformanceAssess performanceAssess = new PerformanceAssess();
+        performanceAssess.setChiefTrainer(1L);
+        performanceAssess.setAssistant(5L);
+        performanceAssess.setPlayer(2L);
+        performanceAssess.setComment("nice");
+        List<PerformanceContent> performanceContents = new ArrayList<>();
+        
+        Random rand = new Random();
+        
+        for(long i = 1; i<= 11;i++){
+            PerformanceContent performanceContent1 = new PerformanceContent();
+            performanceContent1.setContentId(i);
+            performanceContent1.setCount((rand.nextInt(5)+1)*1.0);
+            performanceContents.add(performanceContent1);
+        }
+//        performanceContents.add(performanceContent1);
+//        performanceContents.add(performanceContent2);
+        performanceAssess.setPerformanceContents(performanceContents);
+        evaluateService.storePerfomanceData(performanceAssess);
+    }
+    
+    @Test
+    public void fun8(){
+        TrainingClass trainingClass = courseMapper.selectByPrimaryKey(1L);
+        String[] days = trainingClass.getPeriod().split("-");
+        String hourTo = trainingClass.getHourTo();
+        List<CourseTime> timeList = new ArrayList<CourseTime>();
+        for (String day : days) {
+            int dayOfWeek = Integer.parseInt(day);
+            Date futureDate = DateUtil.getFutureDate(dayOfWeek);
+            String dateToString = DateUtil.dateToString(futureDate);
+            String dateToString2 = dateToString +" "+hourTo.split("-")[0];
+            futureDate = DateUtil.stringToDate(dateToString2);
+            if (futureDate.compareTo(new Date()) > 0) {
+                CourseTime courseTime = new CourseTime(futureDate, dateToString + " " + hourTo+" " + DateUtil.getWeekDay(futureDate));
+                timeList.add(courseTime);
+            }
+        }
+        Collections.sort(timeList);
+        System.out.println(timeList);
+    }
+    
+    @Test
+    public void fun7(){
+       EvaluateData evaluateData = evaluateService.getEvaluateType();
+        System.out.println(evaluateData);
+    }
     
     @Test
     public void fun6(){
@@ -51,7 +133,7 @@ public class Demo {
     @Test
     public void fun5(){
        TrainingPlan plan = new TrainingPlan();
-       plan.setChiefTainer(1L);
+       plan.setChiefTrainer(1L);
        plan.setAssistantTrainer(5L);
        plan.setClassId(1L);
        plan.setCreated(new Date());

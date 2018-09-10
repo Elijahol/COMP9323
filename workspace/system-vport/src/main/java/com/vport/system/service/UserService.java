@@ -1,7 +1,7 @@
 package com.vport.system.service;
 
 import com.vport.system.exception.MessageException;
-import com.vport.system.pojo.User;
+import com.vport.system.pojo.person.User;
 
 public interface UserService {
     User findByEmailandPassword(User user);

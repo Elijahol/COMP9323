@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.vport.system.bean.CourseTime;
 import com.vport.system.bean.PlanTree;
 import com.vport.system.bean.ResponseData;
 import com.vport.system.bean.TimeTable;
-import com.vport.system.pojo.TrainingClassInfo;
-import com.vport.system.pojo.TrainingPlanInfo;
-import com.vport.system.pojo.User;
+import com.vport.system.pojo.person.User;
+import com.vport.system.pojo.training.TrainingClassInfo;
+import com.vport.system.pojo.training.TrainingPlanInfo;
 import com.vport.system.service.CourseService;
 import com.vport.system.service.PlanService;
 
@@ -49,24 +50,37 @@ public class CourseController {
     
     @RequestMapping(value="planTree",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseData getPlanTree(){
+    public ResponseData getPlanTree(Long classId){
+        System.out.println(11111111);
         PlanTree planTree = planService.getPlanTree();
-        return new ResponseData(200, "yes", planTree.getData());
+        List<CourseTime> list = courseService.getClassTimeByClassId(classId);
+        List<Object> data = new ArrayList<>();
+        data.add(planTree.getData());
+        data.add(list);
+        return new ResponseData(0, "yes", data);
     }
     
     @RequestMapping(value="classInfo",method = RequestMethod.GET)
     @ResponseBody
     public ResponseData getClassInfo(){
-        System.out.println("111111111111111111");
+        System.out.println(22222222);
         User trainer = (User) session.getAttribute("existUser");
+        if (trainer == null) {
+            trainer = new User();
+            trainer.setId(1L);
+        }
         List<TrainingClassInfo> classInfo = courseService.getClassInfo(trainer);
         return new ResponseData(0, "", classInfo);
     }
     @RequestMapping(value="timeTable",method = RequestMethod.GET)
     @ResponseBody
     public ResponseData getTimeTable(){
-        System.out.println("222222222222222222222222");
+        System.out.println(33333333);
         User trainer = (User) session.getAttribute("existUser");
+        if (trainer == null) {
+            trainer = new User();
+            trainer.setId(1L);
+        }
         List<TimeTable> timeTable = courseService.getTimeTable(trainer);
         return new ResponseData(0, "", timeTable);
     }

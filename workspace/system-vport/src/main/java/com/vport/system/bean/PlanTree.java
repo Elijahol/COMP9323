@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.vport.system.pojo.PlanType;
+import com.vport.system.pojo.training.PlanType;
 
 public class PlanTree implements Serializable{
     /**

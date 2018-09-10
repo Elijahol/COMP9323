@@ -2,7 +2,7 @@ package com.vport.system.bean;
 
 import java.io.Serializable;
 
-import com.vport.system.pojo.User;
+import com.vport.system.pojo.person.User;
 
 public class Student implements Serializable{
     /**

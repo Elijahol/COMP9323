@@ -3,9 +3,9 @@ package com.vport.system.bean;
 import java.io.Serializable;
 import java.util.List;
 
-import com.vport.system.pojo.PhysicalDetail;
-import com.vport.system.pojo.SkillDetail;
-import com.vport.system.pojo.TrainingPlan;
+import com.vport.system.pojo.training.PhysicalDetail;
+import com.vport.system.pojo.training.SkillDetail;
+import com.vport.system.pojo.training.TrainingPlan;
 
 public class MakeTrainingPlan implements Serializable{
     /**

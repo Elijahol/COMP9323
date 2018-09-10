@@ -9,12 +9,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vport.system.bean.CourseTime;
 import com.vport.system.bean.Student;
 import com.vport.system.bean.TimeTable;
 import com.vport.system.mapper.CourseMapper;
-import com.vport.system.pojo.TrainingClassInfo;
-import com.vport.system.pojo.TrainingPlan;
-import com.vport.system.pojo.User;
+import com.vport.system.pojo.person.User;
+import com.vport.system.pojo.training.TrainingClass;
+import com.vport.system.pojo.training.TrainingClassInfo;
+import com.vport.system.pojo.training.TrainingPlan;
 import com.vport.system.service.CourseService;
 import com.vport.system.utils.DateUtil;
 
@@ -24,7 +26,10 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseMapper courseMapper;
     
-
+    
+    /**
+     * 根据教练员提取与之有关的课程信息
+     */
     @Override
     public List<TrainingClassInfo> getClassInfo(User trainer) {
         
@@ -46,7 +51,9 @@ public class CourseServiceImpl implements CourseService {
         return list;
     }
 
-
+    /**
+     * 根据教练员获取课程时间信息
+     */
     @Override
     public List<TimeTable> getTimeTable(User user) {
         List<TrainingClassInfo> list = courseMapper.findClassByTrainer(user.getId());
@@ -69,6 +76,30 @@ public class CourseServiceImpl implements CourseService {
         }
         Collections.sort(timeTables, new MyComparator());
         return timeTables;
+    }
+
+    /**
+     * 根据班级id获取训练时间
+     */
+    @Override
+    public List<CourseTime> getClassTimeByClassId(Long classId) {
+        TrainingClass trainingClass = courseMapper.selectByPrimaryKey(classId);
+        String[] days = trainingClass.getPeriod().split("-");
+        String hourTo = trainingClass.getHourTo();
+        List<CourseTime> timeList = new ArrayList<CourseTime>();
+        for (String day : days) {
+            int dayOfWeek = Integer.parseInt(day);
+            Date futureDate = DateUtil.getFutureDate(dayOfWeek);
+            String dateToString = DateUtil.dateToString(futureDate);
+            String dateToString2 = dateToString +" "+hourTo.split("-")[0];
+            futureDate = DateUtil.stringToDate(dateToString2);
+            if (futureDate.compareTo(new Date()) > 0) {
+                CourseTime courseTime = new CourseTime(futureDate, dateToString + " " + hourTo+" " + DateUtil.getWeekDay(futureDate));
+                timeList.add(courseTime);
+            }
+        }
+        Collections.sort(timeList);
+        return timeList;
     }
 
 }
