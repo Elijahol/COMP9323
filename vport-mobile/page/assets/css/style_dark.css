@@ -6007,6 +6007,15 @@ h3.timeline-title {
   }
 }
 /*# sourceMappingURL=style_dark.css.map */
+.course-box-1{
+  background:linear-gradient(to bottom,#02c0ce,#fff);
+    height: 100px;
+    text-align: center;
+}
+.course-box-1 p{
+  display: inline-block;
+  margin:0px 10px;
+}
 .user-box-1{
     background:linear-gradient(to bottom,#02c0ce,#fff);
     height: 150px;
@@ -6107,4 +6116,7 @@ display: inline-block;
 }
 .card-header{
   margin-bottom:10px !important;
+}
+.bg-boxshadow{
+  box-shadow: 3px 5px 20px 2px #797D7F;
 }
