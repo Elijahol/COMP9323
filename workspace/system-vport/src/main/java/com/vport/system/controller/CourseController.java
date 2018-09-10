@@ -62,27 +62,20 @@ public class CourseController {
     
     @RequestMapping(value="classInfo",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseData getClassInfo(){
-        System.out.println(22222222);
+    public List<TrainingClassInfo> getClassInfo(){
         User trainer = (User) session.getAttribute("existUser");
         if (trainer == null) {
             trainer = new User();
             trainer.setId(1L);
         }
         List<TrainingClassInfo> classInfo = courseService.getClassInfo(trainer);
-        return new ResponseData(0, "", classInfo);
+        return classInfo;
     }
     @RequestMapping(value="timeTable",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseData getTimeTable(){
-        System.out.println(33333333);
-        User trainer = (User) session.getAttribute("existUser");
-        if (trainer == null) {
-            trainer = new User();
-            trainer.setId(1L);
-        }
-        List<TimeTable> timeTable = courseService.getTimeTable(trainer);
-        return new ResponseData(0, "", timeTable);
+    public ResponseData getTimeTable(Long id){
+        ResponseData data = courseService.getTimeTable(id);
+        return data;
     }
     @RequestMapping(value="eachPlan",method = RequestMethod.GET)
     @ResponseBody

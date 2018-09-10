@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vport.system.bean.CourseTime;
+import com.vport.system.bean.ResponseData;
 import com.vport.system.bean.Student;
 import com.vport.system.bean.TimeTable;
 import com.vport.system.mapper.CourseMapper;
@@ -55,8 +56,10 @@ public class CourseServiceImpl implements CourseService {
      * 根据教练员获取课程时间信息
      */
     @Override
-    public List<TimeTable> getTimeTable(User user) {
-        List<TrainingClassInfo> list = courseMapper.findClassByTrainer(user.getId());
+    public ResponseData getTimeTable(Long id) {
+        ResponseData responseData = new ResponseData();
+        List<Object> data = new ArrayList<>();
+        List<TrainingClassInfo> list = courseMapper.findClassByTrainer(id);
         List<TimeTable> timeTables = new ArrayList<TimeTable>();
         for (TrainingClassInfo trainingClassInfo : list) {
             String[] trainingDays = trainingClassInfo.getPeriod().split("-");
@@ -67,7 +70,7 @@ public class CourseServiceImpl implements CourseService {
                 String dateToString = DateUtil.dateToString(futureDate);
                 String dateToString2 = dateToString +" "+hourTo.split("-")[0];
                 futureDate = DateUtil.stringToDate(dateToString2);
-                TimeTable timeTable = new TimeTable(trainingClassInfo.getClassId(),
+                TimeTable timeTable = new TimeTable(trainingClassInfo.getClassId(),trainingClassInfo.getClassName(),
                                                     futureDate, trainingClassInfo.getPlace(),hourTo);
                 String visualTime = dateToString+ " " + hourTo+" "+DateUtil.getWeekDay(futureDate);
                 timeTable.setVisualTime(visualTime);
@@ -75,7 +78,21 @@ public class CourseServiceImpl implements CourseService {
             }
         }
         Collections.sort(timeTables, new MyComparator());
-        return timeTables;
+        Date currTime = new Date();
+        //要改
+        for (TimeTable timeTable : timeTables) {
+            if (timeTable.getTime().compareTo(currTime) == 1) {
+                String visualTime = timeTable.getVisualTime();
+                String[] fields = visualTime.split(" ");
+                String start = fields[1].split("-")[0];
+                timeTable.setVisualTime(start);
+                data.add(timeTable);
+                break;
+            }
+        }
+        data.add(timeTables);
+        responseData.setData(data);
+        return responseData;
     }
 
     /**

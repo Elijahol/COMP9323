@@ -10,6 +10,7 @@ public class Student implements Serializable{
      */
     private static final long serialVersionUID = 1L;
     private Long id;
+    private String icon;
     private String name;
     private String gender;
     private Integer height;
@@ -26,9 +27,16 @@ public class Student implements Serializable{
         this.age = user.getAge();
         this.phone = user.getPhone();
         this.weight = user.getWeight();
+        this.icon = user.getIcon();
     }
     public Student(){}
     
+    public String getIcon() {
+        return icon;
+    }
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
     public Integer getAge() {
         return age;
     }
