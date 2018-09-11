@@ -109,17 +109,16 @@ public class UserController {
             model.addAttribute("msg", "用户名或密码错误");
             return "login";
         }
-        return "success";
+        return "trainerMain";
     }
     @RequestMapping(value="logout",method=RequestMethod.GET)
-    @ResponseBody
-    public ResponseData logout(){
+    public String logout(){
         session.removeAttribute("existUser");
         session.invalidate();
         Cookie cookie = new Cookie("SESSION_USER", "");
         cookie.setPath("/");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
-        return new ResponseData(0, "", null);
+        return "login";
     }
 }

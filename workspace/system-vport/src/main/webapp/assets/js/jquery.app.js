@@ -8,6 +8,10 @@
 (function ($) {
 
     'use strict';
+    $('.listgroup-collapse').click(function(){
+        var state = $(this).hasClass('mdi-chevron-down');
+        $(this).toggleClass('mdi-chevron-down',!state).toggleClass('mdi-chevron-left',state);
+    });
 
     function initSlimscrollMenu() {
 

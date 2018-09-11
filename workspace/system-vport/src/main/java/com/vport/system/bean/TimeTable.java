@@ -9,13 +9,15 @@ public class TimeTable implements Serializable{
      */
     private static final long serialVersionUID = 1L;
     private Long classId;
+    private String className;
     private Date time;
     private String place;
     private String hourTo;
     private String visualTime;
     
-    public TimeTable(Long classId, Date time, String place,String hourTo) {
+    public TimeTable(Long classId,String className, Date time, String place,String hourTo) {
         this.classId = classId;
+        this.className = className;
         this.time = time;
         this.place = place;
         this.hourTo = hourTo;
@@ -24,6 +26,14 @@ public class TimeTable implements Serializable{
     public TimeTable() {
     }
     
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
     public String getVisualTime() {
         return visualTime;
     }
