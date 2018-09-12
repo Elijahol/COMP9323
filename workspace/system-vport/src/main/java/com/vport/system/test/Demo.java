@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.junit.Test;
@@ -16,6 +17,7 @@ import com.vport.system.bean.CourseTime;
 import com.vport.system.bean.EvaluateData;
 import com.vport.system.bean.MakeTrainingPlan;
 import com.vport.system.bean.TimeTable;
+import com.vport.system.bean.TimeTableWithWeek;
 import com.vport.system.mapper.CourseMapper;
 import com.vport.system.mapper.PlanMapper;
 import com.vport.system.pojo.eval.AvgPerformanceData;
@@ -61,6 +63,13 @@ public class Demo {
     @Autowired
     private MailUtils mailUtils;
     
+    
+    
+    @Test
+    public void fun12(){
+        Map<String, TimeTableWithWeek> timeTable = courseService.getTimeTable(1L);
+        System.out.println(timeTable);
+    }
     @Test
     public void fun11(){
         List<GeneralPerformanceDataOrderByTime> list = evaluateService.getGeneralPerformanceWithTimeOrder(2L);

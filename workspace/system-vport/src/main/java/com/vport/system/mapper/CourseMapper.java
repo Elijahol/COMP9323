@@ -15,4 +15,6 @@ public interface CourseMapper extends Mapper<TrainingClass> {
     List<User> findStudentsByClass(Long classId);
     
     List<TrainingPlan> findPlanByClass(Long classId);
+
+    TrainingClassInfo findClassInfoByClassId(Long classId);
 }

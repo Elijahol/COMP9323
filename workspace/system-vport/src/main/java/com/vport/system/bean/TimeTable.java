@@ -1,12 +1,15 @@
 package com.vport.system.bean;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class TimeTable implements Serializable{
     /**
      * 
      */
+    private final SimpleDateFormat FORMAT = new SimpleDateFormat("KK:mm aa",Locale.ENGLISH);
     private static final long serialVersionUID = 1L;
     private Long classId;
     private String className;
@@ -21,6 +24,7 @@ public class TimeTable implements Serializable{
         this.time = time;
         this.place = place;
         this.hourTo = hourTo;
+        this.visualTime = FORMAT.format(time).toLowerCase();
     }
     
     public TimeTable() {

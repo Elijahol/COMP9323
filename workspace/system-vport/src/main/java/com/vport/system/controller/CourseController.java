@@ -4,6 +4,7 @@ package com.vport.system.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +22,7 @@ import com.vport.system.bean.CourseTime;
 import com.vport.system.bean.PlanTree;
 import com.vport.system.bean.ResponseData;
 import com.vport.system.bean.TimeTable;
+import com.vport.system.bean.TimeTableWithWeek;
 import com.vport.system.pojo.person.User;
 import com.vport.system.pojo.training.TrainingClassInfo;
 import com.vport.system.pojo.training.TrainingPlanInfo;
@@ -71,11 +74,24 @@ public class CourseController {
         List<TrainingClassInfo> classInfo = courseService.getClassInfo(trainer);
         return classInfo;
     }
+    
+    /**
+     * 根据班级Id得到班级相关信息
+     * @param classId
+     * @return
+     */
+    @RequestMapping(value="classInfoByClassId",method = RequestMethod.GET)
+    public String getClassInfoByClassId(Long classId,Model model){
+        TrainingClassInfo classInfo = courseService.getClassInfoByClassId(classId);
+        model.addAttribute("classInfo", classInfo);
+        return "courseDetails";
+    }
+    
     @RequestMapping(value="timeTable",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseData getTimeTable(Long id){
-        ResponseData data = courseService.getTimeTable(id);
-        return data;
+    public Map<String, Object> getTimeTable(Long id){
+        Map<String, Object> timeTable = courseService.getTimeTable(id);
+        return timeTable;
     }
     @RequestMapping(value="eachPlan",method = RequestMethod.GET)
     @ResponseBody

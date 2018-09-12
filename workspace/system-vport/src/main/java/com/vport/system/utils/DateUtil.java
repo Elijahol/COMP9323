@@ -6,8 +6,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.omg.PortableServer.ServantActivator;
+
+import com.vport.system.bean.TimeTableWithWeek;
 
 public class DateUtil {
     
@@ -132,16 +135,77 @@ public class DateUtil {
         }
         return null;
     }
-    public static Date getFutureDate(Integer dayOfWeek){
+    
+    /**
+     * 得到本周某天对应的date
+     * @param dayOfWeek
+     * @return
+     */
+    public static Date getDateByWeekday(Integer dayOfWeek){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         int day = calendar.get(Calendar.DAY_OF_WEEK)-1;
-        if (dayOfWeek < day) {
+        /*if (dayOfWeek < day) {
             dayOfWeek += DAYS_OF_ONE_WEEK;
-        }
+        }*/
         calendar.add(Calendar.DATE, dayOfWeek - day);
         return calendar.getTime();
     }
-
+    public static Date getDateByMonthDay(Integer dayofMonth){
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int i = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.add(Calendar.DATE, dayofMonth - i);
+        return calendar.getTime();
+    }
+  //获取当前(上，下)周的日期范围如：...,-1上一周，0本周，1下一周...
+    public static Map<String, Object> getWeekDays(int i) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd");
+            // getTimeInterval(sdf);
+    
+            Calendar calendar1 = Calendar.getInstance();
+            // 设置一个星期的第一天，一个星期的第一天是星期日
+            calendar1.setFirstDayOfWeek(Calendar.SUNDAY);
+            
+            // 判断要计算的日期是否是周日，如果是则减一天计算周六的，否则会出问题，计算到下一周去了
+            int dayOfWeek = calendar1.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
+            if (1 == dayOfWeek) {
+                    calendar1.add(Calendar.DAY_OF_MONTH, -1);
+            }
+    
+            // 获得当前日期是一个星期的第几天
+            int day = calendar1.get(Calendar.DAY_OF_WEEK);
+    
+            //获取当前日期前（下）x周同星几的日期
+            calendar1.add(Calendar.DATE, 7*i);
+    
+            calendar1.add(Calendar.DATE, calendar1.getFirstDayOfWeek() - day);
+    
+    
+            
+            String beginDate = sdf.format(calendar1.getTime());
+            calendar1.add(Calendar.DATE, 6);
+    
+            String endDate = sdf.format(calendar1.getTime());
+            Map<String, Object> map = new TreeMap<String,Object>();
+            for (int j = Integer.parseInt(beginDate); j <= Integer.parseInt(endDate); j++) {
+                Date dateByWeekday = DateUtil.getDateByMonthDay(j);
+                TimeTableWithWeek timeTableWithWeek = new TimeTableWithWeek();
+                timeTableWithWeek.setTime(dateByWeekday);
+                if (j<10) {
+                    map.put("0"+j, timeTableWithWeek);
+                }else{
+                    map.put(""+j, timeTableWithWeek);
+                }
+            }
+            return map;
+    }
+    
+    public static String getDayOfMonth(Date time){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(time);
+        return calendar.get(Calendar.DAY_OF_MONTH)+"";
+    }
     
 }

@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findClassByTrainer" parameterType="Long" resultMap="trainerAndClass">
 		SELECT * FROM trainer t, training_class c 
 		WHERE t.class_id = c.id 
-		AND t.trainer = #{value};
+		AND t.trainer = #{value}
 	</select>
 	<!-- <resultMap type="User" id="students">
 		<result column="id" property="id"/>
@@ -49,6 +49,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM training_schema WHERE class_id = #{value};
 	</select>
 	
+	<select id="findClassInfoByClassId" parameterType="Long" resultMap="trainerAndClass">
+		select * from training_class c
+		where id = #{value}
+	</select>
 	
 	
 </mapper>
