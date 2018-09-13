@@ -135,7 +135,12 @@
                                 <div class="user-name">
                                     <h4>Alex <i class=""></i></h4>
                                 </div>
-                                <a href=""><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">Edit</button></a>
+                                <!-- if edit the profile -->
+                                <button class="btn btn-outline-custom btn-rounded waves-light waves-effect" data-toggle="modal" data-target="#myModal">Edit</button>
+                                <!-- else if view this profile -->
+                                <!-- <a href="dataCenter.html"><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">More</button></a> -->
+                                <!-- end if -->
+
                                 <p><i class="mdi mdi-map-marker-outline"></i> user address</p>
                             </div>
                             <div class="user-data-box">
@@ -197,10 +202,15 @@
                                                     Rewards title</h5>
                                                 </div>
                                                 <div class="class-box-body">
-                                                    <p>20.12.2018 12:00PM</p>
+                                                    <p>content.....
+                                                        <br>
+                                                    20.12.2018 12:00PM</p>
                                                 </div>
                                             </div>
                                             <!-- end template -->
+                                            <!-- if edit the profile -->
+                                            <button class="btn btn-custom waves-light waves-effect" data-toggle="modal" data-target="#rewardModal" style="width: 100%;">Edit Rewards</button>
+                                            <!-- end if -->
                                         </div>
                                     </div>
                                 </div>
@@ -212,6 +222,112 @@
                 </div> <!-- container -->
 
             </div> <!-- content -->
+            
+
+            <!-- if edit this profile modal content template-->
+            <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">Edit Your Information</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="col-form-label">Name</label>
+                                    <input name="name" type="text" class="form-control" value="Alex">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Address</label>
+                                    <input name="email" type="email" class="form-control" value="222 xxx rd, Randwick">
+                                </div>
+                                <label class="col-form-label">BOD</label>
+                                <div class="input-group">
+                                    <input name="dob" class="form-control" type="text" value="12/09/1990" onfocus="(this.type='date')" placeholder="12/09/1990">
+                                </div>
+                                <label class="col-form-label">Weight</label>
+                                <div class="input-group">
+                                    <input name="weight" type="number" class="form-control" value="50" aria-label="Weight" aria-describedby="basic-addon1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">KG</span>
+                                    </div>
+                                </div>
+                                <label class="col-form-label">Height</label>
+                                <div class="input-group">
+                                    <input name="height" type="number" class="form-control" value="183" aria-label="height" aria-describedby="basic-addon1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">CM</span>
+                                    </div>
+                                </div>
+                                <label class="col-form-label">Introduction</label>
+                                <div class="input-group">
+                                    <textarea class="form-control" rows="1" value="sdfaf" placeholder="sdfaf"></textarea>
+                                </div>                               
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
+            <div id="rewardModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">Edit Your Rewards</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" role="form">
+                                <label class="col-form-label">Rewards</label>
+                                <div class="input-group">
+                                    <select class="custom-select">
+                                        <option selected disabled="">Select a reward</option>
+                                        <option value="0">Add a new reward</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <label class="col-form-label">Operation</label>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio1" name="operation" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio1">Edit</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio2" name="operation" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio2">Delete</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio3" name="operation" class="custom-control-input">
+                                    <label class="custom-control-label" for="customRadio3">Add</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Title</label>
+                                    <input name="title" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Content</label>
+                                    <input name="content" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Time</label>
+                                    <input name="date" type="text" class="form-control" onfocus="(this.type='date')">
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
+            <!-- end if -->
 
             <footer class="footer text-right">
                 <p class="">2018 © Vport. - vport.com.au</p>
@@ -249,10 +365,10 @@
     <!-- Dashboard Init -->
     <script src="assets/pages/jquery.dashboard.init.js"></script>
     <!-- Jquery-Ui -->
-        <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="../plugins/moment/moment.js"></script>
-        <script src='../plugins/fullcalendar/js/fullcalendar.min.js'></script>
-        <script src="assets/pages/jquery.calendar.js"></script>
+    <script src='../plugins/fullcalendar/js/fullcalendar.min.js'></script>
+    <script src="assets/pages/jquery.calendar.js"></script>
 
     <!-- App js -->
     <script src="assets/js/jquery.core.js"></script>

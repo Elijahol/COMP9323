@@ -6149,6 +6149,11 @@ display: inline-block;
   width: 120px;
   text-align: center;
 }
+.user-box-2 button{
+  position: absolute;
+  top:60px;
+  right: 60px;
+}
 .user-box-2 a{
   position: absolute;
   top:60px;
