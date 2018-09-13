@@ -53,11 +53,20 @@ File: Chartjs
 
     //init
     ChartJs.prototype.init = function() {
-        //skills radar chart
-        //ajax get two arrays  
+        //ajax get arrays 
+        //skills
         var skillsLastTimeData = [28, 48, 40, 19, 96, 27];
         var skillsAverageData = [65, 59, 90, 81, 56, 55];
+        var skillsByTimeData = [65, 59, 80,54,29];
+        var skillsByTimeLabel = ["12/12/17","12/08/18","24/08/18","02/09/18","02/10/18"]
+        var skillsScoreByTime=[[44,6,58,57,60],[24,36,8,74,16],[74,26,18,37,80],[41,46,98,17,30],[21,11,33,44,55],[99,88,77,66,22],[33,77,55,88,11]];
+        //physical ability
+        var physicalLastTimeData = [48, 40, 19, 96, 27];
+        var physicalAverageData = [59, 90, 81, 56, 55];
+        var physicalByTimeData = [65, 59, 80,54,29];
+        var physicalScoreByTime=[[44,6,58,57,60],[24,36,8,74,16],[74,26,18,37,80],[41,46,98,17,30],[21,11,33,44,55],[99,88,77,66,22]];
         //end
+        //
         var skillsLabel = ["Front Hand", "Back Hand", "Front Volley", "Back Volley", "Smash", "serve"];
         var skillsRadarChart = {
             labels: skillsLabel,
@@ -86,11 +95,117 @@ File: Chartjs
         };
         this.respChart($("#skills"),'Radar',skillsRadarChart);
 
-        //physical ability radar chart
-        //ajax get two arrays  
-        var physicalLastTimeData = [48, 40, 19, 96, 27];
-        var physicalAverageData = [59, 90, 81, 56, 55];
-        //end
+        //barchart
+        var skillsBarChart = {
+            labels: skillsByTimeLabel,
+            datasets: [
+                {
+                    label: "Average Score",
+                    backgroundColor: "rgba(2, 192, 206, 0.3)",
+                    borderColor: "#02c0ce",
+                    borderWidth: 1,
+                    hoverBackgroundColor: "rgba(2, 192, 206, 0.7)",
+                    hoverBorderColor: "#02c0ce",
+                    data: skillsByTimeData
+                }
+            ]
+        };
+        this.respChart($("#skillsByTime"),'Bar',skillsBarChart);
+
+        //creating lineChart
+        var skillsLineChart = {
+            labels: skillsByTimeLabel,
+            datasets: [{
+                label: "Front Hand",
+                fill: false,
+                backgroundColor: "#02c0ce",
+                borderColor: "#02c0ce",
+                data: skillsScoreByTime[0],
+            }, {
+                label: "Back Hand",
+                fill: false,
+                backgroundColor: "#7DCEA0",
+                borderColor: "#7DCEA0",
+                data: skillsScoreByTime[1]
+            },{
+               label: "Front Volley",
+                fill: false,
+                backgroundColor: '#F7DC6F',
+                borderColor: "#F7DC6F",
+                data: skillsScoreByTime[2]
+            },
+            {
+               label: "Back Volley",
+                fill: false,
+                backgroundColor: '#F0B27A',
+                borderColor: "#F0B27A",
+                data: skillsScoreByTime[3]
+            },
+            {
+               label: "Smash",
+                fill: false,
+                backgroundColor: '#F1948A',
+                borderColor: "#F1948A",
+                data: skillsScoreByTime[4]
+            },
+            {
+               label: "serve",
+                fill: false,
+                backgroundColor: '#808B96',
+                borderColor: "#808B96",
+                data: skillsScoreByTime[5]
+            },
+            ]
+        };
+
+        var lineOpts = {
+            animation: {
+                duration: 700, // general animation time
+            },
+
+            responsive: true,
+            // title:{
+            //     display:true,
+            //     text:'Chart.js Line Chart'
+            // },
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
+            hover: {
+                animationDuration: 500,
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    // scaleLabel: {
+                    //     display: true,
+                    //     labelString: 'Month'
+                    // },
+                    gridLines: {
+                        color: "rgba(0,0,0,0.1)"
+                    }
+                }],
+                yAxes: [{
+                    gridLines: {
+                        color: "rgba(255,255,255,0.05)",
+                        fontColor: '#fff'
+                    },
+                    ticks: {
+                        max: 100,
+                        min: 0,
+                        stepSize: 10
+                    }
+                }]
+            },
+            responsiveAnimationDuration: 500,
+        };
+
+        this.respChart($("#skillsByScore"),'Line',skillsLineChart, lineOpts);
+
+
         var physicalLabel = ["Speed", "Strength", "Explosive Force", "Flexibility", "Coordination"];
         var physicalRadarChart = {
             labels: physicalLabel,
@@ -118,177 +233,141 @@ File: Chartjs
             ]
         };
         this.respChart($("#physical"),'Radar',physicalRadarChart);
-
-        //creating lineChart
-        var lineChart = {
-            labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
-            datasets: [{
-                label: "Conversion Rate",
-                fill: false,
-                backgroundColor: '#4eb7eb',
-                borderColor: '#4eb7eb',
-                data: [44,60,-33,58,-4,57,-89,60,-33,58]
-            }, {
-                label: "Average Sale Value",
-                fill: false,
-                backgroundColor: '#e3eaef',
-                borderColor: "#e3eaef",
-                borderDash: [5, 5],
-                data: [-68,41,86,-49,2,65,-64,86,-49,2]
-            }]
-        };
-
-        var lineOpts = {
-            responsive: true,
-            // title:{
-            //     display:true,
-            //     text:'Chart.js Line Chart'
-            // },
-            tooltips: {
-                mode: 'index',
-                intersect: false
-            },
-            hover: {
-                mode: 'nearest',
-                intersect: true
-            },
-            scales: {
-                xAxes: [{
-                    display: true,
-                    // scaleLabel: {
-                    //     display: true,
-                    //     labelString: 'Month'
-                    // },
-                    gridLines: {
-                        color: "rgba(0,0,0,0.1)"
-                    }
-                }],
-                yAxes: [{
-                    gridLines: {
-                        color: "rgba(255,255,255,0.05)",
-                        fontColor: '#fff'
-                    },
-                    ticks: {
-                        max: 100,
-                        min: -100,
-                        stepSize: 20
-                    }
-                }]
-            }
-        };
-
-        // this.respChart($("#lineChart"),'Line',lineChart, lineOpts);
-
-        //donut chart
-        var donutChart = {
-            labels: [
-                "Bitcoin",
-                "Ethereum",
-                "Litecoin",
-                "Bitcoin Cash",
-                "Cardano"
-            ],
-            datasets: [
-                {
-                    data: [80, 50, 100,121,77],
-                    backgroundColor: [
-                        "#02c0ce",
-                        "#4eb7eb",
-                        "#e3eaef",
-                        "#2d7bf4",
-                        "#98a6ad"
-                    ],
-                    hoverBackgroundColor: [
-                        "#02c0ce",
-                        "#4eb7eb",
-                        "#e3eaef",
-                        "#2d7bf4",
-                        "#98a6ad"
-                    ],
-                    hoverBorderColor: "#fff"
-                }]
-        };
-        // this.respChart($("#doughnut"),'Doughnut',donutChart);
-
-
-        //Pie chart
-        var pieChart = {
-            labels: [
-                "Desktops",
-                "Tablets",
-                "Mobiles",
-                "Mobiles",
-                "Tablets"
-            ],
-            datasets: [
-                {
-                    data: [80, 50, 100,121,77],
-                    backgroundColor: [
-                        "#02c0ce",
-                        "#4eb7eb",
-                        "#e3eaef",
-                        "#2d7bf4",
-                        "#98a6ad"
-                    ],
-                    hoverBackgroundColor: [
-                        "#02c0ce",
-                        "#4eb7eb",
-                        "#e3eaef",
-                        "#2d7bf4",
-                        "#98a6ad"
-                    ],
-                    hoverBorderColor: "#fff"
-                }]
-        };
-        // this.respChart($("#pie"),'Pie',pieChart);
-
-
         //barchart
-        var barChart = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+        var physicalBarChart = {
+            labels: skillsByTimeLabel,
             datasets: [
                 {
-                    label: "Sales Analytics",
+                    label: "Average Score",
                     backgroundColor: "rgba(2, 192, 206, 0.3)",
                     borderColor: "#02c0ce",
-                    borderWidth: 2,
+                    borderWidth: 1,
                     hoverBackgroundColor: "rgba(2, 192, 206, 0.7)",
                     hoverBorderColor: "#02c0ce",
-                    data: [65, 59, 80, 81, 56, 55, 40,20]
+                    data: physicalByTimeData
                 }
             ]
         };
-        // this.respChart($("#bar"),'Bar',barChart);
-
-
-
-
-        //Polar area chart
-        var polarChart = {
+        this.respChart($("#phsicalByTime"),'Bar',physicalBarChart);
+        //creating lineChart
+        var physicalLineChart = {
+            labels: skillsByTimeLabel,
             datasets: [{
-                data: [
-                    11,
-                    16,
-                    7,
-                    18
-                ],
-                backgroundColor: [
-                    "#297ef6",
-                    "#45bbe0",
-                    "#ebeff2",
-                    "#1ea69a"
-                ],
-                label: 'My dataset', // for legend
-                hoverBorderColor: "#fff"
-            }],
-            labels: [
-                "Series 1",
-                "Series 2",
-                "Series 3",
-                "Series 4"
+                label: "Speed",
+                fill: false,
+                backgroundColor: "#02c0ce",
+                borderColor: "#02c0ce",
+                data: physicalScoreByTime[0],
+            }, {
+                label: "Strength",
+                fill: false,
+                backgroundColor: "#7DCEA0",
+                borderColor: "#7DCEA0",
+                data: physicalScoreByTime[1]
+            },{
+               label: "Explosive Force",
+                fill: false,
+                backgroundColor: '#F7DC6F',
+                borderColor: "#F7DC6F",
+                data: physicalScoreByTime[2]
+            },
+            {
+               label: "Flexibility",
+                fill: false,
+                backgroundColor: '#F0B27A',
+                borderColor: "#F0B27A",
+                data: physicalScoreByTime[3]
+            },
+            {
+               label: "Coordination",
+                fill: false,
+                backgroundColor: '#F1948A',
+                borderColor: "#F1948A",
+                data: physicalScoreByTime[4]
+            },
             ]
         };
+
+        this.respChart($("#physicalByScore"),'Line',physicalLineChart, lineOpts);
+        
+
+        
+
+        //Polar area chart
+        // var polarChart = {
+        //     datasets: [{
+        //         data: [
+        //             11,
+        //             16,
+        //             7,
+        //             18
+        //         ],
+        //         backgroundColor: [
+        //             "#297ef6",
+        //             "#45bbe0",
+        //             "#ebeff2",
+        //             "#1ea69a"
+        //         ],
+        //         label: 'My dataset', // for legend
+        //         hoverBorderColor: "#fff"
+        //     }],
+        //     labels: [
+        //         "Series 1",
+        //         "Series 2",
+        //         "Series 3",
+        //         "Series 4"
+        //     ]
+        // };
         // this.respChart($("#polarArea"),'PolarArea',polarChart);
+        //donut chart
+        // var donutChart = {
+        //     labels:skillsLabel,
+        //     datasets: [
+        //         {
+        //             data: skillsAverageData,
+        //             backgroundColor: [
+        //                 "#02c0ce",
+        //                 "#4eb7eb",
+        //                 "#e3eaef",
+        //                 "#2d7bf4",
+        //                 "#98a6ad"
+        //             ],
+        //             hoverBackgroundColor: [
+        //                 "#02c0ce",
+        //                 "#4eb7eb",
+        //                 "#e3eaef",
+        //                 "#2d7bf4",
+        //                 "#98a6ad"
+        //             ],
+        //             hoverBorderColor: "#fff"
+        //         }]
+        // };
+        // this.respChart($("#skillsByScore"),'Doughnut',donutChart);
+
+        //Pie chart
+        // var pieChart = {
+        //     labels:skillsLabel,
+        //     datasets: [
+        //         {
+        //             data: skillsAverageData,
+        //             backgroundColor: [
+        //                 "#02c0ce",
+        //                 "#4eb7eb",
+        //                 "#e3eaef",
+        //                 "#2d7bf4",
+        //                 "#98a6ad"
+        //             ],
+        //             hoverBackgroundColor: [
+        //                 "#02c0ce",
+        //                 "#4eb7eb",
+        //                 "#e3eaef",
+        //                 "#2d7bf4",
+        //                 "#98a6ad"
+        //             ],
+        //             hoverBorderColor: "#fff"
+        //         }]
+        // };
+        // this.respChart($("#skillsByScore"),'Pie',pieChart);
     },
     $.ChartJs = new ChartJs, $.ChartJs.Constructor = ChartJs
 
