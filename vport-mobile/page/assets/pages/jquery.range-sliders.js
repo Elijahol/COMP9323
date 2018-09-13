@@ -6,7 +6,6 @@
 */
 $(document).ready(function () {
     $("#range_01").ionRangeSlider();
-    
     $("#range_02").ionRangeSlider({
         min: 100,
         max: 1000,

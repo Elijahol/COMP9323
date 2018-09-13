@@ -110,7 +110,7 @@
                         </li>
                         <li>
                             <div class="page-title-box">
-                                <h4 class="page-title">Home</h4>
+                                <h4 class="page-title">Course Detail</h4>
                             </div>
                         </li>
 
@@ -128,89 +128,58 @@
                 <div class="container-fluid">
 
                     <!-- user-info template -->
-                    <div class="row m-t-50">
-                        <div class="col-12">
-                            <div class="card-box course-box-1">
-                                <h4>Class name</h4>
-                                <p><i class="mdi mdi-calendar-clock"></i> 12:00pm</p>
-                                <p><i class="mdi mdi-map-marker-outline"></i> Sport center</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end row -->
-
-
-
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div id="accordion" role="tablist" aria-multiselectable="true" class="m-b-30">
-                                <div class="card bg-transparent">
-                                    <div class="card-header b-r-30 listgroup-title" role="tab" id="headingOne">
-                                        <h5 class="mb-0 mt-0">
-                                            <a>
-                                                STUDENTS LIST
-                                            </a>
-                                        </h5>
-                                        <a><i class="mdi mdi-chevron-down listgroup-collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></i></a>
+                        <div class="col-12">
+                            <div id="courseCarousel" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                                </ol>   
+                                <!-- carousel item template -->
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="assets/images/bg-1.jpg" alt="First slide">
                                     </div>
-
-                                    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-                                        <div class="card-body bg-transparent">
-                                            <a href="#" class="btn btn-custom btn-block mb-3 waves-effect waves-light"><i class="mdi mdi-plus-circle"></i> Add A New Plan</a>
-
-                                    <ul class="sortable-list taskList list-unstyled" id="upcoming">
-                                        <!-- student brief info template -->
-                                        <li class="" id="task1">
-                                            <div class="clearfix"></div>
-                                            <div class="">
-                                                <p class="pull-right mb-0 mt-2">
-                                                    <a><button type="button" class="btn btn-custom btn-sm waves-effect waves-light">Evaluate</button></a>
-                                                </p>
-                                                <p class="mb-0"><a href="" class="text-muted"><img src="assets/images/users/avatar-1.jpg" alt="task-user" class="thumb-sm rounded-circle mr-2"> <span class="font-bold font-secondary">Petey Cruiser</span></a> </p>
-                                            </div>
-                                        </li>
-                                        <!-- end template -->
-                                    </ul>
-                                    
-                                            
-                                        </div>
+                                    <div class="carousel-item">
+                                        <img src="assets/images/bg-2.jpg" alt="Second slide">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="assets/images/bg-2.jpg" alt="Third slide">
                                     </div>
                                 </div>
-                                <div class="card bg-transparent">
-                                    <div class="card-header b-r-30 listgroup-title" role="tab" id="headingTwo">
-                                        <h5 class="mb-0 mt-0">
-                                            <a>
-                                                PLAN HISTORY
-                                            </a>
-                                        </h5>
-                                        <a><i class="mdi mdi-chevron-down listgroup-collapse"data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"></i></a>
-                                    </div>
-                                    <div id="collapseTwo" class="collaps show" role="tabpanel" aria-labelledby="headingTwo">
-                                        <div class="card-body plan-box" >
-                                            <!-- plan brief info template -->
-                                            <div class="class-box">
-                                                <div class="class-box-header">
-                                                    <h5><i class="mdi mdi-bullseye"></i> THe type of the plan</h5>
-                                                    <p class="class-box-time">Sport center</p>
-                                                </div>
-                                                <div class="class-box-body">
-                                                    <p>20.12.2018 12:00PM</p>
-                                                    <a href="#"><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">View</button></a>
-                                                </div>
-                                            </div>
-                                            <!-- end template -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                <!-- end template -->
+                                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                </a>
+                                <a class="carousel-control-next" href="#demo" data-slide="next">
+                                    <span class="carousel-control-next-icon"></span>
+                                </a>
+                            </div> 
                         </div>
                     </div>
                     <!-- end row -->
+                    <div class="row  m-t-50" id="courseList">
+                        <!-- course advertisements template -->
+                        <div class="col-md-4">
+                            <div class="card m-b-30">
+                                    <img class="card-img-top img-fluid" src="assets/images/small/img-5.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Course title</h5>
+                                        <p class="card-text">This is a wider card with supporting text below as a
+                                            natural lead-in to additional content. This content is a little bit
+                                            longer.</p>
+                                        <a href="" class="btn btn-custom">View</a>
+                                    </div>
+                            </div>
+                        </div>
+                        <!-- end template -->
+                    </div>
 
                 </div> <!-- container -->
 
             </div> <!-- content -->
-
+            
             <footer class="footer text-right">
                 <p class="">2018 © Vport. - vport.com.au</p>
             </footer>
@@ -247,10 +216,8 @@
     <!-- Dashboard Init -->
     <script src="assets/pages/jquery.dashboard.init.js"></script>
     <!-- Jquery-Ui -->
-        <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="../plugins/moment/moment.js"></script>
-        <script src='../plugins/fullcalendar/js/fullcalendar.min.js'></script>
-        <script src="assets/pages/jquery.calendar.js"></script>
 
     <!-- App js -->
     <script src="assets/js/jquery.core.js"></script>
