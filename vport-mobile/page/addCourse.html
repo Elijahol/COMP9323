@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Vport</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- App css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/style_dark.css" rel="stylesheet" type="text/css" />
+
+    <script src="assets/js/modernizr.min.js"></script>
+
+</head>
+
+
+<body class="enlarged" data-keep-enlarged="true">
+
+    <!-- Begin page -->
+    <div id="wrapper">
+
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="left side-menu side-menu-sm">
+
+            <div class="slimscroll-menu" id="remove-scroll">
+
+                <!-- LOGO -->
+                <div class="topbar-left">
+                    <a href="index.html" class="logo">
+                        <span>
+                            <img src="assets/images/vport.png" alt="" height="16">
+                        </span>
+                        <i>
+                            <img src="assets/images/vport.png" alt="" height="16">
+                        </i>
+                    </a>
+                </div>
+
+                <!-- User box template-->
+                <div class="user-box">
+                    <div class="user-img">
+                        <!-- user photo -->
+                        <img src="assets/images/users/avatar-1.jpg" alt="user-img" title="Mat Helme" class="rounded-circle img-fluid">
+                    </div>
+                    <!-- user name -->
+                    <h5><a href="#">Maxine Kennedy</a> </h5>
+                </div>
+
+                <!--- Sidemenu -->
+                <div id="sidebar-menu">
+
+                    <ul class="metismenu" id="side-menu">
+                        <li>
+                            <a href="index.html">
+                                <i class="fi-air-play"></i><span> Home </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="courses.html"><i class="fi-layers"></i> <span> Courses </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="datacenter.html"><i class="fi-bar-graph-2"></i> <span> Data Center </span></a>
+                        </li>
+                        <li>
+                            <a href="profile.html"><i class="fi-paper"></i> <span> Profile </span></a>
+                        </li>
+                        <li>
+                            <a href="login.html"><i class="fi-disc"></i> <span> Log out </span></a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- Sidebar -->
+
+                <div class="clearfix"></div>
+
+            </div>
+            <!-- Sidebar -left -->
+
+        </div>
+        <!-- Left Sidebar End -->
+
+
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+
+        <div class="content-page">
+
+            <!-- Top Bar Start -->
+            <div class="topbar">
+
+                <nav class="navbar-custom">
+                    <ul class="list-inline menu-left mb-0">
+                        <li class="float-left">
+                            <button class="button-menu-mobile open-left">
+                                <i class="dripicons-menu"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <div class="page-title-box">
+                                <h4 class="page-title">Add a new course</h4>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+            </div>
+            <!-- Top Bar End -->
+
+
+
+            <!-- Start Page content -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-box">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group mt-3">
+                                        <label class="col-form-label">Course Title</label>
+                                        <input name="title" type="text" class="form-control">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="col-form-label">Course Address</label>
+                                        <input name="address" type="text" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Course Contents</label>
+                                        <textarea name="content" type="text" class="form-control"></textarea>
+                                    </div>
+                                    <label class="col-form-label mt-3">Start Time</label>
+                                    <div class="input-group">
+                                        <input name="start" class="form-control" type="date">
+                                    </div>
+                                    <label class="col-form-label mt-3">Registration Deadline</label>
+                                    <div class="input-group">
+                                        <input name="deadline" class="form-control" type="date">
+                                    </div>
+                                    <label class="col-form-label mt-3">Instructor</label>
+                                    <div class="input-group">
+                                        <select class="custom-select">
+                                            <option selected disabled="">Select a Instructor</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                    <label class="col-form-label mt-3">Images</label>
+                                    <div class="input-group">
+                                        <input name="file" type="file" multiple class="btn-light" />
+                                    </div>
+                                </form>
+                                <button class="btn btn-custom mt-3">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- container -->
+
+            </div> <!-- content -->
+            
+            <footer class="footer text-right">
+                <p class="">2018 © Vport. - vport.com.au</p>
+            </footer>
+
+        </div>
+
+
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
+
+
+    </div>
+    <!-- END wrapper -->
+
+
+
+    <!-- jQuery  -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/metisMenu.min.js"></script>
+    <script src="assets/js/waves.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+
+    
+
+    <!-- KNOB JS -->
+        <!--[if IE]>
+        <script type="text/javascript" src="../plugins/jquery-knob/excanvas.js"></script>
+    <![endif]-->
+    <script src="../plugins/jquery-knob/jquery.knob.js"></script>
+
+    <!-- Dashboard Init -->
+    <script src="assets/pages/jquery.dashboard.init.js"></script>
+    <!-- Jquery-Ui -->
+    <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../plugins/moment/moment.js"></script>
+
+    <!-- App js -->
+    <script src="assets/js/jquery.core.js"></script>
+    <script src="assets/js/jquery.app.js"></script>
+
+</body>
+</html>
