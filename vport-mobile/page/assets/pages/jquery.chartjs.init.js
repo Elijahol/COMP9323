@@ -53,6 +53,72 @@ File: Chartjs
 
     //init
     ChartJs.prototype.init = function() {
+        //skills radar chart
+        //ajax get two arrays  
+        var skillsLastTimeData = [28, 48, 40, 19, 96, 27];
+        var skillsAverageData = [65, 59, 90, 81, 56, 55];
+        //end
+        var skillsLabel = ["Front Hand", "Back Hand", "Front Volley", "Back Volley", "Smash", "serve"];
+        var skillsRadarChart = {
+            labels: skillsLabel,
+            datasets: [
+                {
+                    label: "The last time",
+                    backgroundColor: "rgba(2, 192, 206, 0.3)",
+                    borderColor: "#02c0ce",
+                    pointBackgroundColor: "#02c0ce",
+                    pointBorderColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: "#02c0ce",
+                    data: skillsLastTimeData
+                },
+                {
+                    label: "Average",
+                    backgroundColor: "rgba(179,181,198,0.2)",
+                    borderColor: "rgba(179,181,198,1)",
+                    pointBackgroundColor: "rgba(179,181,198,1)",
+                    pointBorderColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: "rgba(179,181,198,1)",
+                    data: skillsAverageData
+                }
+            ]
+        };
+        this.respChart($("#skills"),'Radar',skillsRadarChart);
+
+        //physical ability radar chart
+        //ajax get two arrays  
+        var physicalLastTimeData = [48, 40, 19, 96, 27];
+        var physicalAverageData = [59, 90, 81, 56, 55];
+        //end
+        var physicalLabel = ["Speed", "Strength", "Explosive Force", "Flexibility", "Coordination"];
+        var physicalRadarChart = {
+            labels: physicalLabel,
+            datasets: [
+                {
+                    label: "The last time",
+                    backgroundColor: "rgba(2, 192, 206, 0.3)",
+                    borderColor: "#02c0ce",
+                    pointBackgroundColor: "#02c0ce",
+                    pointBorderColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: "#02c0ce",
+                    data: physicalLastTimeData
+                },
+                {
+                    label: "Average",
+                    backgroundColor: "rgba(179,181,198,0.2)",
+                    borderColor: "rgba(179,181,198,1)",
+                    pointBackgroundColor: "rgba(179,181,198,1)",
+                    pointBorderColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: "rgba(179,181,198,1)",
+                    data: physicalAverageData
+                }
+            ]
+        };
+        this.respChart($("#physical"),'Radar',physicalRadarChart);
+
         //creating lineChart
         var lineChart = {
             labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
@@ -111,7 +177,7 @@ File: Chartjs
             }
         };
 
-        this.respChart($("#lineChart"),'Line',lineChart, lineOpts);
+        // this.respChart($("#lineChart"),'Line',lineChart, lineOpts);
 
         //donut chart
         var donutChart = {
@@ -142,7 +208,7 @@ File: Chartjs
                     hoverBorderColor: "#fff"
                 }]
         };
-        this.respChart($("#doughnut"),'Doughnut',donutChart);
+        // this.respChart($("#doughnut"),'Doughnut',donutChart);
 
 
         //Pie chart
@@ -174,7 +240,7 @@ File: Chartjs
                     hoverBorderColor: "#fff"
                 }]
         };
-        this.respChart($("#pie"),'Pie',pieChart);
+        // this.respChart($("#pie"),'Pie',pieChart);
 
 
         //barchart
@@ -192,36 +258,10 @@ File: Chartjs
                 }
             ]
         };
-        this.respChart($("#bar"),'Bar',barChart);
+        // this.respChart($("#bar"),'Bar',barChart);
 
 
-        //radar chart
-        var radarChart = {
-            labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
-            datasets: [
-                {
-                    label: "Desktops",
-                    backgroundColor: "rgba(179,181,198,0.2)",
-                    borderColor: "rgba(179,181,198,1)",
-                    pointBackgroundColor: "rgba(179,181,198,1)",
-                    pointBorderColor: "#fff",
-                    pointHoverBackgroundColor: "#fff",
-                    pointHoverBorderColor: "rgba(179,181,198,1)",
-                    data: [65, 59, 90, 81, 56, 55, 40]
-                },
-                {
-                    label: "Tablets",
-                    backgroundColor: "rgba(255,99,132,0.2)",
-                    borderColor: "rgba(255,99,132,1)",
-                    pointBackgroundColor: "rgba(255,99,132,1)",
-                    pointBorderColor: "#fff",
-                    pointHoverBackgroundColor: "#fff",
-                    pointHoverBorderColor: "rgba(255,99,132,1)",
-                    data: [28, 48, 40, 19, 96, 27, 100]
-                }
-            ]
-        };
-        this.respChart($("#radar"),'Radar',radarChart);
+
 
         //Polar area chart
         var polarChart = {
@@ -248,7 +288,7 @@ File: Chartjs
                 "Series 4"
             ]
         };
-        this.respChart($("#polarArea"),'PolarArea',polarChart);
+        // this.respChart($("#polarArea"),'PolarArea',polarChart);
     },
     $.ChartJs = new ChartJs, $.ChartJs.Constructor = ChartJs
 
