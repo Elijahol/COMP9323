@@ -6185,7 +6185,11 @@ display: inline-block;
 }
 }
 #courseList .card .btn{
-  position: relative;
-  display: inline-block;
   float: right;
+}
+.btn-addcourse{
+  float: right;
+}
+.clear{
+  clear: both;
 }
