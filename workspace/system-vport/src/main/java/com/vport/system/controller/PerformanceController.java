@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vport.system.bean.EvaluateData;
 import com.vport.system.bean.ResponseData;
+import com.vport.system.pojo.eval.PerformanceAssess;
 import com.vport.system.service.EvaluateService;
 
 @Controller
@@ -22,11 +24,14 @@ public class PerformanceController {
     
     @RequestMapping(value="getEvaluateData",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseData getEvaluateData(){
+    public EvaluateData getEvaluateData(){
         EvaluateData evaluateType = evaluateService.getEvaluateType();
-        List<EvaluateData> list = new ArrayList<EvaluateData>();
-        list.add(evaluateType);
-        ResponseData responseData = new ResponseData(0, "", list);
-        return responseData;
+        return evaluateType;
+    }
+    @RequestMapping(value="storeEvaluateData",method = RequestMethod.POST)
+    @ResponseBody
+    public String storeEvaluateData(@RequestBody PerformanceAssess performanceAssess){
+        evaluateService.storePerfomanceData(performanceAssess);
+        return "1";
     }
 }

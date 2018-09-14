@@ -54,7 +54,6 @@ public class CourseController {
     @RequestMapping(value="planTree",method = RequestMethod.GET)
     @ResponseBody
     public ResponseData getPlanTree(Long classId){
-        System.out.println(11111111);
         PlanTree planTree = planService.getPlanTree();
         List<CourseTime> list = courseService.getClassTimeByClassId(classId);
         List<Object> data = new ArrayList<>();

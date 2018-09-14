@@ -110,9 +110,9 @@
                                             <div class="clearfix"></div>
                                             <div class="">
                                                 <p class="pull-right mb-0 mt-2">
-                                                    <a><button type="button" class="btn btn-custom btn-sm waves-effect waves-light">Evaluate</button></a>
+                                                    <button type="button" class="btn btn-custom btn-sm waves-effect waves-light btn-evaluate" data-studentId="${stu.id }" data-studentName="${stu.name }" data-toggle="modal" data-toggle="modal" data-target="#evaluateModal" >Evaluate</button>
                                                 </p>
-                                                <p class="mb-0"><a href="" class="text-muted"><img src="http://image.vport.com/${stu.icon }" alt="task-user" class="thumb-sm rounded-circle mr-2"> <span class="font-bold font-secondary">${stu.name }</span></a> </p>
+                                                <p class="mb-0"><a href="${pageContext.request.contextPath }/rest/common/showStu?id=${stu.id}" class="text-muted"><img src="http://image.vport.com/${stu.icon }" alt="task-user" class="thumb-sm rounded-circle mr-2"> <span class="font-bold font-secondary">${stu.name }</span></a> </p>
                                             </div>
                                         </li>
                                         </c:forEach>
@@ -159,7 +159,111 @@
                 </div> <!-- container -->
 
             </div> <!-- content -->
-
+			<div id="evaluateModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">Evaluate to Alex</h4>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="nav nav-pills navtab-bg nav-justified pull-in ">
+                                <li class="nav-item">
+                                        <a href="#commenttab" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                                            <i class="mdi mdi-comment-outline mr-2"></i>Comment
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#skillstab" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                            <i class="mdi mdi-hexagon-outline mr-2"></i>Skills
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#physicaltab" data-toggle="tab" aria-expanded="true" class="nav-link">
+                                            <i class="mdi mdi-human mr-2"></i>Physical
+                                        </a>
+                                    </li>
+                                </ul>
+                            <form id="eval-form" class="form-horizontal" role="form" method="post">
+                            	<input id="studentId" type="hidden" name="player" value="">
+                            	<input type="hidden" name="trainer" value=${existUser.id }>
+                                <label class="col-form-label">Comments</label>
+                                <div class="input-group">
+                                    <textarea class="form-control" rows="1" placeholder="" name="comment"></textarea>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="skillstab">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Front Hand</label>
+                                            <input type="hidden" name="performanceContents[0].contentId" value="1">
+                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[0].count">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Back Hand</label>
+                                            <input type="hidden" name="performanceContents[1].contentId" value="2">
+                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[1].count">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Front Volley</label>
+                                            <input type="hidden" name="performanceContents[2].contentId" value="3">
+                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[2].count">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Back Volley</label>
+                                            <input type="hidden" name="performanceContents[3].contentId" value="4">
+                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[3].count">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Smash</label>
+                                            <input type="hidden" name="performanceContents[4].contentId" value="5">
+                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[4].count">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Serve</label>
+                                            <input type="hidden" name="performanceContents[5].contentId" value="6">
+                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[5].count">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="physicaltab">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Speed</label>
+                                            <input type="hidden" name="performanceContents[6].contentId" value="7">
+                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[6].count">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Strength</label>
+                                            <input type="hidden" name="performanceContents[7].contentId" value="8">
+                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[7].count">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Explosive Force</label>
+                                            <input type="hidden" name="performanceContents[8].contentId" value="9">
+                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[8].count">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Flexibility</label>
+                                            <input type="hidden" name="performanceContents[9].contentId" value="10">
+                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[9].count">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Coordination</label>
+                                            <input type="hidden" name="performanceContents[10].contentId" value="11">
+                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[10].count">
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="commenttab">
+                                        
+                                    </div>
+                                </div>                      
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Close</button>
+                            <button id="submit" type="button" class="btn btn-custom waves-effect waves-light">Save</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
             <footer class="footer text-right">
                 <p class="">2018 © Vport. - vport.com.au</p>
             </footer>
@@ -187,7 +291,7 @@
 
     
 
-    <!-- KNOB JS -->
+     <!-- KNOB JS -->
         <!--[if IE]>
         <script type="text/javascript" src="${pageContext.request.contextPath }/plugins/jquery-knob/excanvas.js"></script>
     <![endif]-->
@@ -196,14 +300,207 @@
     <!-- Dashboard Init -->
     <script src="${pageContext.request.contextPath }/assets/pages/jquery.dashboard.init.js"></script>
     <!-- Jquery-Ui -->
-        <script src="${pageContext.request.contextPath }/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="${pageContext.request.contextPath }/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="${pageContext.request.contextPath }/plugins/moment/moment.js"></script>
-        <script src='${pageContext.request.contextPath }/plugins/fullcalendar/js/fullcalendar.min.js'></script>
-        <script src="${pageContext.request.contextPath }/assets/pages/jquery.calendar.js"></script>
-
     <!-- App js -->
     <script src="${pageContext.request.contextPath }/assets/js/jquery.core.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/jquery.app.js"></script>
+    
+    <script type="text/javascript">
+    	/*
+    		1.绑定evaluate点击事件
+    		2.判断是否与上一次一直，如果不一致，清空form里面所有的value
+    		3.注入新的学生id和name
+    	*/
+    	$(".btn-evaluate").click(function(){
+    		var origStuId = $("#studentId").val();
+    		var newStuId = $(this).attr("data-studentId");
+    		if(origStuId != newStuId){
+    			$("#myModalLabel").text("Evaluate to "+$(this).attr("data-studentName"));
+    			$("#eval-form textarea,#eval-form div input[type=number]").val(null);
+    			$("#studentId").val(newStuId);
+    			
+    		}
+    	});
+    	
+    	$("#submit").click(function(){
+    		var form = $('#eval-form').formGet();
+    		/* console.log(form.player); */
+    		var myarr = new Array();
+    		var per = {};
+    		for(var o in form){
+    			if(o.startWith("performanceContents")){
+    				myarr.push(form[o]);
+    			}else{
+    				per[o] = form[o];
+    			}
+    		}
+    		per["performanceContents"] = myarr;
+    		console.log(per); 
+    		$.ajax({
+    			url:"${pageContext.request.contextPath}/rest/performance/storeEvaluateData",
+    			type:"post",
+    			contentType: "application/json",
+    			data:JSON.stringify(per),
+    			success:function(res){
+    				if(res == 1){
+    					$("#eval-form textarea,#eval-form div input[type=number]").val(null);
+    					$("#studentId").val(null);
+    					$("#evaluateModal .close").click();
+    				}
+    			}
+    		}); 
+    	});
+    
+    	/*-------------------------*/
+    	String.prototype.startWith=function(str){
+			var reg=new RegExp("^"+str);
+			return reg.test(this);
+			}
+    	/*-------------------------*/
+    	var _fnObjectGetPropertyChainValue = function(obj, propertyChain) {
+	      /* 获取属性链的值 */
+	      if (!obj) return;
+	      if (!propertyChain) return obj;
+	      var property,
+	        chains = propertyChain.split('.'),
+	        i = 0,
+	        len = chains.length;
+	      for (;
+	        (property = chains[i]) && i < len - 1; i++) {
+	        if (!obj[property]) return;
+	        obj = obj[property];
+	      }
+	      return obj[property];
+	    },
+	    _fnObjectSetPropertyChainValue = function(obj, propertyChain, value, allowMulti) {
+	      /* 设置属性链的值 */
+	      if (!obj || !propertyChain) return;
+	      var property,
+	        chainObj = obj,
+	        chains = propertyChain.split('.'),
+	        i = 0,
+	        len = chains.length;
+	      for (;
+	        (property = chains[i]) && i < len - 1; i++) {
+	        if (!chainObj[property]) {
+	          chainObj[property] = {};
+	        }
+	        chainObj = chainObj[property];
+	      }
+	      // 改进版：checkbox的多选可以组合为数组
+	      if (!allowMulti || chainObj[property] === undefined) {
+	        chainObj[property] = value;
+	      } else {
+	        var pv = chainObj[property];
+	        if ($.isArray(pv)) {
+	          pv.push(value);
+	        } else {
+	          chainObj[property] = [pv, value];
+	        }
+	      }
+	      return obj;
+	    };
+	 
+	 
+	 
+	 /**
+	     * jQuery form 扩展获取数据
+	     */
+	  $.fn.formGet = function(opts) {
+	    opts = $.extend({}, opts);
+	    var data = {},
+	      els = opts.formGroup ? this.find('[form-group="' + opts.formGroup + '"]') : this.find('[name]');
+	    if (!els || !els.length) {
+	      return data;
+	    }
+	 
+	 
+	    var fnSetValue = (function(emptyToNull) {
+	      return emptyToNull ? function(obj, propertyChain, value, allowMulti) {
+	        value !== '' && _fnObjectSetPropertyChainValue(obj, propertyChain, value, allowMulti)
+	      } : _fnObjectSetPropertyChainValue
+	    })(opts.emptyToNull);
+	 
+	 
+	    els.each(function() {
+	      var $this = $(this),
+	        type = $this.attr('type'),
+	        name = $this.attr('name'), // 可能为属性链
+	        tag = this.tagName.toLowerCase();
+	      if (tag == 'input') {
+	        if (type == 'checkbox') {
+	          var v = $(this).val();
+	          if (v == 'on' || !v) {
+	            fnSetValue(data, name, $(this).prop('checked'));
+	          } else {
+	            $(this).prop('checked') && fnSetValue(data, name, v, true);
+	          }
+	        } else if (type == 'radio') {
+	          this.checked && fnSetValue(data, name, $this.val());
+	        } else {
+	          fnSetValue(data, name, $this.val());
+	        }
+	      } else if ('|select|textarea|'.indexOf('|' + tag + '|') > -1) {
+	        fnSetValue(data, name, $this.val());
+	      } else {
+	        fnSetValue(data, name, $.trim($this.text()));
+	      }
+	    });
+	    return data;
+	  };
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	  /**
+	     * jQuery form 扩展绑定数据
+	     * 
+	     */
+	  $.fn.formSet = function(data, formGroup) {
+	    var els = formGroup ? this.find('[form-group="' + formGroup + '"]') : this.find('[name]');
+	    if (!els || !els.length) {
+	      return this;
+	    }
+	 
+	 
+	 
+	    els.each(function() {
+	      var $this = $(this),
+	        type = $this.attr('type'),
+	        name = $this.attr('name'),
+	        tag = this.tagName.toLowerCase();
+	 
+	 
+	      var value = _fnObjectGetPropertyChainValue(data, name);
+	      if (tag == 'input') {
+	        if (type == 'checkbox') {
+	          var v = $(this).val();
+	          if (v == 'on' || !v) {
+	            this.checked = value ? 'checked' : '';
+	          } else {
+	            this.checked = $.isArray(value) && value.indexOf(v) > -1 ? 'checked' : ''
+	          }
+	        } else if (type == 'radio') {
+	          this.checked = $this.val() == String(value) ? 'checked' : '';
+	        } else {
+	          $this.val(value);
+	        }
+	      } else if ('|select|textarea|'.indexOf('|' + tag + '|') > -1) {
+	        $this.val(value);
+	      } else {
+	        $this.html(value);
+	      }
+	    });
+	    return this;
+	  }
+    </script>
+    
 
 </body>
 </html>

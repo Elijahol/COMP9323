@@ -10,7 +10,9 @@ import com.github.abel533.entity.Example;
 import com.github.abel533.entity.Example.Criteria;
 import com.vport.system.exception.MessageException;
 import com.vport.system.mapper.UserMapper;
+import com.vport.system.pojo.person.Reward;
 import com.vport.system.pojo.person.User;
+import com.vport.system.pojo.person.UserWithReward;
 import com.vport.system.service.UserService;
 import com.vport.system.utils.MailUtils;
 import com.vport.system.utils.UUIDUtils;
@@ -62,6 +64,32 @@ public class UserServiceImpl implements UserService {
     public void updateUser(User user) {
         user.setUpdatetime(new Date());
         userMapper.updateByPrimaryKey(user);
+        
+    }
+
+    @Override
+    public UserWithReward findUserWithRewardById(Long id) {
+        // TODO Auto-generated method stub
+        return userMapper.findUserWithRewardById(id);
+    }
+
+    @Override
+    public void updateReward(Reward reward) {
+        reward.setUpdateTime(new Date());
+        userMapper.updateReward(reward);
+        
+    }
+
+    @Override
+    public void deleteReward(Reward reward) {
+        userMapper.deleteReward(reward.getId());
+        
+    }
+
+    @Override
+    public void addReward(Reward reward) {
+        reward.setCreateTime(new Date());
+        userMapper.addReward(reward);
         
     }
 

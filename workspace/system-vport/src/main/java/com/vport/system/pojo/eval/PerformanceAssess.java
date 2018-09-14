@@ -14,8 +14,7 @@ public class PerformanceAssess implements Serializable{
     private Long player;
     private Date time;
     private String comment;
-    private Long chiefTrainer;
-    private Long assistant;
+    private Long trainer;
     
     private List<PerformanceContent> performanceContents;
 
@@ -51,20 +50,14 @@ public class PerformanceAssess implements Serializable{
         this.comment = comment;
     }
 
-    public Long getChiefTrainer() {
-        return chiefTrainer;
+    
+
+    public Long getTrainer() {
+        return trainer;
     }
 
-    public void setChiefTrainer(Long chiefTrainer) {
-        this.chiefTrainer = chiefTrainer;
-    }
-
-    public Long getAssistant() {
-        return assistant;
-    }
-
-    public void setAssistant(Long assistant) {
-        this.assistant = assistant;
+    public void setTrainer(Long trainer) {
+        this.trainer = trainer;
     }
 
     public List<PerformanceContent> getPerformanceContents() {

@@ -56,7 +56,7 @@
                 </li>
                 </c:if>
                 <li>
-                    <a href="javascript: void(0);"><i class="fi-paper"></i> <span> Profile </span></a>
+                    <a href="${pageContextrequest.contextPath }/rest/common/showProfile?id=${existUser.id}"><i class="fi-paper"></i> <span> Profile </span></a>
                 </li>
                 <li>
                     <a href="${pageContext.request.contextPath }/rest/user/logout"><i class="fi-disc"></i><span class="badge badge-info pull-right">10</span> <span> Log out </span></a>

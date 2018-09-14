@@ -1,6 +1,8 @@
 package com.vport.system.pojo.person;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.GeneratedValue;
@@ -28,8 +30,7 @@ public class User implements Serializable{
     private Double weight;
     private String city;
     private String icon;
-    private String experience;
-    private String award;
+    private String introduction;
     private Integer status; //1.已经激活 0.未激活
     private Integer role; //1.教练 2.成年人 3.未成年人
     private String code;
@@ -39,13 +40,38 @@ public class User implements Serializable{
     @Transient
     private Integer age;
     
+    @Transient
+    private String birthdayFormat;
     
-    public String getExperience() {
-        return experience;
+    
+    
+    
+    
+    
+    public String getBirthdayFormat() {
+        return birthdayFormat;
     }
-    public void setExperience(String experience) {
-        this.experience = experience;
+
+    public void setBirthdayFormat(String birthdayFormat) throws ParseException {
+        SimpleDateFormat sdf = null;
+        this.birthdayFormat = birthdayFormat;
+        try {
+            sdf = new SimpleDateFormat("yyyy-MM-dd");
+            this.birthday = sdf.parse(birthdayFormat);
+        } catch (ParseException e) {
+            sdf = new SimpleDateFormat("dd/MM/yyyy");
+            this.birthday = sdf.parse(birthdayFormat);
+        }
     }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
     public Integer getAge() {
         return age;
     }
@@ -84,8 +110,10 @@ public class User implements Serializable{
         return birthday;
     }
     public void setBirthday(Date birthday) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         this.birthday = birthday;
         this.age = DateUtil.getAgeByBirth(birthday);
+        this.birthdayFormat = sdf.format(birthday);
     }
     public String getGender() {
         return gender;
@@ -117,18 +145,7 @@ public class User implements Serializable{
     public void setIcon(String icon) {
         this.icon = icon==null?null:icon.trim();;
     }
-    public String getExprience() {
-        return experience;
-    }
-    public void setExprience(String experience) {
-        this.experience = experience==null?null:experience.trim();;
-    }
-    public String getAward() {
-        return award;
-    }
-    public void setAward(String award) {
-        this.award = award==null?null:award.trim();;
-    }
+    
     public Integer getStatus() {
         return status;
     }
@@ -159,14 +176,16 @@ public class User implements Serializable{
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
     }
+
     @Override
     public String toString() {
         return "User [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email
                 + ", phone=" + phone + ", birthday=" + birthday + ", gender=" + gender + ", height=" + height
-                + ", weight=" + weight + ", city=" + city + ", icon=" + icon + ", experience=" + experience
-                + ", award=" + award + ", status=" + status + ", role=" + role + ", code=" + code
-                + ", createtime=" + createtime + ", updatetime=" + updatetime + "]";
+                + ", weight=" + weight + ", city=" + city + ", icon=" + icon + ", introduction="
+                + introduction + ", status=" + status + ", role=" + role + ", code=" + code + ", createtime="
+                + createtime + ", updatetime=" + updatetime + ", age=" + age + "]";
     }
+    
     
     
     

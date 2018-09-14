@@ -29,10 +29,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="name" property="name"/>
 	</resultMap> -->
 	<select id="findStudentsByClass" parameterType="Long" resultType="User">
-		SELECT * FROM training_class c,player p,USER u 
-		WHERE  c.id = p.class_id 
-		AND p.player = u.id 
-		AND c.id = #{value}
+		SELECT * FROM player p,USER u 
+		WHERE p.player = u.id 
+		AND p.class_id = #{value}
 	</select>
 	
 	<resultMap type="TrainingPlan" id="trainingPlan">

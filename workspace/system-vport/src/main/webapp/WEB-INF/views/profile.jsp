@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,17 +13,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath }/assets/images/favicon.ico">
     <!-- Bootstrap fileupload css -->
-    <link href="../plugins/bootstrap-fileupload/bootstrap-fileupload.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath }/plugins/bootstrap-fileupload/bootstrap-fileupload.css" rel="stylesheet" />
     <!-- App css -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/style_dark.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath }/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath }/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath }/assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath }/assets/css/style_dark.css" rel="stylesheet" type="text/css" />
 
-    <script src="assets/js/modernizr.min.js"></script>
-
+    <script src="${pageContext.request.contextPath }/assets/js/modernizr.min.js"></script>
+	<style type="text/css">
+		.hidden{
+			display:none;
+		}
+		.inputError{
+			border:2px solid red;
+		}
+		.labelError{
+			color:red;
+		}
+	</style>
 </head>
 
 
@@ -29,66 +43,7 @@
     <div id="wrapper">
 
         <!-- ========== Left Sidebar Start ========== -->
-        <div class="left side-menu side-menu-sm">
-
-            <div class="slimscroll-menu" id="remove-scroll">
-
-                <!-- LOGO -->
-                <div class="topbar-left">
-                    <a href="index.html" class="logo">
-                        <span>
-                            <img src="assets/images/vport.png" alt="" height="16">
-                        </span>
-                        <i>
-                            <img src="assets/images/vport.png" alt="" height="16">
-                        </i>
-                    </a>
-                </div>
-
-                <!-- User box template-->
-                <div class="user-box">
-                    <div class="user-img">
-                        <!-- user photo -->
-                        <img src="assets/images/users/avatar-1.jpg" alt="user-img" title="Mat Helme" class="rounded-circle img-fluid">
-                    </div>
-                    <!-- user name -->
-                    <h5><a href="#">Maxine Kennedy</a> </h5>
-                </div>
-
-                <!--- Sidemenu -->
-                <div id="sidebar-menu">
-
-                    <ul class="metismenu" id="side-menu">
-                        <li>
-                            <a href="index.html">
-                                <i class="fi-air-play"></i><span> Home </span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="courses.html"><i class="fi-layers"></i> <span> Courses </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="datacenter.html"><i class="fi-bar-graph-2"></i> <span> Data Center </span></a>
-                        </li>
-                        <li>
-                            <a href="profile.html"><i class="fi-paper"></i> <span> Profile </span></a>
-                        </li>
-                        <li>
-                            <a href="login.html"><i class="fi-disc"></i> <span> Log out </span></a>
-                        </li>
-                    </ul>
-
-                </div>
-                <!-- Sidebar -->
-
-                <div class="clearfix"></div>
-
-            </div>
-            <!-- Sidebar -left -->
-
-        </div>
+        <%@ include file="leftSidebar.jsp" %>
         <!-- Left Sidebar End -->
 
 
@@ -129,37 +84,7 @@
                 <div class="container-fluid">
 
                     <!-- user-info template -->
-                    <div class="row m-t-50">
-                        <div class="col-12">
-                            <div class="card-box user-box-2">
-                                <img src="assets/images/bg-1.jpg" alt="">
-                                <div class="user-name">
-                                    <h4>Alex <i class=""></i></h4>
-                                </div>
-                                <!-- if edit the profile -->
-                                <button class="btn btn-outline-custom btn-rounded waves-light waves-effect" data-toggle="modal" data-target="#myModal">Edit</button>
-                                <!-- else if view this profile -->
-                                <!-- <a href="dataCenter.html"><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">More</button></a> -->
-                                <!-- end if -->
-
-                                <p><i class="mdi mdi-map-marker-outline"></i> user address</p>
-                            </div>
-                            <div class="user-data-box">
-                                <div class="user-data">
-                                    <h6>24</h6>
-                                    <p>Age</p>
-                                </div>
-                                <div class="user-data">
-                                    <h6>50</h6>
-                                    <p>KG</p>
-                                </div>
-                                <div class="user-data">
-                                    <h6>183</h6>
-                                    <p>CM</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <%@ include file="headerInfo.jsp" %>
                     <!-- end row -->
 
 
@@ -180,7 +105,7 @@
                                     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                                         <div class="card-body bg-transparent">
                                             <p>
-                                                sfdfafa dfssa gga dfdsf asfasfa affad 
+                                                ${user.introduction }
                                             </p>
                                         </div>
                                     </div>
@@ -197,20 +122,25 @@
                                     <div id="collapseTwo" class="collaps show" role="tabpanel" aria-labelledby="headingTwo">
                                         <div class="card-body plan-box" >
                                             <!-- reward info template -->
-                                            <div class="class-box">
+                                            <c:forEach var="reward" items="${user.rewards }" varStatus="status">
+                                            <div class="class-box" id="reward-${status.index }">
+                                            	<span class="hidden">${reward.id }</span>
                                                 <div class="class-box-header">
                                                     <h5><i class="mdi mdi-bullseye"></i>
-                                                    Rewards title</h5>
+                                                    ${reward.title }</h5>
                                                 </div>
                                                 <div class="class-box-body">
-                                                    <p>content.....
+                                                    <p>${reward.content }
                                                         <br>
-                                                    20.12.2018 12:00PM</p>
+                                                    ${reward.rewardTime }</p>
                                                 </div>
                                             </div>
+                                            </c:forEach>
                                             <!-- end template -->
                                             <!-- if edit the profile -->
+                                            <c:if test="${user.id == existUser.id }">
                                             <button class="btn btn-custom waves-light waves-effect" data-toggle="modal" data-target="#rewardModal" style="width: 100%;">Edit Rewards</button>
+                                            </c:if>
                                             <!-- end if -->
                                         </div>
                                     </div>
@@ -234,50 +164,51 @@
                             <h4 class="modal-title" id="myModalLabel">Edit Your Information</h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal" role="form">
+                            <form id="profile-form" class="form-horizontal" role="form" action="${pageContext.request.contextPath }/rest/common/updateUser" method="post" enctype="multipart/form-data">
+                            	<input type="hidden" name="id" value="${user.id }">
                                 <div class="form-group">
                                     <label class="col-form-label">Name</label>
-                                    <input name="name" type="text" class="form-control" value="Alex">
+                                    <input name="name" type="text" class="form-control" value="${user.name }">
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-form-label">Address</label>
-                                    <input name="email" type="email" class="form-control" value="222 xxx rd, Randwick">
+                                    <label class="col-form-label">Phone</label>
+                                    <input name="phone" type="text" class="form-control" value="${user.phone }">
                                 </div>
                                 <label class="col-form-label">BOD</label>
                                 <div class="input-group">
-                                    <input name="dob" class="form-control" type="text" value="12/09/1990" onfocus="(this.type='date')" placeholder="12/09/1990">
+                                    <input name="birthdayFormat" class="form-control" type="text" value="${user.birthdayFormat }" onfocus="(this.type='date')" placeholder="12/09/1990">
                                 </div>
                                 <label class="col-form-label">Weight</label>
                                 <div class="input-group">
-                                    <input name="weight" type="number" class="form-control" value="50" aria-label="Weight" aria-describedby="basic-addon1">
+                                    <input name="weight" type="number" class="form-control" value="${user.weight }" aria-label="Weight" aria-describedby="basic-addon1">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">KG</span>
                                     </div>
                                 </div>
                                 <label class="col-form-label">Height</label>
                                 <div class="input-group">
-                                    <input name="height" type="number" class="form-control" value="183" aria-label="height" aria-describedby="basic-addon1">
+                                    <input name="height" type="number" class="form-control" value="${user.height }" aria-label="height" aria-describedby="basic-addon1">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">CM</span>
                                     </div>
                                 </div>
                                 <label class="col-form-label">Introduction</label>
                                 <div class="input-group">
-                                    <textarea class="form-control" rows="1" value="sdfaf" placeholder="sdfaf"></textarea>
+                                    <textarea class="form-control" rows="1" name="introduction" placeholder="Introduction">${user.introduction }</textarea>
                                 </div>
                                 <label class="col-form-label">Image Upload</label>
                                 <div class="input-group">
                                     <div class="">
                                         <div class="fileupload fileupload-new" data-provides="fileupload">
                                             <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
-                                                <img src="assets/images/small/img-1.jpg" alt="image" />
+                                                <img src="http://image.vport.com/${user.icon }" alt="image" />
                                             </div>
                                             <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
                                             <div>
                                                 <button type="button" class="btn btn-outline-custom btn-file">
                                                     <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
                                                     <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
-                                                    <input type="file" class="btn-light" />
+                                                    <input type="file" class="btn-light" name="pictureFile"/>
                                                 </button>
                                                 <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash"></i> Remove</a>
                                             </div>
@@ -288,11 +219,12 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-custom waves-effect waves-light">Save changes</button>
+                            <button type="submit" class="btn btn-custom waves-effect waves-light"  onclick="formSubmit()">Save changes</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div>
+            
             <div id="rewardModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -301,48 +233,53 @@
                         <h4 class="modal-title" id="myModalLabel">Edit Your Rewards</h4>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal" role="form">
-                            <label class="col-form-label">Rewards</label>
-                            <div class="input-group">
-                                <select class="custom-select">
-                                    <option selected disabled="">Select a reward</option>
-                                    <option value="0">Add a new reward</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-                            <label class="col-form-label mt-3">Operation</label>
+                        <form id="reward-form" class="form-horizontal" role="form" action="${pageContext.request.contextPath }/rest/common/editReward" method="post">
+                         	<label class="col-form-label mt-3">Operation</label>
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio1" name="operation" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio1">Edit</label>
+                                <input type="radio" id="Edit" name="operation" value="Edit" class="custom-control-input">
+                                <label class="custom-control-label" for="Edit">Edit</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio2" name="operation" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio2">Delete</label>
+                                <input type="radio" id="Delete" name="operation" value="Delete" class="custom-control-input">
+                                <label class="custom-control-label" for="Delete">Delete</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio3" name="operation" class="custom-control-input">
-                                <label class="custom-control-label" for="customRadio3">Add</label>
+                                <input type="radio" id="Add" name="operation" value="Add" class="custom-control-input">
+                                <label class="custom-control-label" for="Add">Add</label>
                             </div>
-                            <div class="form-group mt-3">
-                                <label class="col-form-label">Title</label>
-                                <input name="title" type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label class="col-form-label">Content</label>
-                                <input name="content" type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label class="col-form-label">Time</label>
-                                <input name="date" type="text" class="form-control" onfocus="(this.type='date')">
+                            <div id="select-reward" class="hidden">
+	                            <label class="col-form-label">Rewards</label>
+	                            <div class="input-group">
+	                                <select id="select-option" class="custom-select">
+	                                    <option selected disabled="">Select a reward</option>
+	                                    <c:forEach var="reward" items="${user.rewards }" varStatus="status">
+	                                    <option value="reward-${status.index }">${reward.title }--${reward.rewardTime }</option>
+	                                    </c:forEach>
+	                                </select>
+	                            </div>
+                           </div>
+                           <div id="input-reward" class="hidden">
+	                            <div class="form-group mt-3">
+	                            	<input type="hidden" name=id>
+	                            	<input type="hidden" name=userId value="${existUser.id }">
+	                                <label class="col-form-label">Title</label>
+	                                <input name="title" type="text" class="form-control">
+	                            </div>
+	                            <div class="form-group">
+	                                <label class="col-form-label">Content</label>
+	                                <input name="content" type="text" class="form-control">
+	                            </div>
+	                            <div class="form-group">
+	                                <label class="col-form-label">Time</label>
+	                                <input name=rewardTime type="text" class="form-control" onfocus="(this.type='date')">
+	                            </div>
                             </div>
 
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-custom waves-effect waves-light">Save changes</button>
+                        <button type="submit" class="btn btn-custom waves-effect waves-light" onclick="rewardSubmit()">Save changes</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -367,32 +304,99 @@
 
 
 <!-- jQuery  -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/metisMenu.min.js"></script>
-<script src="assets/js/waves.js"></script>
-<script src="assets/js/jquery.slimscroll.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/popper.min.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/metisMenu.min.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/waves.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/jquery.slimscroll.js"></script>
 
 
 
 <!-- KNOB JS -->
-        <!--[if IE]>
-        <script type="text/javascript" src="../plugins/jquery-knob/excanvas.js"></script>
-    <![endif]-->
-    <script src="../plugins/jquery-knob/jquery.knob.js"></script>
+    <!--[if IE]>
+    <script type="text/javascript" src="${pageContext.request.contextPath }/plugins/jquery-knob/excanvas.js"></script>
+<![endif]-->
+<script src="${pageContext.request.contextPath }/plugins/jquery-knob/jquery.knob.js"></script>
 
-    <!-- Dashboard Init -->
-    <script src="assets/pages/jquery.dashboard.init.js"></script>
-    <!-- Jquery-Ui -->
-    <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script src="../plugins/moment/moment.js"></script>
-    <!-- Bootstrap fileupload js -->
-    <script src="../plugins/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+<!-- Dashboard Init -->
+<script src="${pageContext.request.contextPath }/assets/pages/jquery.dashboard.init.js"></script>
+<!-- Jquery-Ui -->
+<script src="${pageContext.request.contextPath }/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="${pageContext.request.contextPath }/plugins/moment/moment.js"></script>
+<!-- Bootstrap fileupload js -->
+<script src="${pageContext.request.contextPath }/plugins/bootstrap-fileupload/bootstrap-fileupload.js"></script>
 
-    <!-- App js -->
-    <script src="assets/js/jquery.core.js"></script>
-    <script src="assets/js/jquery.app.js"></script>
-
+<!-- App js -->
+<script src="${pageContext.request.contextPath }/assets/js/jquery.core.js"></script>
+<script src="${pageContext.request.contextPath }/assets/js/jquery.app.js"></script>
+<script type="text/javascript">
+	function formSubmit(){
+		$("#profile-form").submit();
+	}
+	//reward表单提交加校验
+	function rewardSubmit(){
+		var isValid = true;
+		if($("#Edit").attr("checked") || $("#Add").attr("checked")){
+			$("#input-reward input[type=text]").each(function(i,n){
+				if($(n).val() == null || $(n).val() == '' ){
+					$(this).addClass("inputError");
+					$(this).siblings("label").addClass("labelError");
+					isValid = false;
+				}
+			});
+		}
+		
+		if(isValid == true){
+			$("#reward-form").submit();
+		}
+		/* $("#reward-form").submit(); */
+	}
+	
+	$("#input-reward input[type=text]").mousedown(function(){
+		$(this).removeClass("inputError");
+		$(this).siblings("label").removeClass("labelError");
+	});
+	
+	
+	var isEdit = false;
+	$("#reward-form input[type=radio]").click(function(){
+		isEdit = false;
+		$("#select-reward").addClass("hidden");
+		$("#input-reward").addClass("hidden");
+		var id = $(this).attr("id");
+		/*1.edit和delete 
+			调出select选择框
+		  2.edit和add
+			跳出输入框
+			edit回显信息*/
+		if(id == "Edit" || id == "Delete"){
+			if(id == "Edit") isEdit = true;
+			$("#select-option option").removeAttr("selected");
+			$("#select-option option:first-child").attr("selected","");
+			$("#select-reward").removeClass("hidden");
+		}else if(id == "Add"){
+			$("#input-reward input[type=text]").val(null);
+			$("#input-reward").removeClass("hidden");
+		}
+	}); 
+	$("#select-option").change(function(){
+		var eleId = $(this).val();
+		var id = $("#"+eleId+" span").text().trim();
+		var title = "";
+		var content ="";
+		var time ="";
+		$("#input-reward input[name=id]").val(id);
+		if(isEdit == true){
+			title = $("#"+eleId+" h5").text().trim();
+			content = $("#"+eleId+" p").html().split("<br>")[0].trim();
+			time = $("#"+eleId+" p").html().split("<br>")[1].trim();
+			$("#input-reward input[name=title]").val(title);
+			$("#input-reward input[name=content]").val(content);
+			$("#input-reward input[name=rewardTime]").val(time);
+			$("#input-reward").removeClass("hidden");
+		}
+	});
+</script>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package com.vport.system.pojo.eval;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PerformanceScore implements Serializable{
     
@@ -15,7 +17,25 @@ public class PerformanceScore implements Serializable{
     private Long typeId;
     private String typeName;
     private String typeNameCh;
+    private Date time;
+    private String visualTime;
     
+    
+    
+    public String getVisualTime() {
+        return visualTime;
+    }
+    public void setVisualTime(String visualTime) {
+        this.visualTime = visualTime;
+    }
+    public Date getTime() {
+        return time;
+    }
+    public void setTime(Date time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        this.visualTime = sdf.format(time);
+        this.time = time;
+    }
     public Long getContentId() {
         return contentId;
     }

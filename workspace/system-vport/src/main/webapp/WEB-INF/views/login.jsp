@@ -48,7 +48,7 @@
 
                                         <div class="form-group m-b-20 row">
                                             <div class="col-12">
-                                                <label for="emailaddress" class="text-muted">Email address</label><span style="color:white;">${msg }</span>
+                                                <label for="emailaddress" class="text-muted">Email address</label>
                                                 <input class="form-control b-r-30" type="email" name="email" id="emailaddress" required="" placeholder=" Enter your email">
                                             </div>
                                         </div>
@@ -85,10 +85,19 @@
                                         <p class=""><a href="${pageContext.request.contextPath }/rest/page/register" class="text-muted">Don't have an account?</a></p>
                                     </div>
 
-                                    <div class="row m-t-50">
-
+                                    <!-- notification template -->
+                                    <c:if test="${not empty msg}">
+                                    <div class="row" style="height: 80px;">
+                                        <!-- error -->
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            ${msg }
+                                        </div>
+                                        <!-- end -->
                                     </div>
-
+									</c:if>
                                 </div>
                             </div>
                         </div>

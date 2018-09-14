@@ -24,8 +24,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<selectKey keyProperty="id" resultType="Long" order="AFTER">
 			select LAST_INSERT_ID()
 		</selectKey>
-		insert into performance_assess (player,time,comment,chief_trainer,assistant) 
-		values(#{player},#{time},#{comment},#{chiefTrainer},#{assistant})
+		insert into performance_assess (player,time,comment,trainer) 
+		values(#{player},#{time},#{comment},#{trainer})
 	</insert>
 	
 	<insert id="insertPerformanceContent" parameterType="PerformanceContent">
@@ -47,5 +47,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE pd.assess_id = pa.id AND pd.content_id = ec.id AND pa.player=#{value}
 		GROUP BY pa.time
 		ORDER BY pa.time
+	</select>
+	
+	<select id="findLastPerformanceByPlayerId" parameterType="Long" resultType="PerformanceScore">
+		SELECT ec.id AS contentId,ec.name AS contentName,ec.ch_name AS contentNameCh,pd.count AS score,et.name AS typeName,et.ch_name AS typeNameCh,et.id AS typeId
+		FROM performance_data pd,evaluation_content ec, evaluation_type et
+		WHERE pd.content_id = ec.id AND ec.type=et.id AND pd.assess_id =
+		(SELECT id FROM performance_assess WHERE player=#{value}
+		ORDER BY TIME DESC
+		LIMIT 1)
+		ORDER BY contentId
+	</select>
+	
+	
+	<select id="findAvgPerfomanceWithTimeOrder" resultType="PerformanceScoreWithTime">
+		SELECT m.time,ec.type AS typeId,et.name AS typeName,et.ch_name AS typeNameCh,ROUND(AVG(COUNT),2)  AS 'score' 
+		FROM performance_data pd,evaluation_content ec,evaluation_type et,
+		(SELECT id AS assess_id,TIME FROM performance_assess 
+		WHERE player=#{studentId}
+		ORDER BY TIME DESC
+		LIMIT 5) m
+		WHERE pd.content_id = ec.id AND ec.type=et.id AND pd.assess_id = m.assess_id AND ec.type = #{typeId}
+		GROUP BY typeId,TIME
+		ORDER BY TIME
+	</select>
+	
+	<select id="findAllPerformanceWithTimeOrder" resultType="PerformanceScore">
+		SELECT m.time,ec.name AS contentName, ec.ch_name AS contentNameCh, ec.id AS contentId, pd.count AS 'score',ec.type AS typeId
+		FROM performance_data pd,evaluation_content ec,evaluation_type et,
+		(SELECT id AS assess_id,TIME FROM performance_assess
+		WHERE player=#{studentId}
+		ORDER BY TIME
+		LIMIT 5) m
+		WHERE pd.content_id = ec.id AND ec.type=et.id AND pd.assess_id = m.assess_id AND ec.type = #{typeId}
 	</select>
 </mapper>
