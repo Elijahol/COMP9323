@@ -170,9 +170,9 @@ public class DateUtil {
             
             // 判断要计算的日期是否是周日，如果是则减一天计算周六的，否则会出问题，计算到下一周去了
             int dayOfWeek = calendar1.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
-            if (1 == dayOfWeek) {
+            /*if (1 == dayOfWeek) {
                     calendar1.add(Calendar.DAY_OF_MONTH, -1);
-            }
+            }*/
     
             // 获得当前日期是一个星期的第几天
             int day = calendar1.get(Calendar.DAY_OF_WEEK);

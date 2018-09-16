@@ -6,7 +6,9 @@ import java.util.Map;
 import com.vport.system.bean.CourseTime;
 import com.vport.system.bean.ResponseData;
 import com.vport.system.bean.TimeTableWithWeek;
+import com.vport.system.pojo.TrainingClassToDisPlay;
 import com.vport.system.pojo.person.User;
+import com.vport.system.pojo.training.TrainingClass;
 import com.vport.system.pojo.training.TrainingClassInfo;
 
 public interface CourseService {
@@ -14,4 +16,7 @@ public interface CourseService {
     Map<String, Object> getTimeTable(Long id);
     List<CourseTime> getClassTimeByClassId(Long classId);
     TrainingClassInfo getClassInfoByClassId(Long classId);
+    void addCourse(TrainingClass trainingClass, Long trainer);
+    List<TrainingClassToDisPlay> getOpenCourse();
+    TrainingClassToDisPlay getOpenCourseDetail(Long classId);
 }

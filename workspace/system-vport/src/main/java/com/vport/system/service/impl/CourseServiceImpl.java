@@ -2,6 +2,7 @@ package com.vport.system.service.impl;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -11,12 +12,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.abel533.entity.Example;
+import com.mysql.fabric.xmlrpc.base.Array;
 import com.vport.system.bean.CourseTime;
 import com.vport.system.bean.ResponseData;
 import com.vport.system.bean.Student;
 import com.vport.system.bean.TimeTable;
 import com.vport.system.bean.TimeTableWithWeek;
 import com.vport.system.mapper.CourseMapper;
+import com.vport.system.pojo.TrainingClassToDisPlay;
 import com.vport.system.pojo.person.User;
 import com.vport.system.pojo.training.TrainingClass;
 import com.vport.system.pojo.training.TrainingClassInfo;
@@ -39,16 +43,19 @@ public class CourseServiceImpl implements CourseService {
         
         List<TrainingClassInfo> list = courseMapper.findClassByTrainer(trainer.getId());
         for (TrainingClassInfo trainingClassInfo : list) {
-            Long classId = trainingClassInfo.getClassId();
-            List<User> studentList = courseMapper.findStudentsByClass(classId);
-            List<Student> students = new ArrayList<Student>();
-            for (User user : studentList) {
-                Student student = new Student(user);
-                students.add(student);
+            if (trainingClassInfo.getIsOpen() != true) {
+                Long classId = trainingClassInfo.getClassId();
+                List<User> studentList = courseMapper.findStudentsByClass(classId);
+                List<Student> students = new ArrayList<Student>();
+                for (User user : studentList) {
+                    Student student = new Student(user);
+                    students.add(student);
+                }
+                trainingClassInfo.setStudents(students);
+               /* List<TrainingPlan> plans = courseMapper.findPlanByClass(classId);
+                trainingClassInfo.setPlans(plans);*/
             }
-            trainingClassInfo.setStudents(students);
-           /* List<TrainingPlan> plans = courseMapper.findPlanByClass(classId);
-            trainingClassInfo.setPlans(plans);*/
+           
         }
         
         
@@ -158,6 +165,43 @@ public class CourseServiceImpl implements CourseService {
         }
         Collections.sort(timeList);
         return timeList;
+    }
+    @Override
+    public void addCourse(TrainingClass trainingClass, Long trainer) {
+        trainingClass.setCreatetime(new Date());
+        trainingClass.setIsOpen(true);
+        trainingClass.setIsFinish(false);
+        courseMapper.storeClass(trainingClass);
+        courseMapper.linkClassAndTrainer(trainingClass.getClassId(),trainer,1);
+        
+    }
+    @Override
+    public TrainingClassToDisPlay getOpenCourseDetail(Long classId) {
+        TrainingClass trainingClass = courseMapper.selectByPrimaryKey(classId);
+        TrainingClassToDisPlay trainingClassToDisPlay = new TrainingClassToDisPlay();
+        trainingClassToDisPlay.setPics(Arrays.asList(trainingClass.getPic().split(",")));
+        User trainer = courseMapper.findChiefTrainerOfClass(trainingClass.getClassId());
+        trainingClassToDisPlay.setTrainingClass(trainingClass);
+        List<User> students = courseMapper.findStudentsByClass(classId);
+        trainingClassToDisPlay.setStudents(students);
+        trainingClassToDisPlay.setTrainer(trainer);
+        trainingClassToDisPlay.setStartTime(trainingClass.getStarttime());
+        trainingClassToDisPlay.setDeadLine(trainingClass.getDeadLine());
+        return trainingClassToDisPlay;
+    }
+    @Override
+    public List<TrainingClassToDisPlay> getOpenCourse() {
+        Example example = new Example(TrainingClass.class);
+        example.createCriteria().andEqualTo("isOpen", true);
+        List<TrainingClass> list = courseMapper.selectByExample(example);
+        List<TrainingClassToDisPlay> res = new ArrayList<>();
+        for (TrainingClass trainingClass : list) {
+            TrainingClassToDisPlay trainingClassToDisPlay = new TrainingClassToDisPlay();
+            trainingClassToDisPlay.setTrainingClass(trainingClass);
+            trainingClassToDisPlay.setPics(Arrays.asList(trainingClass.getPic().split(",")));
+            res.add(trainingClassToDisPlay);
+        }
+        return res;
     }
 
     

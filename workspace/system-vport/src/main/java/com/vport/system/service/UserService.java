@@ -1,5 +1,7 @@
 package com.vport.system.service;
 
+import java.util.List;
+
 import com.vport.system.exception.MessageException;
 import com.vport.system.pojo.person.Reward;
 import com.vport.system.pojo.person.User;
@@ -18,4 +20,5 @@ public interface UserService {
     void updateReward(Reward reward);
     void deleteReward(Reward reward);
     void addReward(Reward reward);
+    List<User> findUserByRole(long role);
 }

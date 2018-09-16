@@ -93,6 +93,11 @@ public class UserServiceImpl implements UserService {
         
     }
 
+    @Override
+    public List<User> findUserByRole(long role) {
+        return userMapper.findUserByRole(role);
+    }
+
    /* @Override
     public void addTrainer(User user) {
         userMapper.insertTrainer(user.getId());

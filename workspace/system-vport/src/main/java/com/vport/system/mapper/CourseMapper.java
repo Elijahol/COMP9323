@@ -3,6 +3,8 @@ package com.vport.system.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.github.abel533.mapper.Mapper;
 import com.vport.system.pojo.person.User;
 import com.vport.system.pojo.training.TrainingClass;
@@ -17,4 +19,10 @@ public interface CourseMapper extends Mapper<TrainingClass> {
     List<TrainingPlan> findPlanByClass(Long classId);
 
     TrainingClassInfo findClassInfoByClassId(Long classId);
+
+    void storeClass(TrainingClass trainingClass);
+
+    void linkClassAndTrainer(@Param("classId")Long classId, @Param("trainer")Long trainer,@Param("isChief") Integer isChief);
+
+    User findChiefTrainerOfClass(Long classId);
 }

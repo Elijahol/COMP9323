@@ -53,5 +53,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id = #{value}
 	</select>
 	
+	<insert id="storeClass" parameterType="TrainingClass">
+		<selectKey keyProperty="classId" resultType="Long" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+		insert into training_class (class_name,place,period,hour_to,rank,description,starttime,createtime,is_open,is_finish,deadLine,pic)
+		values(#{className},#{place},#{period},#{hourTo},#{rank},#{description},#{starttime},#{createtime},#{isOpen},#{isFinish},#{deadLine},#{pic})
 	
+	</insert>
+	<insert id="linkClassAndTrainer">
+		insert into trainer (trainer,class_id,is_chief) values (#{trainer},#{classId},#{isChief})
+	</insert>
+	
+	<select id="findChiefTrainerOfClass" parameterType="Long" resultType="User">
+		SELECT id, name, icon
+		FROM USER
+		WHERE id =(
+		SELECT trainer FROM trainer
+		WHERE class_id=#{value} AND is_chief = 1)
+	</select>
 </mapper>

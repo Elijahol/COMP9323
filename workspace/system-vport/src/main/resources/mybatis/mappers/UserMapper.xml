@@ -66,4 +66,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into rewards (user_id,title,content,reward_time,create_time)
 		values (#{userId},#{title},#{content},#{rewardTime},#{createTime})
 	</insert>
+	
+	
+	<select id="findUserByRole" parameterType="Long" resultType="User">
+		select id,name from user
+		where role = #{value};
+	
+	</select>
 </mapper>

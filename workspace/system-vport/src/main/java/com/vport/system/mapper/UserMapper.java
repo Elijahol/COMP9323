@@ -1,5 +1,7 @@
 package com.vport.system.mapper;
 
+import java.util.List;
+
 import com.github.abel533.mapper.Mapper;
 import com.vport.system.pojo.person.Reward;
 import com.vport.system.pojo.person.User;
@@ -17,6 +19,8 @@ public interface UserMapper extends Mapper<User>{
     void deleteReward(Long rewardId);
 
     void addReward(Reward reward);
+
+    List<User> findUserByRole(long role);
 
     /*void insertTrainer(Long id);
 

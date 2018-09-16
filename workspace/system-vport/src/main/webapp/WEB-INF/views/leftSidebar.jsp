@@ -47,7 +47,7 @@
                 </li>
 
                 <li>
-                    <a href="javascript: void(0);"><i class="fi-layers"></i> <span> Courses </span>
+                    <a href="${pageContext.request.contextPath }/rest/course/showOpenCourse"><i class="fi-layers"></i> <span> Courses </span>
                     </a>
                 </li>
                 <c:if test="${existUser.role == 2 }">
