@@ -18,7 +18,7 @@ public class DateUtil {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     public static final int DAYS_OF_ONE_WEEK = 7;
-    private static Map<Long, String> dayOfWeek;
+    public static Map<Long, String> dayOfWeek;
     static{
         dayOfWeek= new HashMap<Long,String>();
         dayOfWeek.put(1L, "Monday");

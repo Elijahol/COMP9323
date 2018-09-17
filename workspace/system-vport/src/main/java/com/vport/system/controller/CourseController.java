@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.vport.system.bean.CourseTime;
 import com.vport.system.bean.PlanTree;
 import com.vport.system.bean.ResponseData;
+import com.vport.system.pojo.ClassInfoForStu;
 import com.vport.system.pojo.TrainingClassToDisPlay;
 import com.vport.system.pojo.person.User;
 import com.vport.system.pojo.training.TrainingClass;
@@ -74,6 +75,10 @@ public class CourseController {
         return new ResponseData(0, "yes", data);
     }
     
+    /**
+     * 获得教练页面的班级信息
+     * @return
+     */
     @RequestMapping(value="classInfo",method = RequestMethod.GET)
     @ResponseBody
     public List<TrainingClassInfo> getClassInfo(){
@@ -84,6 +89,13 @@ public class CourseController {
         }
         List<TrainingClassInfo> classInfo = courseService.getClassInfo(trainer);
         return classInfo;
+    }
+    @RequestMapping(value = "classInfoForStu",method = RequestMethod.GET)
+    @ResponseBody
+    public List<ClassInfoForStu> classInfoForStu(){
+        User player = (User) session.getAttribute("existUser");
+        List<ClassInfoForStu> list = courseService.getClassInfoForStu(player);
+        return list;
     }
     
     /**
@@ -109,10 +121,19 @@ public class CourseController {
         return "courseDetails";
     }
     
+    @RequestMapping(value="classInfoByClassIdForStu",method = RequestMethod.GET)
+    public String getClassInfoByClassIdForStu(Long classId,Model model){
+        ClassInfoForStu classInfoForStu = courseService.getClassInfoByClassIdForStu(classId);
+        model.addAttribute("classInfo", classInfoForStu);
+        return "stuCourseDetals";
+    }
+    
+    
     @RequestMapping(value="timeTable",method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getTimeTable(Long id){
-        Map<String, Object> timeTable = courseService.getTimeTable(id);
+        User user = (User) session.getAttribute("existUser");
+        Map<String, Object> timeTable = courseService.getTimeTable(id,user.getRole());
         return timeTable;
     }
     @RequestMapping(value="eachPlan",method = RequestMethod.GET)

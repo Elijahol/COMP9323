@@ -110,7 +110,12 @@ public class UserController {
             return "login";
         }
         //判断是教练还是球员
-        return "trainerMain";
+        if (existUser.getRole() == 1) {
+            return "trainerMain";
+        }else{
+            return "stuMain";
+        }
+        
     }
     @RequestMapping(value="logout",method=RequestMethod.GET)
     public String logout(){

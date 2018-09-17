@@ -40,7 +40,7 @@
                     </a>
                     </c:if>
                     <c:if test="${existUser.role == 2 }">
-                    <a href="${pageContext.request.contextPath }/rest/page/studentMain">
+                    <a href="${pageContext.request.contextPath }/rest/page/stuMain">
                         <i class="fi-air-play"></i><span> Home </span>
                     </a>
                     </c:if>
@@ -52,7 +52,7 @@
                 </li>
                 <c:if test="${existUser.role == 2 }">
                 <li>
-                    <a href="javascript: void(0);"><i class="fi-bar-graph-2"></i> <span> Data Center </span></a>
+                    <a href="${pageContext.request.contextPath }/rest/common/showStu?id=${existUser.id}"><i class="fi-bar-graph-2"></i> <span> Data Center </span></a>
                 </li>
                 </c:if>
                 <li>

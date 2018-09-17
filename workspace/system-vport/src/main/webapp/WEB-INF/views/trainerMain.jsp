@@ -119,37 +119,37 @@
 	                                    </div>
 	                                    <div id="collapseTwo" class="collaps show" role="tabpanel" aria-labelledby="headingTwo">
 	                                        <div class="card-body timetable-box" >
-	                                        <div class="table-rep-plugin">
-	                                        <div id="timetableDis" class="table-responsive" data-pattern="priority-columns">
-	                                            <table id="tech-companies-1" class="table  table-striped timetable">
-	                                                <thead>
-	                                                    <tr>
-	                                                        <td>Su</td>
-	                                                        <td>M</td>
-	                                                        <td>Tu</td>
-	                                                        <td>W</td>
-	                                                        <td>TH</td>
-	                                                        <td>F</td>
-	                                                        <td>Sa</td>
-	                                                    </tr>
-	                                                </thead>
-	                                                <tbody>
-	                                                    <tr>
-	                                                        <td><li class="btn btn-date"></li></td>
-	                                                        <td><li class="btn btn-date"></li></td>
-	                                                        <td><li class="btn btn-date"></li></td>
-	                                                        <td><li class="btn btn-date" ></li></td>
-	                                                        <td><li class="btn btn-date"></li></td>
-	                                                        <td><li class="btn btn-date"></li></td>
-	                                                        <td><li class="btn btn-date"></li></td>
-	                                                    </tr>
-	                                                </tbody>
-	                                            </table>
-	                                            <h5 id="currDate">Wednesday 14 Augest 2018</h5>
-	                                            <!-- ClassTimetables -->
-	                                        </div>
-	                                    </div>
-	                                        </div>
+		                                        <div class="table-rep-plugin">
+			                                        <div id="timetableDis" class="table-responsive" data-pattern="priority-columns">
+			                                            <table id="tech-companies-1" class="table  table-striped timetable">
+			                                                <thead>
+			                                                    <tr>
+			                                                        <td>Su</td>
+			                                                        <td>M</td>
+			                                                        <td>Tu</td>
+			                                                        <td>W</td>
+			                                                        <td>TH</td>
+			                                                        <td>F</td>
+			                                                        <td>Sa</td>
+			                                                    </tr>
+			                                                </thead>
+			                                                <tbody>
+			                                                    <tr>
+			                                                        <td><li class="btn btn-date"></li></td>
+			                                                        <td><li class="btn btn-date"></li></td>
+			                                                        <td><li class="btn btn-date"></li></td>
+			                                                        <td><li class="btn btn-date" ></li></td>
+			                                                        <td><li class="btn btn-date"></li></td>
+			                                                        <td><li class="btn btn-date"></li></td>
+			                                                        <td><li class="btn btn-date"></li></td>
+			                                                    </tr>
+			                                                </tbody>
+			                                            </table>
+			                                            <h5 id="currDate">Wednesday 14 Augest 2018</h5>
+			                                            <!-- ClassTimetables -->
+			                                        </div>
+		                                    	</div>
+	                                    	</div>
 	                                    </div>
 	                                </div>
 	                            </div>
@@ -282,7 +282,7 @@
 				                    +"<h5><i class='mdi mdi-bullseye'></i> "+n.visualTime+"</h5>"
 				                +"</div>"
 				                +"<div class='class-box-body'>"
-				                    +"<p class='name'>"+n.className+"</p>"
+				                    +"<p class='name'><strong>"+n.className+"</strong></p>"
 				                    +"<p class='address'><i class='mdi mdi-map-marker-outline'></i> "+n.place+"</p>"
 				                +"</div>"
 				            +"</div>");

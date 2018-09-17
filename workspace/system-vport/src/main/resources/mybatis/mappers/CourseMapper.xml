@@ -24,6 +24,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE t.class_id = c.id 
 		AND t.trainer = #{value}
 	</select>
+	
+	<select id="findClassByPlayer" parameterType="Long" resultMap="trainerAndClass">
+		SELECT * FROM player p, training_class tc
+		WHERE p.class_id = tc.id
+		AND p.player = #{value}
+	</select>
 	<!-- <resultMap type="User" id="students">
 		<result column="id" property="id"/>
 		<result column="name" property="name"/>
@@ -51,6 +57,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findClassInfoByClassId" parameterType="Long" resultMap="trainerAndClass">
 		select * from training_class c
 		where id = #{value}
+	</select>
+	
+	<resultMap type="ClassInfoForStu" id="classInfoForStu">
+		<result column="id" property="classId"/>
+		<result column="class_name" property="className"/>
+		<result column="place" property="place"/>
+		<result column="period" property="period"/>
+		<result column="hour_to" property="hourTo"/>
+		<result column="rank" property="rank"/>
+		<result column="description" property="description"/>
+		<result column="starttime" property="starttime"/>
+		<result column="createtime" property="createtime"/>
+		<result column="is_open" property="isOpen"/>
+		<result column="is_finish" property="isFinish"/>
+		<association property="trainer" javaType="User">
+			<id column="trainerId" property="id"/>
+			<result column="trainerName" property="name"/>
+			<result column="icon" property="icon"/>
+		</association>
+	</resultMap>
+	<select id="findClassInfoByStu" parameterType="Long" resultMap="classInfoForStu">
+		SELECT tc.*,u.name as trainerName,u.id AS trainerId,u.icon 
+		FROM player p, training_class tc,trainer t,USER u
+		WHERE p.class_id = tc.id
+		AND t.class_id = p.class_id
+		AND t.trainer = u.id
+		AND t.is_chief = TRUE
+		AND p.player = #{value}
+	</select>
+	
+	<select id="findClassInfoForStuByClassId" parameterType="Long" resultMap="classInfoForStu">
+		SELECT tc.*,u.name AS trainerName,u.id AS trainerId,u.icon 
+		FROM training_class tc,trainer t,USER u
+		WHERE t.class_id = tc.id
+		AND t.trainer = u.id
+		AND t.is_chief = TRUE
+		AND tc.id = #{value}
 	</select>
 	
 	<insert id="storeClass" parameterType="TrainingClass">
