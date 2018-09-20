@@ -23,7 +23,7 @@ public class CustomExceptionResovler implements HandlerExceptionResolver{
             System.out.println(messageException.getmString());
             modelAndView.addObject("msg", messageException.getmString());
         }else{
-            modelAndView.addObject("msg", "未知异常");
+            ex.printStackTrace();
         }
         
         

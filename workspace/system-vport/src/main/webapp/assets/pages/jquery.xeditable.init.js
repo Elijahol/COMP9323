@@ -42,6 +42,7 @@ $(function(){
             var colors = {"": "gray", 1: "green", 2: "blue"},
                 elem = $.grep(sourceData, function(o){return o.value == value;});
 
+
             if(elem.length) {
                 $(this).text(elem[0].text).css("color", colors[value]);
             } else {

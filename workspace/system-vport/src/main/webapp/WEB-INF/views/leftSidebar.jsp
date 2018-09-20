@@ -40,23 +40,23 @@
                     </a>
                     </c:if>
                     <c:if test="${existUser.role == 2 }">
-                    <a href="${pageContext.request.contextPath }/rest/page/studentMain">
+                    <a href="${pageContext.request.contextPath }/rest/page/stuMain">
                         <i class="fi-air-play"></i><span> Home </span>
                     </a>
                     </c:if>
                 </li>
 
                 <li>
-                    <a href="javascript: void(0);"><i class="fi-layers"></i> <span> Courses </span>
+                    <a href="${pageContext.request.contextPath }/rest/course/showOpenCourse"><i class="fi-layers"></i> <span> Courses </span>
                     </a>
                 </li>
                 <c:if test="${existUser.role == 2 }">
                 <li>
-                    <a href="javascript: void(0);"><i class="fi-bar-graph-2"></i> <span> Data Center </span></a>
+                    <a href="${pageContext.request.contextPath }/rest/common/showStu?id=${existUser.id}"><i class="fi-bar-graph-2"></i> <span> Data Center </span></a>
                 </li>
                 </c:if>
                 <li>
-                    <a href="javascript: void(0);"><i class="fi-paper"></i> <span> Profile </span></a>
+                    <a href="${pageContextrequest.contextPath }/rest/common/showProfile?id=${existUser.id}"><i class="fi-paper"></i> <span> Profile </span></a>
                 </li>
                 <li>
                     <a href="${pageContext.request.contextPath }/rest/user/logout"><i class="fi-disc"></i><span class="badge badge-info pull-right">10</span> <span> Log out </span></a>

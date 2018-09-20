@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Table(name = "training_class")
 public class TrainingClass implements Serializable{
     
@@ -26,13 +28,32 @@ public class TrainingClass implements Serializable{
     private String hourTo;
     private String rank;
     private String description;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date starttime;
     private Date createtime;
     private Boolean isOpen;
     private Boolean isFinish;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @Column(name = "deadLine")
+    private Date deadLine;
+    private String pic;
+    
+    
     
     
    
+    public Date getDeadLine() {
+        return deadLine;
+    }
+    public void setDeadLine(Date deadLine) {
+        this.deadLine = deadLine;
+    }
+    public String getPic() {
+        return pic;
+    }
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
     public String getHourTo() {
         return hourTo;
     }

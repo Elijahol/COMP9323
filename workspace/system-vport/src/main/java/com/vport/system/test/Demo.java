@@ -3,6 +3,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -64,12 +65,13 @@ public class Demo {
     private MailUtils mailUtils;
     
     
-    
     @Test
     public void fun12(){
-        Map<String, TimeTableWithWeek> timeTable = courseService.getTimeTable(1L);
-        System.out.println(timeTable);
+        Map<String, List<?>> data = new HashMap<>();
+        evaluateService.getPerformanceScoreByTimeOrder(2L, data);
+        System.out.println(1111);
     }
+    
     @Test
     public void fun11(){
         List<GeneralPerformanceDataOrderByTime> list = evaluateService.getGeneralPerformanceWithTimeOrder(2L);
@@ -78,17 +80,12 @@ public class Demo {
         }
     }
     
-    @Test
-    public void fun10(){
-        AvgPerformanceData avgPerformanceDataByPlayer = evaluateService.getAvgPerformanceDataByPlayer(2L);
-        System.out.println(avgPerformanceDataByPlayer);
-    }
+    
     
     @Test
     public void fun9(){
         PerformanceAssess performanceAssess = new PerformanceAssess();
-        performanceAssess.setChiefTrainer(1L);
-        performanceAssess.setAssistant(5L);
+        performanceAssess.setTrainer(1L);
         performanceAssess.setPlayer(2L);
         performanceAssess.setComment("nice");
         List<PerformanceContent> performanceContents = new ArrayList<>();
@@ -107,26 +104,7 @@ public class Demo {
         evaluateService.storePerfomanceData(performanceAssess);
     }
     
-    @Test
-    public void fun8(){
-        TrainingClass trainingClass = courseMapper.selectByPrimaryKey(1L);
-        String[] days = trainingClass.getPeriod().split("-");
-        String hourTo = trainingClass.getHourTo();
-        List<CourseTime> timeList = new ArrayList<CourseTime>();
-        for (String day : days) {
-            int dayOfWeek = Integer.parseInt(day);
-            Date futureDate = DateUtil.getFutureDate(dayOfWeek);
-            String dateToString = DateUtil.dateToString(futureDate);
-            String dateToString2 = dateToString +" "+hourTo.split("-")[0];
-            futureDate = DateUtil.stringToDate(dateToString2);
-            if (futureDate.compareTo(new Date()) > 0) {
-                CourseTime courseTime = new CourseTime(futureDate, dateToString + " " + hourTo+" " + DateUtil.getWeekDay(futureDate));
-                timeList.add(courseTime);
-            }
-        }
-        Collections.sort(timeList);
-        System.out.println(timeList);
-    }
+    
     
     @Test
     public void fun7(){
@@ -208,14 +186,7 @@ public class Demo {
         System.out.println(1);
     }
     
-    @Test
-    public void fun3() throws Exception{
-        User user = new User();
-        user.setId(1L);
-        List<TimeTable> timeTable = courseService.getTimeTable(user);
-        System.out.println(timeTable);
-        
-    }
+    
     
     @Test
     public void fun1(){

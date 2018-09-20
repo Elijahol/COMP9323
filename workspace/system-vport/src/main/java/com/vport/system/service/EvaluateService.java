@@ -1,6 +1,7 @@
 package com.vport.system.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.vport.system.bean.EvaluateData;
 import com.vport.system.pojo.eval.AvgPerformanceData;
@@ -12,6 +13,11 @@ public interface EvaluateService {
     EvaluateData getEvaluateType();
     
     void storePerfomanceData(PerformanceAssess performanceAssess);
-    AvgPerformanceData getAvgPerformanceDataByPlayer(Long id);
+    void getAvgPerformanceDataByPlayer(Long id,Map<String, List<?>> data);
+    void getLastPerformanceDataByPlayer(Long id,Map<String, List<?>> data);
     List<GeneralPerformanceDataOrderByTime> getGeneralPerformanceWithTimeOrder(Long id);
+
+    void getAvgPerformanceDataWithTimeOrder(Long id, Map<String, List<?>> data);
+
+    void getPerformanceScoreByTimeOrder(Long id, Map<String, List<?>> data);
 }

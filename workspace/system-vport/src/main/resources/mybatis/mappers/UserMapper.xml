@@ -24,4 +24,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 	
+	
+	<resultMap type="UserWithReward" id="userWithReward">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="email" property="email"/>
+		<result column="phone" property="phone"/>
+		<result column="birthday" property="birthday"/>
+		<result column="gender" property="gender"/>
+		<result column="height" property="height"/>
+		<result column="weight" property="weight"/>
+		<result column="city" property="city"/>
+		<result column="icon" property="icon"/>
+		<result column="introduction" property="introduction"/>
+		<result column="role" property="role"/>
+		<collection property="rewards" ofType="Reward">
+			<id column="rewardId" property="id"/>
+			<result column="title" property="title"/>
+			<result column="content" property="content"/>
+			<result column="reward_time" property="rewardTime"/>
+		</collection>
+	</resultMap>
+	<select id="findUserWithRewardById" parameterType="Long" resultMap="userWithReward">
+		SELECT u.id,u.name,u.email,u.phone,u.birthday,u.gender,u.height,u.weight,u.city,u.icon,
+		u.introduction,u.role,r.id AS rewardId,r.title,r.content,r.reward_time
+		FROM USER u
+		LEFT JOIN rewards r 
+		ON u.id = r.user_id 
+		WHERE u.id = #{value} 
+	</select>
+	<update id="updateReward" parameterType="Reward">
+		update rewards
+		set title = #{title}, content = #{content}, reward_time = #{rewardTime}, update_time = #{updateTime}
+		where id = #{id} and user_id = #{userId}
+	</update>
+	<delete id="deleteReward" parameterType="Long">
+		delete from rewards
+		where id = #{id}
+	</delete>
+	<insert id="addReward" parameterType="Reward">
+		insert into rewards (user_id,title,content,reward_time,create_time)
+		values (#{userId},#{title},#{content},#{rewardTime},#{createTime})
+	</insert>
+	
+	
+	<select id="findUserByRole" parameterType="Long" resultType="User">
+		select id,name from user
+		where role = #{value};
+	
+	</select>
 </mapper>

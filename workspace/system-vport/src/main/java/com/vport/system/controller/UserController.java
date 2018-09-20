@@ -91,7 +91,7 @@ public class UserController {
         User existUser = userService.findByEmailandPassword(user);
         if (existUser != null) {
             if (existUser.getStatus() == 0 && existUser.getCode() != null) {
-                model.addAttribute("msg", "账号未激活哦");
+                model.addAttribute("msg", "Your account has not been actived!");
                 return "login";
             }
             session.setAttribute("existUser", existUser);
@@ -106,10 +106,16 @@ public class UserController {
             }
            
         }else{
-            model.addAttribute("msg", "用户名或密码错误");
+            model.addAttribute("msg", "Email or password wrong!");
             return "login";
         }
-        return "trainerMain";
+        //判断是教练还是球员
+        if (existUser.getRole() == 1) {
+            return "trainerMain";
+        }else{
+            return "stuMain";
+        }
+        
     }
     @RequestMapping(value="logout",method=RequestMethod.GET)
     public String logout(){

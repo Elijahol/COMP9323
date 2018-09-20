@@ -18,6 +18,11 @@
     <link href="assets/css/style_dark.css" rel="stylesheet" type="text/css" />
 
     <script src="assets/js/modernizr.min.js"></script>
+    <!-- Plugins css-->
+    <link href="../plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="../plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="../plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
 
 </head>
 
@@ -158,7 +163,8 @@
 
                                     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                                         <div class="card-body bg-transparent">
-                                            <a href="#" class="btn btn-custom btn-block mb-3 waves-effect waves-light"><i class="mdi mdi-plus-circle"></i> Add A New Plan</a>
+                                            
+                                            <button type="button" class="btn btn-custom btn-block mb-3 waves-effect waves-light" data-toggle="modal" data-target="#makePlanModal"><i class="mdi mdi-plus-circle"></i> Add A New Plan</button>
 
                                             <ul class="sortable-list taskList list-unstyled" id="upcoming">
                                                 <!-- student brief info template -->
@@ -305,6 +311,218 @@
                 </div><!-- /.modal-dialog -->
             </div>
 
+            <!-- make plan modal content -->
+            <div id="makePlanModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">Make new plan</h4>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="nav nav-pills navtab-bg nav-justified pull-in ">
+                                    <li class="nav-item">
+                                        <a href="#skills-plan-tab" data-toggle="tab" aria-expanded="true" class="nav-link active">
+                                            <i class="mdi mdi-hexagon-outline mr-2"></i>Skills
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#physical-plan-tab" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                            <i class="mdi mdi-human mr-2"></i>Physical
+                                        </a>
+                                    </li>
+                                </ul>
+                            <form class="form-horizontal" role="form">
+                                <div class="tab-content">
+                                    <div class="tab-pane show active" id="skills-plan-tab">
+                                <!-- multiple level plans -->
+                                        <div id="accordion" role="tablist" aria-multiselectable="true" class="m-b-30">
+                                            <div class="card">
+                                                <div class="card-header" role="tab" id="headingOne">
+                                                    <h5 class="mb-0 mt-0">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseLevelOne" class="text-dark" aria-expanded="true" aria-controls="collapseLevelOne">
+                                                            stalemate area
+                                                        </a>
+                                                    </h5>
+                                                </div>
+
+                                                <div id="collapseLevelOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                    <div class="card-body">
+                                                        <div class="card">
+                                                            <div class="card-header" role="tab" id="headingTwo">
+                                                                <h5 class="mb-0 mt-0">
+                                                                    <a class="collapsed text-dark" data-toggle="collapse" data-parent="#accordion" href="#collapseLevelTwo11" aria-expanded="false" aria-controls="collapseLevelTwo11">
+                                                                        squatting on left foot
+                                                                    </a>
+                                                                </h5>
+                                                            </div>
+                                                            <div id="collapseLevelTwo11" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                                <div class="card-body">
+                                                                    <div class="form-group">
+                                                                        <label class="col-form-label">is LimitedTime</label>
+                                                                        <input name="isLimitedTime" type="checkbox" checked data-plugin="switchery" data-color="#3db9dc"/>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-form-label">is Continuous</label>
+                                                                        <input name="isContinuous" type="checkbox" checked data-plugin="switchery" data-color="#3db9dc"/>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-form-label">is Moved</label>
+                                                                        <input name="isMoved" type="checkbox" checked data-plugin="switchery" data-color="#3db9dc"/>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-form-label">is Multiple</label>
+                                                                        <input name="isMultiple" type="checkbox" checked data-plugin="switchery" data-color="#3db9dc"/>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-form-label">Group Number</label>
+                                                                        <input name="groupNum" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-form-label">Number of Group</label>
+                                                                        <input name="countNumOfGroup" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-form-label">Number of Success</label>
+                                                                        <input name="numOfSuccess" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-form-label">Required Time</label>
+                                                                        <input name="requiredTime" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-form-label">is Target</label>
+                                                                        <input name="isTarget" type="checkbox" checked data-plugin="switchery" data-color="#3db9dc"/>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-form-label">is Combined</label>
+                                                                        <input name="isCombined" type="checkbox" checked data-plugin="switchery" data-color="#3db9dc"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header" role="tab" id="headingTwo">
+                                                    <h5 class="mb-0 mt-0">
+                                                        <a class="collapsed text-dark" data-toggle="collapse" data-parent="#accordion" href="#collapseLevelTwo111" aria-expanded="false" aria-controls="collapseLevelTwo111">
+                                                            oppression areas
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapseLevelTwo111" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Coordination</label>
+                                                            <input name="Coordination" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header" role="tab" id="headingThree">
+                                                    <h5 class="mb-0 mt-0">
+                                                        <a class="collapsed text-dark" data-toggle="collapse" data-parent="#accordion" href="#collapseLevelThree" aria-expanded="false" aria-controls="collapseLevelThree">
+                                                            score areas
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapseLevelThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">abdominal crunch</label>
+                                                            <input name="abdominal crunch" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="physical-plan-tab">
+                                        <div id="accordion" role="tablist" aria-multiselectable="true" class="m-b-30">
+                                            <div class="card">
+                                                <div class="card-header" role="tab" id="headingOne">
+                                                    <h5 class="mb-0 mt-0">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseLevelOne1" class="text-dark" aria-expanded="true" aria-controls="collapseLevelOne1">
+                                                            stalemate area
+                                                        </a>
+                                                    </h5>
+                                                </div>
+
+                                                <div id="collapseLevelOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                    <div class="card-body">
+                                                        <div class="card">
+                                                            <div class="card-header" role="tab" id="headingTwo">
+                                                                <h5 class="mb-0 mt-0">
+                                                                    <a class="collapsed text-dark" data-toggle="collapse" data-parent="#accordion" href="#collapseLevelTwo1" aria-expanded="false" aria-controls="collapseLevelTwo1">
+                                                                        squatting on left foot
+                                                                    </a>
+                                                                </h5>
+                                                            </div>
+                                                            <div id="collapseLevelTwo1" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                                <div class="card-body">
+                                                                    <div class="form-group">
+                                                                        <label class="col-form-label">Coordination</label>
+                                                                        <input name="Coordination" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header" role="tab" id="headingTwo">
+                                                    <h5 class="mb-0 mt-0">
+                                                        <a class="collapsed text-dark" data-toggle="collapse" data-parent="#accordion" href="#collapseLevelTwo" aria-expanded="false" aria-controls="collapseLevelTwo">
+                                                            oppression areas
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapseLevelTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Coordination</label>
+                                                            <input name="Coordination" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <div class="card-header" role="tab" id="headingThree">
+                                                    <h5 class="mb-0 mt-0">
+                                                        <a class="collapsed text-dark" data-toggle="collapse" data-parent="#accordion" href="#collapseLevelThree" aria-expanded="false" aria-controls="collapseLevelThree">
+                                                            score areas
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div id="collapseLevelThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">abdominal crunch</label>
+                                                            <input name="abdominal crunch" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="tab-pane" id="commenttab">
+                                        
+                                    </div>
+                                </div>                      
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-custom waves-effect waves-light">Confirm</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
 
             <footer class="footer text-right">
                 <p class="">2018 © Vport. - vport.com.au</p>
@@ -344,9 +562,18 @@
     <!-- Jquery-Ui -->
     <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="../plugins/moment/moment.js"></script>
+    <script src="../plugins/switchery/switchery.min.js"></script>
     <!-- App js -->
     <script src="assets/js/jquery.core.js"></script>
     <script src="assets/js/jquery.app.js"></script>
+    <script type="text/javascript" src="assets/pages/jquery.form-advanced.init.js"></script>
+
+    <!-- Modal-Effect -->
+    <script src="../plugins/custombox/js/custombox.min.js"></script>
+    <script src="../plugins/custombox/js/legacy.min.js"></script>
+
+
+
     
 </body>
 </html>

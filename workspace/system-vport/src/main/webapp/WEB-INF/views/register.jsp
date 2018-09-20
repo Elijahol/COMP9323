@@ -36,7 +36,7 @@
                         <div class="card-block">
 
                             <div class="account-box">
-                                <div class="card-box p-5 bg-dark">
+                                <div id="register-box" class="card-box p-5 bg-dark">
                                     <h2 class="text-uppercase text-center pb-4">
                                         <a href="index.html" class="text-success">
                                             <span><img src="${pageContext.request.contextPath }/assets/images/vport.png" alt="" height="50"></span>
@@ -45,53 +45,54 @@
 
                                     <form class="form-horizontal" action="${pageContext.request.contextPath }/rest/user/register" method="post">
 
-                                <div class="form-group row m-b-20">
-                                    <div class="col-12">
-                                        <label for="username" class="text-muted">Full Name</label>
-                                        <input class="form-control" type="text" id="username" required="" placeholder="Your name" name="name">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row m-b-20">
-                                    <div class="col-12">
-                                        <label for="emailaddress" class="text-muted">Email address</label>
-                                        <span id="msg" style="color: #bb0000"></span>
-                                        <input class="form-control" type="email" id="emailaddress" required="" placeholder="Your Email" name="email">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row m-b-20">
-                                    <div class="col-12">
-                                        <label for="password" class="text-muted">Password</label>
-                                        <input class="form-control" type="password" required="" id="password" placeholder="Enter your password" name="password">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row m-b-20">
-                                    <div class="col-12">
-                                        <div class="radio radio-custom form-check-inline m-r-30">
-                                            <input id="role" type="radio" name="role" value="1" required>
-                                            <label for="role" class="text-custom">Instructor
-                                            </label>
-                                        </div>
-                                        <div class="radio radio-custom form-check-inline">
-                                            <input id="role2" type="radio" name="role" value="2" required>
-                                            <label for="role2" class="text-custom">Student
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row text-center m-t-10">
-                                    <div class="col-12">
-                                        <button id="subBtn" class="btn btn-block btn-custom waves-effect waves-light" type="submit">Sign Up Free</button>
-                                    </div>
-                                </div>
-
-                            </form>
-                                    <div class="text-center">
+	                                <div class="form-group row m-b-20">
+	                                    <div class="col-12">
+	                                        <label for="username" class="text-muted">Full Name</label>
+	                                        <input class="form-control" type="text" id="username" required="" placeholder="Your name" name="name">
+	                                    </div>
+	                                </div>
+	
+	                                <div class="form-group row m-b-20">
+	                                    <div class="col-12">
+	                                        <label for="emailaddress" class="text-muted">Email address</label>
+	                                        <span id="msg" style="color: #bb0000"></span>
+	                                        <input class="form-control" type="email" id="emailaddress" required="" placeholder="Your Email" name="email">
+	                                    </div>
+	                                </div>
+	
+	                                <div class="form-group row m-b-20">
+	                                    <div class="col-12">
+	                                        <label for="password" class="text-muted">Password</label>
+	                                        <input class="form-control" type="password" required="" id="password" placeholder="Enter your password" name="password">
+	                                    </div>
+	                                </div>
+	
+	                                <div class="form-group row m-b-20">
+	                                    <div class="col-12">
+	                                        <div class="radio radio-custom form-check-inline m-r-30">
+	                                            <input id="role" type="radio" name="role" value="1" required>
+	                                            <label for="role" class="text-custom">Instructor
+	                                            </label>
+	                                        </div>
+	                                        <div class="radio radio-custom form-check-inline">
+	                                            <input id="role2" type="radio" name="role" value="2" required>
+	                                            <label for="role2" class="text-custom">Student
+	                                            </label>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	
+	                                <div class="form-group row text-center m-t-10">
+	                                    <div class="col-12">
+	                                        <button id="subBtn" class="btn btn-block btn-custom waves-effect waves-light" type="submit">Sign Up Free</button>
+	                                    </div>
+	                                </div>
+	
+	                            </form>
+                                    <!-- <div class="text-center">
                                         <p class=""><a href="page-register.html" class="text-muted">Don't have an account?</a></p>
-                                    </div>
+                                    </div> -->
+                                    
                                 </div>
                             </div>
                         </div>
@@ -127,11 +128,18 @@
 	        if ($value != ''){
 	            $.post("${pageContext.request.contextPath}/rest/user/checkEmail",{email:$value},function (data) {
 	            	if (data == 0){
-                        $("#msg").text("11111");
+                        $("#register-box").append("<div id='error-msg' class='row' style='height: 80px;'>"
+								                        +"<div class='alert alert-danger alert-dismissible fade show' role='alert'>"
+								                            +"<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"
+								                                +"<span aria-hidden='true'>&times;</span>"
+								                            +"</button>"
+								                            +"The email has been registed before,please choose another email!"
+								                        +"</div>"
+								                    +"</div>");
                         $("#emailaddress").css('border','2px solid red');
                         $("#subBtn").attr('disabled',true);
                     } else if (data == 1){
-                    	$("#msg").text('');
+                    	$("#register-box #error-msg").remove();
                         $("#emailaddress").css('border','1px solid #d9e3e9');
                         $("#subBtn").attr('disabled',false);
                     }
