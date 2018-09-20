@@ -131,18 +131,23 @@
                     <!-- user-info template -->
                     <div class="row m-t-50">
                         <div class="col-12">
-                            <div class="card-box user-box-2">
-                                <img src="assets/images/bg-1.jpg" alt="">
+                            <div class="card-box user-box-2" style="background-image: url(assets/images/thumb-1920-374329.jpg);">
+                                <div class="mask">
+                                    <img src="assets/images/thumb-1920-374329.jpg" alt="">
                                 <div class="user-name">
                                     <h4>Alex <i class=""></i></h4>
                                 </div>
+                                <p><i class="mdi mdi-map-marker-outline"></i> user address</p>
                                 <!-- if edit the profile -->
                                 <button class="btn btn-outline-custom btn-rounded waves-light waves-effect" data-toggle="modal" data-target="#myModal">Edit</button>
+
+                                </div>
+                                
                                 <!-- else if view this profile -->
                                 <!-- <a href="dataCenter.html"><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">More</button></a> -->
                                 <!-- end if -->
 
-                                <p><i class="mdi mdi-map-marker-outline"></i> user address</p>
+                                
                             </div>
                             <div class="user-data-box">
                                 <div class="user-data">
@@ -293,8 +298,7 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div>
-            <div id="rewardModal" class="mod
-            al fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div id="rewardModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="rewardModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
