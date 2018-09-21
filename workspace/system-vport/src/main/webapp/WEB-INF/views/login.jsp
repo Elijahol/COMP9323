@@ -66,7 +66,7 @@
 
                                                 <div class="checkbox checkbox-custom">
                                                     <input id="remember" type="checkbox" checked="" name="remember" value="1">
-                                                    <label for="remember">
+                                                    <label for="remember" class="text-muted">
                                                         Remember me
                                                     </label>
                                                 </div>

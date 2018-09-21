@@ -76,7 +76,7 @@
                     <div class="row m-t-50">
                         <div class="col-12">
                             <div class="card-box course-box-1">
-                                <h4>Class Name:${classInfo.className }&nbsp;&nbsp;Rank: ${classInfo.rank }</h4>
+                                <h4>${classInfo.className }&nbsp;&nbsp;${classInfo.rank }</h4>
                                 <p><i class="mdi mdi-calendar-clock"></i> 12:00pm</p>
                                 <p><i class="mdi mdi-map-marker-outline"></i> ${classInfo.place }</p>
                             </div>
@@ -196,59 +196,59 @@
                                         <div class="form-group">
                                             <label class="col-form-label">Front Hand</label>
                                             <input type="hidden" name="performanceContents[0].contentId" value="1">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[0].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[0].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Back Hand</label>
                                             <input type="hidden" name="performanceContents[1].contentId" value="2">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[1].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[1].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Front Volley</label>
                                             <input type="hidden" name="performanceContents[2].contentId" value="3">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[2].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[2].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Back Volley</label>
                                             <input type="hidden" name="performanceContents[3].contentId" value="4">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[3].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[3].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Smash</label>
                                             <input type="hidden" name="performanceContents[4].contentId" value="5">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[4].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[4].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Serve</label>
                                             <input type="hidden" name="performanceContents[5].contentId" value="6">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[5].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[5].count">
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="physicaltab">
                                         <div class="form-group">
                                             <label class="col-form-label">Speed</label>
                                             <input type="hidden" name="performanceContents[6].contentId" value="7">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[6].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[6].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Strength</label>
                                             <input type="hidden" name="performanceContents[7].contentId" value="8">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[7].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[7].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Explosive Force</label>
                                             <input type="hidden" name="performanceContents[8].contentId" value="9">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[8].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[8].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Flexibility</label>
                                             <input type="hidden" name="performanceContents[9].contentId" value="10">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[9].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[9].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Coordination</label>
                                             <input type="hidden" name="performanceContents[10].contentId" value="11">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[10].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[10].count">
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="commenttab">

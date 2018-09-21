@@ -66,13 +66,13 @@ public class CourseController {
     
     @RequestMapping(value="planTree",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseData getPlanTree(Long classId){
+    public List<Object> getPlanTree(Long classId){
         PlanTree planTree = planService.getPlanTree();
         List<CourseTime> list = courseService.getClassTimeByClassId(classId);
         List<Object> data = new ArrayList<>();
         data.add(planTree.getData());
         data.add(list);
-        return new ResponseData(0, "yes", data);
+        return data;
     }
     
     /**

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Vport</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- App css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/style_dark.css" rel="stylesheet" type="text/css" />
+
+    <script src="assets/js/modernizr.min.js"></script>
+    <!-- Plugins css-->
+    <link href="../plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="../plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="../plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
+
+    <script src="../plugins/switchery/switchery.min.js"></script>
+    <style>
+        .btn-group{
+            display: block;
+        }
+        .btn input[type=checkbox]{
+            display: none;
+        }
+        .btn-group label{
+            margin-right: 10px;
+        }
+        .btn-addPhysical,.btn-addPhysicalForSpe{
+            float: right;
+        }
+        .second-type{
+            background-color: #dee2e6;
+            padding: 6px 20px;
+            width: 80%;
+            border-radius: 1em !important;
+        }
+        .second-type h6{
+            display: inline-block;
+        }
+
+        .second-type i.mdi{
+            font-size: 20px;
+            float: right;
+            line-height: 20px;
+        }
+        .second-type i.fa{
+            float: left;
+            font-size: 20px;
+            line-height: 20px;
+        }
+        .error{
+            border: 1px solid red;
+        }
+        div.physical-level1{
+            background-color: #dee2e6;
+            width: 91%;
+            border-radius: 2em;
+            padding-left: 15px;
+        }
+        div.inputNumber{
+            display: inline-block;
+            float: right;
+            background-color: #fff;
+            margin: 7px 3px;
+        }
+        div.inputNumber input.form-control{
+            width: 54px;
+            display: inline-block;
+            padding: 0 0 0 4px;
+            float: right;
+            border: 0;
+        }
+        div.inputNumber i{
+            float: right;
+            display: inline-block;
+            padding-right: 5px;
+            font-size: 12px;
+            line-height: 20px;
+        }
+        .physical-level1 i.mdi-close-circle{
+            float: right;
+            display: inline-block;
+            padding: 6px 15px 6px 0;
+            border-radius: 0 2em 2em 0;
+        }
+    </style>
+
+</head>
+
+
+<body class="enlarged" data-keep-enlarged="true">
+<!--<div id="pa" class='card'>
+    <a data-toggle="collapse" data-parent="#pa" href="#test" class="text-dark" aria-expanded="true" aria-controls="test">
+        <div class='card-header second-type' role='tab'>
+            <i class='fa fa-check'hidden></i>
+            <h6 class='mb-0 mt-0'>typeName</h6>
+            <input type='hidden'>
+            <a class='delete-icon'><i class='mdi mdi-close-circle'></i></a>
+        </div>
+    </a>
+    <div id="test" class="collapse" role="tabpanel" aria-labelledby="headingOne1">
+        <div class="card-body">
+        123123123123132
+        </div>
+    </div>
+</div>-->
+<a data-toggle="collapse" data-parent="#skillCat" href="#physicalCat1" class="text-dark" aria-expanded="true" aria-controls="physicalCat1">
+    <div class="card-header" role="tab">
+        <h5 class="mb-0 mt-0" name="1">Specialized Training</h5>
+    </div>
+</a>
+<div id="physicalCat1" class="collapse" role="tabpanel" aria-labelledby="headingOne1">
+    <div class="card-body">
+        <div class="select">
+            <div class="btn-group" data-toggle="buttons">
+            </div>
+            <button class="btn btn-custom btn-addPhysicalForSpe" style="margin-bottom: 10px;">Add</button>
+        </div>
+        <div class="clearfix"></div>
+
+    </div>
+</div>
+<!-- KNOB JS -->
+<!--[if IE]>
+<script type="text/javascript" src="../plugins/jquery-knob/excanvas.js"></script>
+<![endif]-->
+<script src="../plugins/jquery-knob/jquery.knob.js"></script>
+
+<!-- Dashboard Init -->
+<script src="assets/pages/jquery.dashboard.init.js"></script>
+<!-- Jquery-Ui -->
+<script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="../plugins/moment/moment.js"></script>
+<!-- App js -->
+<script src="assets/js/jquery.core.js"></script>
+<script src="assets/js/jquery.app.js"></script>
+<script type="text/javascript" src="assets/pages/jquery.form-advanced.init.js"></script>
+
+<!-- Modal-Effect -->
+<script src="../plugins/custombox/js/custombox.min.js"></script>
+<script src="../plugins/custombox/js/legacy.min.js"></script>
+</body>
+</html>

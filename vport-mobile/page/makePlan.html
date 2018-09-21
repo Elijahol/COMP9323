@@ -23,6 +23,11 @@
     <link href="../plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
     <link href="../plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
+    <link rel="stylesheet" href="../plugins/bootstrap-select/css/bootstrap-select.css">
+    <link rel="stylesheet" href="assets/css/plan.css">
+    <script src="../plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="../plugins/switchery/switchery.min.js"></script>
+
 
 </head>
 
@@ -115,7 +120,7 @@
                         </li>
                         <li>
                             <div class="page-title-box">
-                                <h4 class="page-title">Make Plan</h4>
+                                <h4 class="page-title">Home</h4>
                             </div>
                         </li>
 
@@ -147,174 +152,179 @@
                                                     <i class="mdi mdi-human mr-2"></i>Physical
                                                 </a>
                                             </li>
-                                        </ul>
-                                    <form class="form-horizontal" role="form">
+                                    </ul>
+                                <div class="modal-body">
+                                    <select id="plan-select-content" class="custom-select">
+                                        <option selected disabled="">Select a training time</option>
+                                        <option class="select-type" value="1">One</option>
+                                        <option class="select-type" value="2">Two</option>
+                                        <option class="select-type" value="3">Three</option>
+                                    </select>
+                                </div>
+                                <!--<form class="form-horizontal" role="form">-->
                                         <div class="tab-content">
+                                            <!--技术部分-->
                                             <div class="tab-pane show active" id="skills-plan-tab">
-                                        <!-- multiple level plans -->
-                                                <div id="accordion" role="tablist" aria-multiselectable="true" class="m-b-30">
+                                                <!-- multiple level plans -->
+                                                <div id="skillCat" role="tablist" aria-multiselectable="true" class="m-b-30">
                                                     <div class="card">
-                                                        <div class="card-header" role="tab" id="headingOne">
-                                                            <h5 class="mb-0 mt-0">
-                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseLevelOne" class="text-dark" aria-expanded="true" aria-controls="collapseLevelOne">
-                                                                    stalemate area
-                                                                </a>
-                                                            </h5>
-                                                        </div>
-
-                                                        <div id="collapseLevelOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                                                            <div class="card-body">
-                                                                <div class="card">
-                                                                    <div class="card-header" role="tab" id="headingTwo">
-                                                                        <h5 class="mb-0 mt-0">
-                                                                            <a class="collapsed text-dark" data-toggle="modal" data-target="#myModal" data-parent="#accordion" href="#collapseLevelTwo11" aria-expanded="false" aria-controls="collapseLevelTwo11">
-                                                                                squatting on left foot
-                                                                            </a>
-                                                                        </h5>
-                                                                    </div>
-                                                                    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                                        <div class="modal-dialog">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                                                    <h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
-                                                                                </div>
-                                                                                <div class="modal-body">
-                                                                                    <div class="form-group">
-                                                                                        <label class="col-form-label">is LimitedTime</label>
-                                                                                        <input name="isLimitedTime" type="checkbox" checked data-plugin="switchery" data-color="#3db9dc"/>
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label class="col-form-label">is Continuous</label>
-                                                                                        <input name="isContinuous" type="checkbox" checked data-plugin="switchery" data-color="#3db9dc"/>
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label class="col-form-label">is Moved</label>
-                                                                                        <input name="isMoved" type="checkbox" checked data-plugin="switchery" data-color="#3db9dc"/>
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label class="col-form-label">is Multiple</label>
-                                                                                        <input name="isMultiple" type="checkbox" checked data-plugin="switchery" data-color="#3db9dc"/>
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label class="col-form-label">Group Number</label>
-                                                                                        <input name="groupNum" type="number" class="form-control" placeholder="0-100" min="0" max="100">
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label class="col-form-label">Number of Group</label>
-                                                                                        <input name="countNumOfGroup" type="number" class="form-control" placeholder="0-100" min="0" max="100">
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label class="col-form-label">Number of Success</label>
-                                                                                        <input name="numOfSuccess" type="number" class="form-control" placeholder="0-100" min="0" max="100">
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label class="col-form-label">Required Time</label>
-                                                                                        <input name="requiredTime" type="number" class="form-control" placeholder="0-100" min="0" max="100">
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label class="col-form-label">is Target</label>
-                                                                                        <input name="isTarget" type="checkbox" checked data-plugin="switchery" data-color="#3db9dc"/>
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label class="col-form-label">is Combined</label>
-                                                                                        <input name="isCombined" type="checkbox" checked data-plugin="switchery" data-color="#3db9dc"/>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Close</button>
-                                                                                    <button type="button" class="btn btn-primary waves-effect waves-light">Confirm</button>
-                                                                                </div>
-                                                                            </div><!-- /.modal-content -->
-                                                                        </div><!-- /.modal-dialog -->
-                                                                    </div><!-- /.modal -->
+                                                        <div class="plan-content">
+                                                            <a data-toggle="collapse" data-parent="#skillCat" href="#skillCat0" class="text-dark" aria-expanded="true" aria-controls="skillCat0">
+                                                                <div class="card-header" role="tab">
+                                                                    <h5 class="mb-0 mt-0" name="0">Stalemate Area</h5>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane" id="physical-plan-tab">
-                                                <div id="accordion" role="tablist" aria-multiselectable="true" class="m-b-30">
-                                                    <div class="card">
-                                                        <div class="card-header" role="tab" id="headingOne">
-                                                            <h5 class="mb-0 mt-0">
-                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseLevelOne1" class="text-dark" aria-expanded="true" aria-controls="collapseLevelOne1">
-                                                                    stalemate area
-                                                                </a>
-                                                            </h5>
-                                                        </div>
-
-                                                        <div id="collapseLevelOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                                                            <div class="card-body">
-                                                                <div class="card">
-                                                                    <div class="card-header" role="tab" id="headingTwo">
-                                                                        <h5 class="mb-0 mt-0">
-                                                                            <a class="collapsed text-dark" data-toggle="collapse" data-parent="#accordion" href="#collapseLevelTwo1" aria-expanded="false" aria-controls="collapseLevelTwo1">
-                                                                                squatting on left foot
-                                                                            </a>
-                                                                        </h5>
-                                                                    </div>
-                                                                    <div id="collapseLevelTwo1" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                                                        <div class="card-body">
-                                                                            <div class="form-group">
-                                                                                <label class="col-form-label">Coordination</label>
-                                                                                <input name="Coordination" type="number" class="form-control" placeholder="0-100" min="0" max="100">
-                                                                            </div>
+                                                            </a>
+                                                            <div id="skillCat0" class="collapse" role="tabpanel" aria-labelledby="headingOne1">
+                                                                <div class="card-body">
+                                                                    <div class="select">
+                                                                        <div class="btn-group" data-toggle="buttons">
                                                                         </div>
+                                                                        <button class="btn btn-custom btn-addcourse" style="margin-bottom: 10px;">Add</button>
                                                                     </div>
+                                                                    <div class="clearfix"></div>
+
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="card">
-                                                        <div class="card-header" role="tab" id="headingTwo">
-                                                            <h5 class="mb-0 mt-0">
-                                                                <a class="collapsed text-dark" data-toggle="collapse" data-parent="#accordion" href="#collapseLevelTwo" aria-expanded="false" aria-controls="collapseLevelTwo">
-                                                                    oppression areas
-                                                                </a>
-                                                            </h5>
-                                                        </div>
-                                                        <div id="collapseLevelTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                                            <div class="card-body">
-                                                                <div class="form-group">
-                                                                    <label class="col-form-label">Coordination</label>
-                                                                    <input name="Coordination" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                                                        <div class="plan-content">
+                                                            <a data-toggle="collapse" data-parent="#skillCat" href="#skillCat1" class="text-dark" aria-expanded="true" aria-controls="skillCat1">
+                                                                <div class="card-header" role="tab">
+                                                                    <h5 class="mb-0 mt-0" name="1">Oppression Area</h5>
+                                                                </div>
+                                                            </a>
+                                                            <div id="skillCat1" class="collapse" role="tabpanel" aria-labelledby="headingOne1">
+                                                                <div class="card-body">
+                                                                    <div class="select">
+                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                        </div>
+                                                                        <button class="btn btn-custom btn-addcourse" style="margin-bottom: 10px;">Add</button>
+                                                                    </div>
+                                                                    <div class="clearfix"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="card">
-                                                        <div class="card-header" role="tab" id="headingThree">
-                                                            <h5 class="mb-0 mt-0">
-                                                                <a class="collapsed text-dark" data-toggle="collapse" data-parent="#accordion" href="#collapseLevelThree" aria-expanded="false" aria-controls="collapseLevelThree">
-                                                                    score areas
-                                                                </a>
-                                                            </h5>
+                                                        <div class="plan-content">
+                                                            <a data-toggle="collapse" data-parent="#skillCat" href="#skillCat2" class="text-dark" aria-expanded="true" aria-controls="skillCat2">
+                                                                <div class="card-header" role="tab">
+                                                                    <h5 class="mb-0 mt-0" name="2">Score Area</h5>
+                                                                </div>
+                                                            </a>
+                                                            <div id="skillCat2" class="collapse" role="tabpanel" aria-labelledby="headingOne1">
+                                                                <div class="card-body">
+                                                                    <div class="select">
+                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                        </div>
+                                                                        <button class="btn btn-custom btn-addcourse" style="margin-bottom: 10px;">Add</button>
+                                                                    </div>
+                                                                    <div class="clearfix"></div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div id="collapseLevelThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-                                                            <div class="card-body">
-                                                                <div class="form-group">
-                                                                    <label class="col-form-label">abdominal crunch</label>
-                                                                    <input name="abdominal crunch" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                                                        <div class="plan-content">
+                                                            <a data-toggle="collapse" data-parent="#skillCat" href="#skillCat3" class="text-dark" aria-expanded="true" aria-controls="skillCat3">
+                                                                <div class="card-header" role="tab">
+                                                                    <h5 class="mb-0 mt-0" name="3">Out-side Area</h5>
+                                                                </div>
+                                                            </a>
+                                                            <div id="skillCat3" class="collapse" role="tabpanel" aria-labelledby="headingOne1">
+                                                                <div class="card-body">
+                                                                    <div class="select">
+                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                        </div>
+                                                                        <button class="btn btn-custom btn-addcourse" style="margin-bottom: 10px;">Add</button>
+                                                                    </div>
+                                                                    <div class="clearfix"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="plan-content">
+                                                            <a data-toggle="collapse" data-parent="#skillCat" href="#skillCat4" class="text-dark" aria-expanded="true" aria-controls="skillCat4">
+                                                                <div class="card-header" role="tab">
+                                                                    <h5 class="mb-0 mt-0" name="4">Serving Area</h5>
+                                                                </div>
+                                                            </a>
+                                                            <div id="skillCat4" class="collapse" role="tabpanel" aria-labelledby="headingOne1">
+                                                                <div class="card-body">
+                                                                    <div class="select">
+                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                        </div>
+                                                                        <button class="btn btn-custom btn-addcourse" style="margin-bottom: 10px;">Add</button>
+                                                                    </div>
+                                                                    <div class="clearfix"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!--体能部分-->
+                                            <div class="tab-pane" id="physical-plan-tab">
+                                                <div id="physicalCat" role="tablist" aria-multiselectable="true" class="m-b-30">
+                                                    <div class="card">
+                                                        <div class="physical-content">
+                                                            <a data-toggle="collapse" data-parent="#skillCat" href="#physicalCat0" class="text-dark" aria-expanded="true" aria-controls="physicalCat0">
+                                                                <div class="card-header" role="tab">
+                                                                    <h5 class="mb-0 mt-0" name="0">Warm Up</h5>
+                                                                </div>
+                                                            </a>
+                                                            <div id="physicalCat0" class="collapse" role="tabpanel" aria-labelledby="headingOne1">
+                                                                <div class="card-body">
+                                                                    <div class="select">
+                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                        </div>
+                                                                        <button class="btn btn-custom btn-addPhysical" style="margin-bottom: 10px;">Add</button>
+                                                                    </div>
+                                                                    <div class="clearfix"></div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="physical-content">
+                                                            <a data-toggle="collapse" data-parent="#skillCat" href="#physicalCat1" class="text-dark" aria-expanded="true" aria-controls="physicalCat1">
+                                                                <div class="card-header" role="tab">
+                                                                    <h5 class="mb-0 mt-0" name="1">Specialized Training</h5>
+                                                                </div>
+                                                            </a>
+                                                            <div id="physicalCat1" class="collapse" role="tabpanel" aria-labelledby="headingOne1">
+                                                                <div class="card-body" style="padding: 10px">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="physical-content">
+                                                            <a data-toggle="collapse" data-parent="#skillCat" href="#physicalCat2" class="text-dark" aria-expanded="true" aria-controls="physicalCat2">
+                                                                <div class="card-header" role="tab">
+                                                                    <h5 class="mb-0 mt-0" name="2">Relaxation</h5>
+                                                                </div>
+                                                            </a>
+                                                            <div id="physicalCat2" class="collapse" role="tabpanel" aria-labelledby="headingOne1">
+                                                                <div class="card-body">
+                                                                    <div class="select">
+                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                        </div>
+                                                                        <button class="btn btn-custom btn-addPhysical" style="margin-bottom: 10px;">Add</button>
+                                                                    </div>
+                                                                    <div class="clearfix"></div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="tab-pane" id="commenttab">
-                                                
                                             </div>
                                         </div>                      
-                                    </form>
+                                    <!--</form>-->
                                 
                             </div>
                         </div>
                     </div>
                     <!-- end row -->
-
+                    <div id="alertInfo" class="alert alert-danger mt-4" style="display: none">
+                        The resitration deadline is <br><strong>21.12.2018 12:00PM</strong>
+                    </div>
+                    <button id="submitBtn" type="button" class="btn btn-primary" style="float: right">Submit</button>
                 </div> <!-- container -->
 
             </div> <!-- content -->
@@ -325,7 +335,70 @@
 
         </div>
 
-
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
+                    </div>
+                    <input type="hidden" name="typeOfSkill">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-form-label">is LimitedTime</label>
+                            <input name="isLimitedTime" value="Non-Limited Time" type="checkbox" class="js-switch js-check-click"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">is Continuous</label>
+                            <input name="isContinuous" value="Non-Continuous" type="checkbox" class="js-switch js-check-click"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">is Moved</label>
+                            <input name="isMoved" value="Fixed" type="checkbox" class="js-switch js-check-click"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">is Multiple</label>
+                            <input name="isMultiple" value="Bandy" type="checkbox" class="js-switch js-check-click"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">is Target</label>
+                            <input name="isTarget" value="Non-Target" type="checkbox" class="js-switch js-check-click"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Group Number</label>
+                            <input name="groupNum" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Number of Group</label>
+                            <input name="countNumOfGroup" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                        </div>
+                        <div id="requiredTime" class="form-group" style="display: none;">
+                            <label class="col-form-label">Required Time</label>
+                            <input name="requiredTime" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                        </div>
+                        <div id="numberSuccess" class="form-group" style="display: none;">
+                            <label class="col-form-label">Number of Success</label>
+                            <input name="numOfSuccess" type="number" class="form-control" placeholder="0-100" min="0" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Type</label>
+                            <div class="radio radio-danger">
+                                <input id="radio1" name="isCombined" type="radio" checked value="Front Hand"/>
+                                <label for="radio1" style="margin-right: 12px;">Front Hand</label>
+                                <input id="radio2" name="isCombined" type="radio" class="radio-danger" value="Back Hand"/>
+                                <label for="radio2" style="margin-right: 12px;">Back Hand</label>
+                                <input id="radio3" name="isCombined" type="radio" class="radio-danger" value="Combine"/>
+                                <label for="radio3">Combine</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Close</button>
+                        <button id="storeDataBtn" type="button" class="btn btn-primary waves-effect waves-light">Confirm</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <!-- ============================================================== -->
         <!-- End Right content here -->
         <!-- ============================================================== -->
@@ -357,7 +430,6 @@
     <!-- Jquery-Ui -->
     <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="../plugins/moment/moment.js"></script>
-    <script src="../plugins/switchery/switchery.min.js"></script>
     <!-- App js -->
     <script src="assets/js/jquery.core.js"></script>
     <script src="assets/js/jquery.app.js"></script>
@@ -366,6 +438,5 @@
     <!-- Modal-Effect -->
     <script src="../plugins/custombox/js/custombox.min.js"></script>
     <script src="../plugins/custombox/js/legacy.min.js"></script>
-
-</body>
-</html>
+    <script src="assets/js/plan.js"></script>
+</                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
