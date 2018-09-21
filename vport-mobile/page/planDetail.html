@@ -10,6 +10,14 @@
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <!-- DataTables -->
+        <link href="../plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <link href="../plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <!-- Responsive datatable examples -->
+        <link href="../plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+        <!-- Multi Item Selection examples -->
+        <link href="../plugins/datatables/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
     <!-- App css -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -110,7 +118,7 @@
                         </li>
                         <li>
                             <div class="page-title-box">
-                                <h4 class="page-title">Home</h4>
+                                <h4 class="page-title">Plan Detail</h4>
                             </div>
                         </li>
 
@@ -127,39 +135,6 @@
             <div class="content">
                 <div class="container-fluid">
 
-                    <!-- user-info template -->
-                    <div class="row m-t-50">
-                        <div class="col-12">
-                            <div class="card-box user-box-2" style="background-image: url('assets/images/thumb-1920-374329.jpg')">
-                                <div class="mask">
-                                    <img src="assets/images/thumb-1920-374329.jpg" alt="">
-                                    <div class="user-name">
-                                    <h4>Alex <i class=""></i></h4>
-                                </div>
-                                <a href="profile.html"><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">View</button></a>
-                                <p><i class="mdi mdi-map-marker-outline"></i> user address</p>
-                                </div>
-                            </div>
-                            <div class="user-data-box">
-                                <div class="user-data">
-                                    <h6>24</h6>
-                                    <p>Age</p>
-                                </div>
-                                <div class="user-data">
-                                    <h6>50</h6>
-                                    <p>KG</p>
-                                </div>
-                                <div class="user-data">
-                                    <h6>183</h6>
-                                    <p>CM</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end row -->
-
-
-
                     <div class="row">
                         <div class="col-lg-12">
                             <div id="accordion" role="tablist" aria-multiselectable="true" class="m-b-30">
@@ -167,26 +142,54 @@
                                     <div class="card-header b-r-30 listgroup-title" role="tab" id="headingOne">
                                         <h5 class="mb-0 mt-0">
                                             <a>
-                                                Skills
+                                                Skills Plan
                                             </a>
                                         </h5>
                                         <a><i class="mdi mdi-chevron-down listgroup-collapse" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"></i></a>
                                     </div>
 
                                     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-                                        <div class="card-body bg-transparent">
-                                            <div class="card-box">
-                                                <h4 class="header-title">Compare Last one and average</h4>
-                                                <canvas id="skills" height="350" class="mt-4"></canvas>
-                                            </div>
-                                            <div class="card-box">
-                                                <h4 class="header-title">Average Score By Time</h4>
-                                                <canvas id="skillsByTime" height="350" class="mt-4"></canvas>
-                                            </div>
-                                            <div class="card-box">
-                                                <h4 class="header-title">Each skill By Time</h4>
-                                                <canvas id="skillsByScore" height="350" class="mt-4"></canvas>
-                                            </div>
+                                        <div class="card-body" >
+                                        <div class="table-rep-plugin">
+                                        <div class="table-responsive" data-pattern="priority-columns">
+                                            <table id="responsive-datatable" class="table table-bordered table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" cellspacing="0" width="100%" role="grid" aria-describedby="responsive-datatable_info" style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <td>Type</td>
+                                                        <td>Group Number</td>
+                                                        <td>Number of Group</td>
+                                                        <td>Is LimitedTime</td>
+                                                        <td>Is Continous</td>
+                                                        <td>Is Moved</td>
+                                                        <td>Is Multiple</td>
+                                                        <td>Is Target</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>XXXXXX</td>
+                                                        <td>12</td>
+                                                        <td>True</td>
+                                                        <td>True</td>
+                                                        <td>True</td>
+                                                        <td>True</td>
+                                                        <td>True</td>
+                                                        <td>True</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>XXXXXX2</td>
+                                                        <td>12</td>
+                                                        <td>True</td>
+                                                        <td>True</td>
+                                                        <td>True</td>
+                                                        <td>True</td>
+                                                        <td>True</td>
+                                                        <td>True</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                         </div>
                                     </div>
                                 </div>
@@ -194,25 +197,38 @@
                                     <div class="card-header b-r-30 listgroup-title" role="tab" id="headingTwo">
                                         <h5 class="mb-0 mt-0">
                                             <a>
-                                                Physical Ability
+                                                Physical Plan
                                             </a>
                                         </h5>
                                         <a><i class="mdi mdi-chevron-down listgroup-collapse"data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"></i></a>
                                     </div>
                                     <div id="collapseTwo" class="collaps show" role="tabpanel" aria-labelledby="headingTwo">
-                                        <div class="card-body bg-transparent">
-                                            <div class="card-box">
-                                                <h4 class="header-title">Compare Last one and average</h4>
-                                                <canvas id="physical" height="350" class="mt-4"></canvas>
-                                            </div>
-                                            <div class="card-box">
-                                                <h4 class="header-title">Average Score By Time</h4>
-                                                <canvas id="phsicalByTime" height="350" class="mt-4"></canvas>
-                                            </div>
-                                            <div class="card-box">
-                                                <h4 class="header-title">Each ability By Time</h4>
-                                                <canvas id="physicalByScore" height="350" class="mt-4"></canvas>
-                                            </div>
+                                        <div class="card-body" >
+                                        <div class="table-rep-plugin">
+                                        <div class="table-responsive" data-pattern="priority-columns">
+                                            <table id="physicaltable" class="table table-bordered table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" cellspacing="0" width="100%" role="grid" aria-describedby="responsive-datatable_info" style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <td>Classification</td>
+                                                        <td>Type</td>
+                                                        <td>Group Number</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>warm up</td>
+                                                        <td>XXXXX</td>
+                                                        <td>12</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>specialized Training</td>
+                                                        <td>XXXX</td>
+                                                        <td>True</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                         </div>
                                     </div>
                                 </div>
@@ -261,15 +277,31 @@
     <!-- Dashboard Init -->
     <script src="assets/pages/jquery.dashboard.init.js"></script>
     <!-- Jquery-Ui -->
-    <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
+        <script src="../plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="../plugins/moment/moment.js"></script>
 
-    <!-- Chart JS -->
-    <script src="../plugins/chart.js/chart.bundle.js"></script>
-    <script src="assets/pages/jquery.chartjs.init.js"></script>
+        <script src="assets/pages/jquery.calendar.js"></script>
+        <!-- Required datatable js -->
+        <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../plugins/datatables/dataTables.bootstrap4.min.js"></script>
 
+
+        <!-- Responsive examples -->
+        <script src="../plugins/datatables/dataTables.responsive.min.js"></script>
+        <script src="../plugins/datatables/responsive.bootstrap4.min.js"></script>
+
+         <script type="text/javascript">
+            $(document).ready(function() {
+
+                // Responsive Datatable
+                $('#responsive-datatable').DataTable();
+                $('#physicaltable').DataTable();
+            } );
+
+        </script>
     <!-- App js -->
     <script src="assets/js/jquery.core.js"></script>
     <script src="assets/js/jquery.app.js"></script>
+
 </body>
 </html>

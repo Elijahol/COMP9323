@@ -102,6 +102,36 @@
             <div class="topbar">
 
                 <nav class="navbar-custom">
+                    <ul class="list-unstyled topbar-right-menu float-right mb-0">
+                            <li class="dropdown notification-list">
+                                <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button"
+                                   aria-haspopup="false" aria-expanded="false">
+                                    <i class="fi-bell noti-icon"></i>
+                                    <span class="badge badge-danger badge-pill noti-icon-badge">1</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-lg">
+                                    <!-- item-->
+                                    <div class="dropdown-item noti-title">
+                                        <h5 class="m-0"><span class="float-right"><a href="" class="text-dark"><small>Clear All</small></a> </span>Notification</h5>
+                                    </div>
+
+                                    <div class="slimscroll" style="max-height: 230px;">
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i></div>
+                                            <p class="notify-details">Caleb Flakelar commented on Admin<small class="text-muted">1 min ago</small></p>
+                                        </a>
+
+                                        <!--end item-->
+                                    </div>
+                                    <!-- All-->
+                                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                                        View all <i class="fi-arrow-right"></i>
+                                    </a>
+
+                                </div>
+                            </li>
+                        </ul>
                     <ul class="list-inline menu-left mb-0">
                         <li class="float-left">
                             <button class="button-menu-mobile open-left">
@@ -130,10 +160,12 @@
                     <!-- user-info template -->
                     <div class="row m-t-50">
                         <div class="col-12">
-                            <div class="card-box user-box-1">
-                                <img src="assets/images/bg-1.jpg" alt="">
+                            <div class="card-box user-box-1" style="background-image: url('assets/images/thumb-1920-374329.jpg');">
+                                <div class="mask">
+                                    <img src="assets/images/thumb-1920-374329.jpg" alt="">
                                 <h4>Hi, Alex</h4>
                                 <p><i class="mdi mdi-bell-ring-outline"></i> class name will start at 12:00pm</p>
+                                </div>
                             </div>
                         </div>
                     </div>
