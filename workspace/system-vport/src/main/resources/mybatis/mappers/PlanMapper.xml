@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select LAST_INSERT_ID()
 		</selectKey>
 		insert into skill_detail (isLimitedTime,isContinuous,isMoved,isMultiple,groupNum,countNumOfGroup,numOfSuccess,requiredTime,isTarget,isCombined,typeOfSkill)
-		values(#{isLimitedTime},#{isContinuous},#{isMoved},#{isMultiple},#{groupNum},#{countNumOfGroup},#{numOfSuccess},#{requiredTime},#{isTarget},#{isCombined},#{typeOfSikll})
+		values(#{isLimitedTime},#{isContinuous},#{isMoved},#{isMultiple},#{groupNum},#{countNumOfGroup},#{numOfSuccess},#{requiredTime},#{isTarget},#{isCombined},#{typeOfSkill})
 	</insert>
 	<insert id="insertSkillSchemaDetail">
 		insert into skill_schema_detail values(#{trainingSchenmaId},#{skillDetailId})
@@ -129,5 +129,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE ssd.skill_detail_id = sd.id 
 		AND ssd.training_schema_id = #{value} 
 		AND th.id = sd.typeOfSkill)s INNER JOIN training_hierarchy h ON h.id = s.parent_id);
+	</select>
+	
+	
+	<select id="findSchemaTrainingTimeByClassId" parameterType="Long" resultType="Date">
+		SELECT training_time FROM training_schema WHERE class_id = #{value}
 	</select>
 </mapper>

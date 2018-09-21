@@ -3,6 +3,7 @@ package com.vport.system.service.impl;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,6 +140,7 @@ public class PlanServiceImpl implements PlanService {
     public void makeNewPlan(MakeTrainingPlan newPlan) {
 
         TrainingPlan plan = newPlan.getPlan();
+        plan.setCreated(new Date());
         planMapper.insertNewPlan(plan);
         
         List<PhysicalDetail> physicalDetails = newPlan.getPhysicalDetails();

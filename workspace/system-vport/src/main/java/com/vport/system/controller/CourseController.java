@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.vport.system.bean.CourseTime;
+import com.vport.system.bean.MakeTrainingPlan;
 import com.vport.system.bean.PlanTree;
 import com.vport.system.bean.ResponseData;
 import com.vport.system.pojo.ClassInfoForStu;
@@ -64,6 +66,19 @@ public class CourseController {
     @Autowired
     private UserService userService;
     
+    @RequestMapping(value = "returnPlan",method = RequestMethod.GET)
+    public String returnPlan(Long classId,Model model){
+        User trainer = (User) session.getAttribute("existUser");
+        model.addAttribute("classId", classId);
+        model.addAttribute("chiefTrainer", trainer.getId());
+        return "makePlan";
+    }
+    
+    /**
+     * 得到训练计划数据及班级上课时间
+     * @param classId
+     * @return
+     */
     @RequestMapping(value="planTree",method = RequestMethod.GET)
     @ResponseBody
     public List<Object> getPlanTree(Long classId){
@@ -74,6 +89,22 @@ public class CourseController {
         data.add(list);
         return data;
     }
+    
+    /**
+     * 新增一个训练计划
+     */
+    @RequestMapping(value = "addNewPlan",method = RequestMethod.POST)
+    @ResponseBody
+    public String addNewPlan(@RequestBody MakeTrainingPlan newPlan){
+        try{
+            planService.makeNewPlan(newPlan);
+            return "1";
+        }catch (Exception e) {
+            return "0";
+        }
+        
+    }
+    
     
     /**
      * 获得教练页面的班级信息

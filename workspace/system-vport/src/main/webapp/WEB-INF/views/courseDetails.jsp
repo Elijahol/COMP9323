@@ -13,7 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="${pageContext.request.contextPath }/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
 
     <!-- App css -->
     <link href="${pageContext.request.contextPath }/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -22,6 +22,11 @@
     <link href="${pageContext.request.contextPath }/assets/css/style_dark.css" rel="stylesheet" type="text/css" />
 
     <script src="${pageContext.request.contextPath }/assets/js/modernizr.min.js"></script>
+    <!-- Plugins css-->
+    <link href="${pageContext.request.contextPath }/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath }/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath }/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/plugins/switchery/switchery.min.css">
 
 </head>
 
@@ -44,26 +49,7 @@
         <div class="content-page">
 
             <!-- Top Bar Start -->
-            <div class="topbar">
-
-                <nav class="navbar-custom">
-                    <ul class="list-inline menu-left mb-0">
-                        <li class="float-left">
-                            <button class="button-menu-mobile open-left">
-                                <i class="dripicons-menu"></i>
-                            </button>
-                        </li>
-                        <li>
-                            <div class="page-title-box">
-                                <h4 class="page-title">Home</h4>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-
-            </div>
+            <%@include file="home.jsp" %>
             <!-- Top Bar End -->
 
 
@@ -71,9 +57,19 @@
             <!-- Start Page content -->
             <div class="content">
                 <div class="container-fluid">
-
+					<div class="row m-t-50">
+                        <div class="col-12">
+                            <div class="card-box course-box-1">
+                                <div class="mask">
+                                    <h4>${classInfo.className }&nbsp;&nbsp;${classInfo.rank }</h4>
+                                <p><i class="mdi mdi-calendar-clock"></i> 12:00pm</p>
+                                <p><i class="mdi mdi-map-marker-outline"></i> ${classInfo.place }</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- user-info template -->
-                    <div class="row m-t-50">
+                    <%-- <div class="row m-t-50">
                         <div class="col-12">
                             <div class="card-box course-box-1">
                                 <h4>${classInfo.className }&nbsp;&nbsp;${classInfo.rank }</h4>
@@ -81,7 +77,7 @@
                                 <p><i class="mdi mdi-map-marker-outline"></i> ${classInfo.place }</p>
                             </div>
                         </div>
-                    </div>
+                    </div> --%>
                     <!-- end row -->
 
 
@@ -101,7 +97,7 @@
 
                                     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                                         <div class="card-body bg-transparent">
-                                            <a href="#" class="btn btn-custom btn-block mb-3 waves-effect waves-light"><i class="mdi mdi-plus-circle"></i> Add A New Plan</a>
+                                            <a href="${pageContext.request.contextPath }/rest/course/returnPlan?classId=${classInfo.classId}" class="btn btn-custom btn-block mb-3 waves-effect waves-light"><i class="mdi mdi-plus-circle"></i> Add A New Plan</a>
 
                                     <ul class="sortable-list taskList list-unstyled" id="upcoming">
                                         <!-- student brief info template -->

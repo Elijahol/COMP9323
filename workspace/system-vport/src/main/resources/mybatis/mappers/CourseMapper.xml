@@ -51,7 +51,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	<select id="findPlanByClass" parameterType="Long" resultMap="trainingPlan">
-		SELECT * FROM training_schema WHERE class_id = #{value};
+		SELECT * FROM training_schema 
+		WHERE class_id = #{value}
+		ORDER BY training_time DESC
 	</select>
 	
 	<select id="findClassInfoByClassId" parameterType="Long" resultMap="trainerAndClass">

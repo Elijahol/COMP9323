@@ -20,6 +20,7 @@ import com.vport.system.bean.Student;
 import com.vport.system.bean.TimeTable;
 import com.vport.system.bean.TimeTableWithWeek;
 import com.vport.system.mapper.CourseMapper;
+import com.vport.system.mapper.PlanMapper;
 import com.vport.system.pojo.ClassInfoForStu;
 import com.vport.system.pojo.TrainingClassToDisPlay;
 import com.vport.system.pojo.person.User;
@@ -35,7 +36,8 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseMapper courseMapper;
     
-    
+    @Autowired
+    private PlanMapper planMapper;
     /**
      * 根据教练员提取与之有关的课程信息
      */
@@ -190,13 +192,14 @@ public class CourseServiceImpl implements CourseService {
         String[] days = trainingClass.getPeriod().split("-");
         String hourTo = trainingClass.getHourTo();
         List<CourseTime> timeList = new ArrayList<CourseTime>();
+        List<Date> historyPlanTime = planMapper.findSchemaTrainingTimeByClassId(classId);
         for (String day : days) {
             int dayOfWeek = Integer.parseInt(day);
             Date futureDate = DateUtil.getDateByWeekday(dayOfWeek);
             String dateToString = DateUtil.dateToString(futureDate);
             String dateToString2 = dateToString +" "+hourTo.split("-")[0];
             futureDate = DateUtil.stringToDate(dateToString2);
-            if (futureDate.compareTo(new Date()) > 0) {
+            if (futureDate.compareTo(new Date()) > 0 && !historyPlanTime.contains(futureDate)) {
                 CourseTime courseTime = new CourseTime(futureDate, dateToString + " " + hourTo+" " + DateUtil.getWeekDay(futureDate));
                 timeList.add(courseTime);
             }

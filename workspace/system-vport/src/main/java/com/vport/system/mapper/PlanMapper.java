@@ -1,5 +1,6 @@
 package com.vport.system.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -37,5 +38,7 @@ public interface PlanMapper extends Mapper<PlanType>{
     List<SkillDetailWithFullInfo> selectSkillDetailWithFullInfo(Long schemaId);
 
     List<PlanType> selectTypeWithUnit();
+    
+    List<Date> findSchemaTrainingTimeByClassId(Long classId);
 
 }

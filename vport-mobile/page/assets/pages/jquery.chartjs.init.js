@@ -53,19 +53,88 @@ File: Chartjs
 
     //init
     ChartJs.prototype.init = function() {
-        //ajax get arrays 
+        
         //skills
-        var skillsLastTimeData = [28, 48, 40, 19, 96, 27];
-        var skillsAverageData = [65, 59, 90, 81, 56, 55];
-        var skillsByTimeData = [65, 59, 80,54,29];
-        var skillsByTimeLabel = ["12/12/17","12/08/18","24/08/18","02/09/18","02/10/18"]
-        var skillsScoreByTime=[[44,6,58,57,60],[24,36,8,74,16],[74,26,18,37,80],[41,46,98,17,30],[21,11,33,44,55],[99,88,77,66,22],[33,77,55,88,11]];
+        var skillsLastTimeData = [];
+        var skillsAverageData = [];
+        var skillsByTimeData = [];
+        var skillsByTimeLabel = []
+        var skillsScoreByTime=[];
         //physical ability
-        var physicalLastTimeData = [48, 40, 19, 96, 27];
-        var physicalAverageData = [59, 90, 81, 56, 55];
-        var physicalByTimeData = [65, 59, 80,54,29];
-        var physicalScoreByTime=[[44,6,58,57,60],[24,36,8,74,16],[74,26,18,37,80],[41,46,98,17,30],[21,11,33,44,55],[99,88,77,66,22]];
+        var physicalLastTimeData = [];
+        var physicalAverageData = [];
+        var physicalByTimeData = [];
+        var physicalScoreByTime=[];
         //end
+        
+      //ajax get arrays 
+        var studentId = $("#studentId").text();
+        console.log(studentId);
+        $.ajax({
+			url:"http://www.vport.com/rest/common/showData?id="+studentId,
+			async:false,
+			type:"get",
+			dataType:"json",
+			success:function(data){
+				//skillsByTimeLabel
+				$(data.skillsByTimeData).each(function(i,n){
+					skillsByTimeLabel[i] = n.visualTime;
+				});
+				
+				//skillsLastTimeData
+				$(data.skillsLastTimeData).each(function(i,n){
+					skillsScoreByTime[i] = new Array();
+					for(var j = 0; j < skillsByTimeLabel.length;j++){
+						skillsScoreByTime[i][j] = 0;
+					}
+					skillsLastTimeData[i] = n.score;
+				});
+				//skillsAverageData
+				$(data.skillsAverageData).each(function(i,n){
+					skillsAverageData[i] = n.score;
+				});
+				//skillsByTimeData
+				$(data.skillsByTimeData).each(function(i,n){
+					skillsByTimeData[i] = n.score;
+				});
+				
+				
+				//skillsScoreByTime
+				for(var i = 0; i < data.skillsScoreByTime.length;i++){
+					for(var j = 0; j < data.skillsScoreByTime[i].length;j++){
+						skillsScoreByTime[j][i] = data.skillsScoreByTime[i][j].score * 100 /5;
+					}
+				}
+				
+				//physicalLastTimeData
+				$(data.physicalLastTimeData).each(function(i,n){
+					physicalScoreByTime[i] = new Array();
+					for(var j = 0; j < skillsByTimeLabel.length;j++){
+						physicalScoreByTime[i][j] = 0;
+					}
+					physicalLastTimeData[i] = n.score;
+				});
+				//physicalAverageData
+				$(data.physicalAverageData).each(function(i,n){
+					physicalAverageData[i] = n.score;
+				});
+				//physicalByTimeData
+				$(data.physicalByTimeData).each(function(i,n){
+					physicalByTimeData[i] = n.score;
+				});
+				
+				//physicalScoreByTime
+				for(var i = 0; i < data.physicalScoreByTime.length;i++){
+					for(var j = 0; j < data.physicalScoreByTime[i].length;j++){
+						physicalScoreByTime[j][i] = data.physicalScoreByTime[i][j].score * 100 /5;
+					}
+				}
+				
+			}
+		});
+        
+        
+        
         //
         var skillsLabel = ["Front Hand", "Back Hand", "Front Volley", "Back Volley", "Smash", "serve"];
         var skillsRadarChart = {

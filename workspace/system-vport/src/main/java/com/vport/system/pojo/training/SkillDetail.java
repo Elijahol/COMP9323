@@ -38,7 +38,7 @@ public class SkillDetail implements Serializable{
     
     private String isCombined;
     
-    private Long typeOfSikll;
+    private Long typeOfSkill;
 
     public Long getId() {
         return id;
@@ -128,12 +128,12 @@ public class SkillDetail implements Serializable{
         this.isCombined = isCombined;
     }
 
-    public Long getTypeOfSikll() {
-        return typeOfSikll;
+    public Long getTypeOfSkill() {
+        return typeOfSkill;
     }
 
-    public void setTypeOfSikll(Long typeOfSikll) {
-        this.typeOfSikll = typeOfSikll;
+    public void setTypeOfSkill(Long typeOfSkill) {
+        this.typeOfSkill = typeOfSkill;
     }
 
     @Override
@@ -142,7 +142,7 @@ public class SkillDetail implements Serializable{
                 + ", isMoved=" + isMoved + ", isMultiple=" + isMultiple + ", groupNum=" + groupNum
                 + ", countNumOfGroup=" + countNumOfGroup + ", numOfSuccess=" + numOfSuccess
                 + ", requiredTime=" + requiredTime + ", isTarget=" + isTarget + ", isCombined=" + isCombined
-                + ", typeOfSikll=" + typeOfSikll + "]";
+                + ", typeOfSkill=" + typeOfSkill + "]";
     }
     
     

@@ -45,26 +45,7 @@
 	        <div class="content-page">
 	
 	             <!-- Top Bar Start -->
-	            <div class="topbar">
-	
-	                <nav class="navbar-custom">
-	                    <ul class="list-inline menu-left mb-0">
-	                        <li class="float-left">
-	                            <button class="button-menu-mobile open-left">
-	                                <i class="dripicons-menu"></i>
-	                            </button>
-	                        </li>
-	                        <li>
-	                            <div class="page-title-box">
-	                                <h4 class="page-title">Home</h4>
-	                            </div>
-	                        </li>
-	
-	                    </ul>
-	
-	                </nav>
-	
-	            </div>
+	            <%@include file="home.jsp" %>
 	            <!-- Top Bar End -->
 	
 	
@@ -74,12 +55,14 @@
 	                <div class="container-fluid">
 	
 	                    <!-- user-info template -->
-	                    <div class="row m-t-50">
+		                <div class="row m-t-50">
 	                        <div class="col-12">
-	                            <div class="card-box user-box-1">
-	                                <img src="http://image.vport.com/${existUser.icon }" alt="">
+	                            <div class="card-box user-box-1" style="background-image: url('http://image.vport.com/${existUser.icon }');">
+	                                <div class="mask">
+	                                    <img src="http://image.vport.com/${existUser.icon }" alt="">
 	                                <h4>Hi, ${existUser.name }</h4>
-	                                <p id="firstReminder"><i class="mdi mdi-bell-ring-outline"></i></p>
+	                                <p id=""><i class="mdi mdi-bell-ring-outline"></i> </p>
+	                                </div>
 	                            </div>
 	                        </div>
 	                    </div>
