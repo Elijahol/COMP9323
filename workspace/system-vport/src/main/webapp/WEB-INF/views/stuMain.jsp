@@ -20,7 +20,11 @@
     <link href="${pageContext.request.contextPath }/assets/css/style_dark.css" rel="stylesheet" type="text/css" />
 
     <script src="${pageContext.request.contextPath }/assets/js/modernizr.min.js"></script>
-
+	<style type="text/css">
+		#link{
+		 height: auto!important;
+		}
+	</style>
 </head>
 
 
@@ -159,7 +163,10 @@
 
 
 <!-- jQuery  -->
+
+
 <script src="${pageContext.request.contextPath }/assets/js/jquery.min.js"></script>
+
 <script src="${pageContext.request.contextPath }/assets/js/popper.min.js"></script>
 <script src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath }/assets/js/metisMenu.min.js"></script>
@@ -185,6 +192,7 @@
 <!-- App js -->
 <script src="${pageContext.request.contextPath }/assets/js/jquery.core.js"></script>
 <script src="${pageContext.request.contextPath }/assets/js/jquery.app.js"></script>
+
 <script type="text/javascript">
 	$(function(){
 		var date = {};
@@ -198,8 +206,11 @@
 			}
 		});
 		//添加最近课程
-		var firstReminder = date["00"];
-		$("#firstReminder").append(" Next Course: "+firstReminder.visualTime);
+		if(date["00"] != null){
+			var firstReminder = date["00"];
+			$("#firstReminder").append(" Next Course: "+firstReminder.visualTime);
+		}
+		
 		
 		
 		//对date的key进行排序
@@ -285,5 +296,6 @@
 	});
 
 </script>
+<script src="${pageContext.request.contextPath }/assets/js/info.js"></script>
 </body>
 </html>

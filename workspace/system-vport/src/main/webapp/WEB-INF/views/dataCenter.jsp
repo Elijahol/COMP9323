@@ -20,7 +20,11 @@
     <link href="${pageContext.request.contextPath }/assets/css/style_dark.css" rel="stylesheet" type="text/css" />
 
     <script src="${pageContext.request.contextPath }/assets/js/modernizr.min.js"></script>
-
+	<style type="text/css">
+		#link{
+		 height: auto!important;
+		}
+	</style>
 </head>
 
 
@@ -61,7 +65,7 @@
                                     <h4>${student.name } <i class=""></i></h4>
                                     <span id="studentId" hidden="hidden">${student.id }</span>
                                 </div>
-                                <a href="${pageContext.request.contextPath }/rest/common/showProfile?id=${student.id}" style="position: absolute;top: 0px;right: 0px;"><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">View</button></a>
+                                <a href="${pageContext.request.contextPath }/rest/common/showProfile?id=${student.id}" style="position: absolute;top: 40px;right: 40px;"><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">View</button></a>
                                 <p><i class="mdi mdi-map-marker-outline"></i> ${student.email }</p>
                                 </div>
                             </div>
@@ -174,7 +178,7 @@
     <script src="${pageContext.request.contextPath }/assets/js/metisMenu.min.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/waves.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/jquery.slimscroll.js"></script>
-
+	<script src="${pageContext.request.contextPath }/assets/js/info.js"></script>
     
 
     <!-- KNOB JS -->

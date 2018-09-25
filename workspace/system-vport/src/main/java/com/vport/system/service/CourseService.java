@@ -1,5 +1,6 @@
 package com.vport.system.service;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -22,4 +23,5 @@ public interface CourseService {
     TrainingClassToDisPlay getOpenCourseDetail(Long classId);
     List<ClassInfoForStu> getClassInfoForStu(User player);
     ClassInfoForStu getClassInfoByClassIdForStu(Long classId);
+    ResponseData joinTheClass(User student, Long classId) throws ParseException ;
 }

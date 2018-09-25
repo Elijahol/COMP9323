@@ -57,6 +57,7 @@ File: Main Css File
   Menu
 ============= */
 /* Metis Menu css */
+
 .metismenu {
   padding: 0;
 }
@@ -6178,8 +6179,7 @@ display: inline-block;
 .user-box-2 .mask button{
   position: absolute;
   top:50px;
-  right: 45px;
-  font-size:16px
+  right: 50px;
 }
 .user-box-2 a{
   position: absolute;

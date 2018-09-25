@@ -110,7 +110,7 @@ public class UserController {
             return "login";
         }
         //判断是教练还是球员
-        if (existUser.getRole() == 1) {
+        if (existUser.getRole() != 2) {
             return "trainerMain";
         }else{
             return "stuMain";

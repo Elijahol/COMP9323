@@ -21,4 +21,5 @@ public interface UserService {
     void deleteReward(Reward reward);
     void addReward(Reward reward);
     List<User> findUserByRole(long role);
+    List<User> findTrainer();
 }

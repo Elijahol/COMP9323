@@ -33,6 +33,9 @@
 		.labelError{
 			color:red;
 		}
+		#link{
+		 height: auto!important;
+		}
 	</style>
 </head>
 
@@ -291,7 +294,7 @@
 <script src="${pageContext.request.contextPath }/assets/js/metisMenu.min.js"></script>
 <script src="${pageContext.request.contextPath }/assets/js/waves.js"></script>
 <script src="${pageContext.request.contextPath }/assets/js/jquery.slimscroll.js"></script>
-
+<script src="${pageContext.request.contextPath }/assets/js/info.js"></script>
 
 
 <!-- KNOB JS -->

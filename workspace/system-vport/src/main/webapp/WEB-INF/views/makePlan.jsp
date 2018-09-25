@@ -30,7 +30,11 @@
     <script src="${pageContext.request.contextPath }/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
     <script src="${pageContext.request.contextPath }/plugins/switchery/switchery.min.js"></script>
 
-
+	<style type="text/css">
+		#link{
+		 height: auto!important;
+		}
+	</style>
 </head>
 
 
@@ -339,7 +343,7 @@
     <script src="${pageContext.request.contextPath }/assets/js/metisMenu.min.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/waves.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/jquery.slimscroll.js"></script>
-
+	<script src="${pageContext.request.contextPath }/assets/js/info.js"></script>
     
 
     <!-- KNOB JS -->

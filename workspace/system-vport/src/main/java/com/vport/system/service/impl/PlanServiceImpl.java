@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.vport.system.bean.MakeTrainingPlan;
 import com.vport.system.bean.PlanTree;
+import com.vport.system.mapper.InfoMapper;
 import com.vport.system.mapper.PlanMapper;
 import com.vport.system.pojo.training.PhysicalContent;
 import com.vport.system.pojo.training.PhysicalDetail;
@@ -23,6 +24,7 @@ import com.vport.system.pojo.training.SkillDetail;
 import com.vport.system.pojo.training.SkillDetailWithFullInfo;
 import com.vport.system.pojo.training.TrainingPlan;
 import com.vport.system.pojo.training.TrainingPlanInfo;
+import com.vport.system.service.InfoService;
 import com.vport.system.service.PlanService;
 
 import net.sf.ehcache.Cache;
@@ -34,6 +36,8 @@ public class PlanServiceImpl implements PlanService {
     
     @Autowired
     private PlanMapper planMapper;
+    @Autowired
+    private InfoService infoService;
     
     
     private PlanType searchChildren(PlanType planType, Map<Long, List<PlanType>> typeMap) {
@@ -154,6 +158,7 @@ public class PlanServiceImpl implements PlanService {
             planMapper.insertSkillDetail(skillDetail);
             planMapper.insertSkillSchemaDetail(plan.getId(), skillDetail.getId());
         }
+        infoService.addNewPlanInfoToStu(plan.getId(), plan.getClassId());
     }
     /**
      * 根据训练计划id提取训练计划内容

@@ -27,7 +27,11 @@
     <link href="${pageContext.request.contextPath }/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath }/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath }/plugins/switchery/switchery.min.css">
-
+	<style type="text/css">
+		#link{
+		 height: auto!important;
+		}
+	</style>
 </head>
 
 
@@ -139,7 +143,7 @@
                                                 </div>
                                                 <div class="class-box-body">
                                                     <p> ${plan.trainingDate }</p>
-                                                    <a href="#" class=""><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">View</button></a>
+                                                    <a href="${pageContext.request.contextPath }/rest/course/toEachPlan?id=${plan.id}" class=""><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">View</button></a>
                                                 </div>
                                             </div>
                                             </c:forEach>
@@ -253,7 +257,10 @@
                                 </div>                      
                             </form>
                         </div>
+                        
                         <div class="modal-footer">
+	                        <div id="alertInfo" class="alert alert-danger mt-4" style="display: none">
+	                    	</div>
                             <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Close</button>
                             <button id="submit" type="button" class="btn btn-custom waves-effect waves-light">Save</button>
                         </div>
@@ -284,7 +291,7 @@
     <script src="${pageContext.request.contextPath }/assets/js/metisMenu.min.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/waves.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/jquery.slimscroll.js"></script>
-
+	<script src="${pageContext.request.contextPath }/assets/js/info.js"></script>
     
 
      <!-- KNOB JS -->
@@ -321,19 +328,23 @@
     	
     	$("#submit").click(function(){
     		var form = $('#eval-form').formGet();
-    		/* console.log(form.player); */
+    		console.log(form); 
     		var myarr = new Array();
     		var per = {};
+    		var isValid = true;
     		for(var o in form){
     			if(o.startWith("performanceContents")){
+    				if(form[o].count == ''){
+    					isValid = false
+    				}
     				myarr.push(form[o]);
     			}else{
     				per[o] = form[o];
     			}
     		}
     		per["performanceContents"] = myarr;
-    		console.log(per); 
-    		$.ajax({
+    		if(isValid){
+    			$.ajax({
     			url:"${pageContext.request.contextPath}/rest/performance/storeEvaluateData",
     			type:"post",
     			contentType: "application/json",
@@ -346,6 +357,14 @@
     				}
     			}
     		}); 
+    		} else{
+    			$("#alertInfo").html("Content Missing!");
+        		$("#alertInfo").show();
+                setTimeout(function () {
+                    $("#alertInfo").hide();
+                },3000);
+    		}
+    		
     	});
     
     	/*-------------------------*/

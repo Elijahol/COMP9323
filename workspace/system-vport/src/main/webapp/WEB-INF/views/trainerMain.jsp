@@ -22,7 +22,11 @@
         <link href="${pageContext.request.contextPath }/assets/css/style_dark.css" rel="stylesheet" type="text/css" />
 
         <script src="${pageContext.request.contextPath }/assets/js/modernizr.min.js"></script>
-       
+       	<style type="text/css">
+		#link{
+		 height: auto!important;
+		}
+	</style>
 		
     </head>
 
@@ -61,7 +65,7 @@
 	                                <div class="mask">
 	                                    <img src="http://image.vport.com/${existUser.icon }" alt="">
 	                                <h4>Hi, ${existUser.name }</h4>
-	                                <p id=""><i class="mdi mdi-bell-ring-outline"></i> </p>
+	                                <p id="firstReminder"><i class="mdi mdi-bell-ring-outline"></i> </p>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -167,7 +171,7 @@
 	    <script src="${pageContext.request.contextPath }/assets/js/metisMenu.min.js"></script>
 	    <script src="${pageContext.request.contextPath }/assets/js/waves.js"></script>
 	    <script src="${pageContext.request.contextPath }/assets/js/jquery.slimscroll.js"></script>
-	
+		<script src="${pageContext.request.contextPath }/assets/js/info.js"></script>
 	    
 	
 	    <!-- KNOB JS -->
@@ -187,9 +191,12 @@
 	    <!-- App js -->
 	    <script src="${pageContext.request.contextPath }/assets/js/jquery.core.js"></script>
 	    <script src="${pageContext.request.contextPath }/assets/js/jquery.app.js"></script>
+	    <script src="${pageContext.request.contextPath }/assets/js/info.js"></script>
 		<script type="text/javascript">
 		// class name will start at 12:00pm
 			$(function(){
+				
+				
 				var date = {};
 				/* 得到用户信息 */
 				$.ajax({
@@ -201,37 +208,38 @@
 						if(data != {}) date = data;
 					}
 				});
-				/* $.get("${pageContext.request.contextPath}/rest/course/timeTable",{id:"${existUser.id}"},function(res){
-					if(res != null){
-						date = res;
-						console.log(date);
-						var firstReminder = res.data[0];
-						$("#firstReminder").append(" The "+firstReminder.className+" class will start at "+firstReminder.visualTime);
-					}
-				},"json"); */
+				console.log(date);
 				//添加最近课程
-				var firstReminder = date["00"];
-				$("#firstReminder").append(" Next Course: "+firstReminder.visualTime);
+				if(date["00"] != null){
+					var firstReminder = date["00"];
+					$("#firstReminder").append(" Next Course: "+firstReminder.visualTime);
+				}
+				
 				
 				/* 得到班级信息 */
 				$.get("${pageContext.request.contextPath}/rest/course/classInfo",{},function(data){
+					
 					$(data).each(function(i,n){
-						console.log(n);
 						var isChief = n.isChief == true?"chief":"assisstant";
-						var length = n.students.length != null?n.students.length:0;
-						$("#courseInfo").append("<div class='class-box'>"
-					                                +"<div class='class-box-header'>"
-					                                +"<h5><i class='mdi mdi-bullseye'></i> "+n.className+" <strong>"+n.rank+"</strong></h5>"
-					                                +"<p class='class-box-time'>"+isChief+"</p>"
-					                            +"</div>"
-					                            +"<div class='class-box-body'>"
-						                            +"<img src=http://image.vport.com/"+n.students[0].icon+">"
-						                            +"<img src=http://image.vport.com/"+n.students[1].icon+">"
-						                            +"<img src=http://image.vport.com/"+n.students[2].icon+">"
-					                                +"<p>... "+n.students.length+" students</p>"
-					                                +"<a href='${pageContext.request.contextPath}/rest/course/classInfoByClassId?classId="+n.classId+"'><button class='btn btn-outline-custom btn-rounded waves-light waves-effect'>View</button></a>"
-					                            +"</div>"
-					                        +"</div>");
+						if(n.students != null){
+							var length = n.students.length;
+							$("#courseInfo").append("<div class='class-box'>"
+	                                +"<div class='class-box-header'>"
+	                                +"<h5><i class='mdi mdi-bullseye'></i> "+n.className+" <strong>"+n.rank+"</strong></h5>"
+	                                +"<p class='class-box-time'>"+isChief+"</p>"
+	                            +"</div>"
+	                            +"<div class='class-box-body'>"
+		                            +"<img src=http://image.vport.com/"+n.students[0].icon+">"
+		                            +"<img src=http://image.vport.com/"+n.students[1].icon+">"
+		                            +"<img src=http://image.vport.com/"+n.students[2].icon+">"
+	                                +"<p>... "+n.students.length+" students</p>"
+	                                +"<a href='${pageContext.request.contextPath}/rest/course/classInfoByClassId?classId="+n.classId+"'><button class='btn btn-outline-custom btn-rounded waves-light waves-effect'>View</button></a>"
+	                            +"</div>"
+	                        +"</div>");
+						}
+						
+						
+						
 					});
 				},"json");
 			

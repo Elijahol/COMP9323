@@ -1,11 +1,18 @@
 /*package com.vport.system.test;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import org.apache.commons.collections.map.HashedMap;
@@ -16,12 +23,26 @@ import com.vport.system.bean.TimeTableWithWeek;
 import com.vport.system.utils.DateUtil;
 
 public class Demo2 {
-    public static void main(String[] args) throws InterruptedException {
+    private static class ValueComparator implements Comparator<Map.Entry<String,Integer>>{
+
+        @Override
+        public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
+            // TODO Auto-generated method stub
+            return o2.getValue() - o1.getValue();
+        }
+
         
-        Date date1 = new Date();
-        Thread.sleep(1000);
-        Date date2 = new Date();
-        System.out.println(date1.getTime());
+        
+    }
+    public static void main(String[] args) throws InterruptedException, ParseException {
+       SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+       String hour = "15:00";
+       String hour2 = "9:00";
+       Date date = sdf.parse(hour);
+       Date date2 = sdf.parse(hour2);
+       System.out.println(date);
+       System.out.println(date2);
+       System.out.println(date2.compareTo(date));
         
     }
     
@@ -34,50 +55,7 @@ public class Demo2 {
         String format = sdf.format(date);
         System.out.println(format);
     }
-    //获取当前(上，下)周的日期范围如：...,-1上一周，0本周，1下一周...
-    private static Map<String, TimeTableWithWeek> getWeekDays(int i) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd");
-            // getTimeInterval(sdf);
     
-            Calendar calendar1 = Calendar.getInstance();
-            // 设置一个星期的第一天，一个星期的第一天是星期日
-            calendar1.setFirstDayOfWeek(Calendar.SUNDAY);
-            
-            // 判断要计算的日期是否是周日，如果是则减一天计算周六的，否则会出问题，计算到下一周去了
-            int dayOfWeek = calendar1.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
-            if (1 == dayOfWeek) {
-                    calendar1.add(Calendar.DAY_OF_MONTH, -1);
-            }
-    
-            // 获得当前日期是一个星期的第几天
-            int day = calendar1.get(Calendar.DAY_OF_WEEK);
-    
-            //获取当前日期前（下）x周同星几的日期
-            calendar1.add(Calendar.DATE, 7*i);
-    
-            calendar1.add(Calendar.DATE, calendar1.getFirstDayOfWeek() - day);
-    
-    
-            
-            String beginDate = sdf.format(calendar1.getTime());
-            calendar1.add(Calendar.DATE, 6);
-    
-            String endDate = sdf.format(calendar1.getTime());
-            Map<String, TimeTableWithWeek> map = new TreeMap<String,TimeTableWithWeek>();
-            for (int j = Integer.parseInt(beginDate); j <= Integer.parseInt(endDate); j++) {
-                Date dateByWeekday = DateUtil.getDateByWeekday(j);
-                String strDate = DateUtil.dateToString(dateByWeekday);
-                TimeTableWithWeek timeTableWithWeek = new TimeTableWithWeek();
-                timeTableWithWeek.setTime(dateByWeekday);
-                timeTableWithWeek.setVisualTime(strDate);
-                if (j<10) {
-                    map.put("0"+j, timeTableWithWeek);
-                }else{
-                    map.put(""+j, timeTableWithWeek);
-                }
-            }
-            return map;
-    }
     
 
 

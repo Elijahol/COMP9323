@@ -5,11 +5,13 @@ package com.vport.system.controller;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.security.auth.login.FailedLoginException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -37,6 +39,7 @@ import com.vport.system.pojo.training.TrainingClass;
 import com.vport.system.pojo.training.TrainingClassInfo;
 import com.vport.system.pojo.training.TrainingPlanInfo;
 import com.vport.system.service.CourseService;
+import com.vport.system.service.InfoService;
 import com.vport.system.service.PlanService;
 import com.vport.system.service.UserService;
 import com.vport.system.utils.UUIDUtils;
@@ -66,6 +69,34 @@ public class CourseController {
     @Autowired
     private UserService userService;
     
+    
+    
+    @RequestMapping(value="toEachPlan",method=RequestMethod.GET)
+    public String returnEachPlanPage(Long id, Model model){
+        model.addAttribute("schemaId", id);
+        return "planDetail";
+    }
+    
+    /**
+     * 根据schemaId得到训练计划详细
+     * @param id
+     * @return
+     */
+    @RequestMapping(value="eachPlan",method = RequestMethod.GET)
+    @ResponseBody
+    public TrainingPlanInfo getEachPlan(Long id){
+        TrainingPlanInfo trainingPlanInfo = planService.getTrainingPlanInfo(id);
+        
+        return trainingPlanInfo;
+    }
+    
+    
+    /**
+     * 返回制定训练计划页面
+     * @param classId
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "returnPlan",method = RequestMethod.GET)
     public String returnPlan(Long classId,Model model){
         User trainer = (User) session.getAttribute("existUser");
@@ -136,7 +167,7 @@ public class CourseController {
     @RequestMapping(value="getTrainerList",method = RequestMethod.GET)
     @ResponseBody
     public List<User> getTrainerList(){
-        List<User> trainers = userService.findUserByRole(1L);
+        List<User> trainers = userService.findTrainer();
         return trainers;
     }
     
@@ -167,14 +198,7 @@ public class CourseController {
         Map<String, Object> timeTable = courseService.getTimeTable(id,user.getRole());
         return timeTable;
     }
-    @RequestMapping(value="eachPlan",method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseData getEachPlan(Long id){
-        TrainingPlanInfo trainingPlanInfo = planService.getTrainingPlanInfo(id);
-        List<TrainingPlanInfo> list = new ArrayList<TrainingPlanInfo>();
-        list.add(trainingPlanInfo);
-        return new ResponseData(0, "", list);
-    }
+    
     
     /**
      * 上传班级图片
@@ -206,13 +230,16 @@ public class CourseController {
      * @return
      */
     @RequestMapping(value="addCourse",method=RequestMethod.POST)
-    public String addCourse(TrainingClass trainingClass,String hourTo1,String hourTo2,String[] period,Long trainer,String title){
+    public String addCourse(TrainingClass trainingClass,String ageRange1,String ageRange2,
+                            String hourTo1,String hourTo2,String[] period,Long trainer,String title){
         String per = String.join("-", period);
         trainingClass.setPeriod(per);
         String hourTo = hourTo1 + "-" + hourTo2;
         trainingClass.setHourTo(hourTo);
         trainingClass.setClassName(title);
+        trainingClass.setAgeRange(ageRange1+"-"+ageRange2);
         courseService.addCourse(trainingClass,trainer);
+        
         return "redirect:/rest/page/addCourse";
     }
     
@@ -234,9 +261,32 @@ public class CourseController {
     @RequestMapping(value="showOpenCourseDetail",method = RequestMethod.GET)
     public String showOpenCourseDetail(Long classId,Model model){
         TrainingClassToDisPlay course = courseService.getOpenCourseDetail(classId);
+        User sessionUser = (User) session.getAttribute("existUser");
+        boolean flag = false;
+        for(User stu:course.getStudents()){
+            if (stu.getId() == sessionUser.getId()) {
+                flag = true;
+            }
+        }
         model.addAttribute("course", course);
+        if (flag) {
+            model.addAttribute("hasAdd", "1");
+        }
         return "courseAdDetail";
     }
+    /**
+     * 学生申请加入课程
+     * @return
+     * @throws ParseException 
+     */
+    @RequestMapping(value="joinTheClass",method=RequestMethod.POST)
+    @ResponseBody
+    public ResponseData joinTheClass(Long classId) throws ParseException {
+        User stu = (User) session.getAttribute("existUser");
+        
+        return courseService.joinTheClass(stu,classId);
+    }
+    
     
     private String checkTheFile(MultipartFile pictureFile) throws Exception{
         //保存图片
