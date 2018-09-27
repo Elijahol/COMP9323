@@ -163,7 +163,16 @@
 
                                     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                                         <div class="card-body bg-transparent">
-                                            
+                                            <div class="card-box">
+                                                <h4 class="header-title">Skills</h4>
+                                                <canvas id="classSkills" height="350" class="mt-4"></canvas>
+                                            </div>
+                                            <div class="card-box">
+                                                <h4 class="header-title">Physical Ability</h4>
+                                                <canvas id="classPhysical" height="350" class="mt-4"></canvas>
+                                            </div>
+                                            <div class="alert alert-custom mt-4"><strong>Suggestion:</strong><br>
+                                            asddfafaf </div>
                                             <button type="button" class="btn btn-custom btn-block mb-3 waves-effect waves-light" data-toggle="modal" data-target="#makePlanModal"><i class="mdi mdi-plus-circle"></i> Add A New Plan</button>
 
                                             <ul class="sortable-list taskList list-unstyled" id="upcoming">
@@ -567,6 +576,9 @@
     <script src="assets/js/jquery.core.js"></script>
     <script src="assets/js/jquery.app.js"></script>
     <script type="text/javascript" src="assets/pages/jquery.form-advanced.init.js"></script>
+    <!-- Chart JS -->
+    <script src="../plugins/chart.js/chart.bundle.js"></script>
+    <script src="assets/pages/jquery.chartjs.init.js"></script>
 
     <!-- Modal-Effect -->
     <script src="../plugins/custombox/js/custombox.min.js"></script>

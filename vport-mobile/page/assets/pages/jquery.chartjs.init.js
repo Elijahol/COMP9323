@@ -66,8 +66,46 @@ File: Chartjs
         var physicalByTimeData = [65, 59, 80,54,29];
         var physicalScoreByTime=[[44,6,58,57,60],[24,36,8,74,16],[74,26,18,37,80],[41,46,98,17,30],[21,11,33,44,55],[99,88,77,66,22]];
         //end
-        //
+        
         var skillsLabel = ["Front Hand", "Back Hand", "Front Volley", "Back Volley", "Smash", "serve"];
+        var physicalLabel = ["Speed", "Strength", "Explosive Force", "Flexibility", "Coordination"];
+       //class data
+        var classSkillsAverageData = [65, 59, 90, 81, 56, 55];
+        var classPhysicalAverageData = [59, 90, 81, 56, 55];
+        var classSkillsRadarChart = {
+            labels: skillsLabel,
+            datasets: [
+                {
+                    label: "Average",
+                    backgroundColor: "rgba(2, 192, 206, 0.3)",
+                    borderColor: "#02c0ce",
+                    pointBackgroundColor: "#02c0ce",
+                    pointBorderColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: "#02c0ce",
+                    data: classSkillsAverageData
+                }
+            ]
+        };
+        var classPhysicalRadarChart = {
+            labels: physicalLabel,
+            datasets: [
+                {
+                    label: "Average",
+                    backgroundColor: "rgba(2, 192, 206, 0.3)",
+                    borderColor: "#02c0ce",
+                    pointBackgroundColor: "#02c0ce",
+                    pointBorderColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: "#02c0ce",
+                    data: classPhysicalAverageData
+                }
+            ]
+        };
+        this.respChart($("#classSkills"),'Radar',classSkillsRadarChart);
+        this.respChart($("#classPhysical"),'Radar',classPhysicalRadarChart);
+        // 
+
         var skillsRadarChart = {
             labels: skillsLabel,
             datasets: [
@@ -94,6 +132,7 @@ File: Chartjs
             ]
         };
         this.respChart($("#skills"),'Radar',skillsRadarChart);
+        
 
         //barchart
         var skillsBarChart = {
@@ -206,7 +245,7 @@ File: Chartjs
         this.respChart($("#skillsByScore"),'Line',skillsLineChart, lineOpts);
 
 
-        var physicalLabel = ["Speed", "Strength", "Explosive Force", "Flexibility", "Coordination"];
+        
         var physicalRadarChart = {
             labels: physicalLabel,
             datasets: [
