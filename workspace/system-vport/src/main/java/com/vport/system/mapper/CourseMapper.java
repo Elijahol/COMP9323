@@ -32,4 +32,6 @@ public interface CourseMapper extends Mapper<TrainingClass> {
     List<ClassInfoForStu> findClassInfoByStu(Long id);
 
     ClassInfoForStu findClassInfoForStuByClassId(Long classId);
+
+    void linkClassAndStu(@Param("classId")Long classId, @Param("student")Long id);
 }

@@ -20,7 +20,11 @@
     <link href="${pageContext.request.contextPath }/assets/css/style_dark.css" rel="stylesheet" type="text/css" />
 
     <script src="${pageContext.request.contextPath }/assets/js/modernizr.min.js"></script>
-
+	<style type="text/css">
+		#link{
+		 height: auto!important;
+		}
+	</style>
 </head>
 
 
@@ -42,26 +46,7 @@
         <div class="content-page">
 
             <!-- Top Bar Start -->
-            <div class="topbar">
-
-                <nav class="navbar-custom">
-                    <ul class="list-inline menu-left mb-0">
-                        <li class="float-left">
-                            <button class="button-menu-mobile open-left">
-                                <i class="dripicons-menu"></i>
-                            </button>
-                        </li>
-                        <li>
-                            <div class="page-title-box">
-                                <h4 class="page-title">Home</h4>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-
-            </div>
+            <%@include file="home.jsp" %>
             <!-- Top Bar End -->
 
 
@@ -73,14 +58,16 @@
                     <!-- user-info template -->
                     <div class="row m-t-50">
                         <div class="col-12">
-                            <div class="card-box user-box-2">
-                                <img src="http://image.vport.com/${student.icon }" alt="">
-                                <div class="user-name">
+                            <div class="card-box user-box-2" style="background-image: url('http://image.vport.com/${student.icon }')">
+                                <div class="mask">
+                                    <img src="http://image.vport.com/${student.icon }" alt="">
+                                    <div class="user-name">
                                     <h4>${student.name } <i class=""></i></h4>
                                     <span id="studentId" hidden="hidden">${student.id }</span>
                                 </div>
-                                <a href="${pageContext.request.contextPath }/rest/common/showProfile?id=${student.id}" style="position: absolute;top: 0px;right: 0px;"><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">View</button></a>
+                                <a href="${pageContext.request.contextPath }/rest/common/showProfile?id=${student.id}" style="position: absolute;top: 40px;right: 40px;"><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">View</button></a>
                                 <p><i class="mdi mdi-map-marker-outline"></i> ${student.email }</p>
+                                </div>
                             </div>
                             <div class="user-data-box">
                                 <div class="user-data">
@@ -191,7 +178,7 @@
     <script src="${pageContext.request.contextPath }/assets/js/metisMenu.min.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/waves.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/jquery.slimscroll.js"></script>
-
+	<script src="${pageContext.request.contextPath }/assets/js/info.js"></script>
     
 
     <!-- KNOB JS -->

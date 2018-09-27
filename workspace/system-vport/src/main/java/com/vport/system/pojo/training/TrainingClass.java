@@ -37,11 +37,17 @@ public class TrainingClass implements Serializable{
     @Column(name = "deadLine")
     private Date deadLine;
     private String pic;
-    
+    private String ageRange;
     
     
     
    
+    public String getAgeRange() {
+        return ageRange;
+    }
+    public void setAgeRange(String ageRange) {
+        this.ageRange = ageRange;
+    }
     public Date getDeadLine() {
         return deadLine;
     }

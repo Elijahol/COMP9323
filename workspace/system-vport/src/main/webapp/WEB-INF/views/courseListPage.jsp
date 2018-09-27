@@ -21,7 +21,11 @@
     <link href="${pageContext.request.contextPath }/assets/css/style_dark.css" rel="stylesheet" type="text/css" />
 
     <script src="${pageContext.request.contextPath }/assets/js/modernizr.min.js"></script>
-
+	<style type="text/css">
+		#link{
+		 height: auto!important;
+		}
+	</style>
 </head>
 
 
@@ -46,26 +50,7 @@
         <div class="content-page">
 
             <!-- Top Bar Start -->
-            <div class="topbar">
-
-                <nav class="navbar-custom">
-                    <ul class="list-inline menu-left mb-0">
-                        <li class="float-left">
-                            <button class="button-menu-mobile open-left">
-                                <i class="dripicons-menu"></i>
-                            </button>
-                        </li>
-                        <li>
-                            <div class="page-title-box">
-                                <h4 class="page-title">Courses</h4>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-
-            </div>
+            <%@include file="home.jsp" %>
             <!-- Top Bar End -->
 
 
@@ -154,7 +139,7 @@
     <script src="${pageContext.request.contextPath }/assets/js/metisMenu.min.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/waves.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/jquery.slimscroll.js"></script>
-
+	<script src="${pageContext.request.contextPath }/assets/js/info.js"></script>
     
 
     <!-- KNOB JS -->

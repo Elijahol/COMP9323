@@ -98,6 +98,15 @@ public class UserServiceImpl implements UserService {
         return userMapper.findUserByRole(role);
     }
 
+    @Override
+    public List<User> findTrainer() {
+        Example example = new Example(User.class);
+        example.createCriteria().andNotEqualTo("role", 2L);
+        
+        
+        return userMapper.selectByExample(example);
+    }
+
    /* @Override
     public void addTrainer(User user) {
         userMapper.insertTrainer(user.getId());

@@ -34,7 +34,7 @@
 
             <ul class="metismenu" id="side-menu">
                 <li>
-                	<c:if test="${existUser.role == 1 }">
+                	<c:if test="${existUser.role != 2 }">
                     <a href="${pageContext.request.contextPath }/rest/page/trainerMain">
                         <i class="fi-air-play"></i><span> Home </span>
                     </a>
@@ -53,6 +53,11 @@
                 <c:if test="${existUser.role == 2 }">
                 <li>
                     <a href="${pageContext.request.contextPath }/rest/common/showStu?id=${existUser.id}"><i class="fi-bar-graph-2"></i> <span> Data Center </span></a>
+                </li>
+                </c:if>
+                <c:if test="${existUser.role == 3 }">
+                <li>
+                    <a href="${pageContext.request.contextPath }/rest/page/addCourse"><i class="fi-clipboard "></i> <span> Course Manage </span></a>
                 </li>
                 </c:if>
                 <li>

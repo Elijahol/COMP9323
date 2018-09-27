@@ -51,7 +51,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	<select id="findPlanByClass" parameterType="Long" resultMap="trainingPlan">
-		SELECT * FROM training_schema WHERE class_id = #{value};
+		SELECT * FROM training_schema 
+		WHERE class_id = #{value}
+		ORDER BY training_time DESC
 	</select>
 	
 	<select id="findClassInfoByClassId" parameterType="Long" resultMap="trainerAndClass">
@@ -100,8 +102,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<selectKey keyProperty="classId" resultType="Long" order="AFTER">
 			select LAST_INSERT_ID()
 		</selectKey>
-		insert into training_class (class_name,place,period,hour_to,rank,description,starttime,createtime,is_open,is_finish,deadLine,pic)
-		values(#{className},#{place},#{period},#{hourTo},#{rank},#{description},#{starttime},#{createtime},#{isOpen},#{isFinish},#{deadLine},#{pic})
+		insert into training_class (class_name,place,period,hour_to,rank,description,starttime,createtime,is_open,is_finish,deadLine,pic,age_range)
+		values(#{className},#{place},#{period},#{hourTo},#{rank},#{description},#{starttime},#{createtime},#{isOpen},#{isFinish},#{deadLine},#{pic},#{ageRange})
 	
 	</insert>
 	<insert id="linkClassAndTrainer">
@@ -115,4 +117,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT trainer FROM trainer
 		WHERE class_id=#{value} AND is_chief = 1)
 	</select>
+	
+	<insert id="linkClassAndStu">
+		insert into player (player,class_id) values (#{student},#{classId})
+	</insert>
+	
 </mapper>

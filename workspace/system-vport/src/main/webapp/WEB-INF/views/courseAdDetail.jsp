@@ -21,7 +21,12 @@
     <link href="${pageContext.request.contextPath }/assets/css/style_dark.css" rel="stylesheet" type="text/css" />
 
     <script src="${pageContext.request.contextPath }/assets/js/modernizr.min.js"></script>
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/plugins/sweet-alert/sweetalert2.min.css">
+	<style type="text/css">
+		#link{
+		 height: auto!important;
+		}
+	</style>
 </head>
 
 
@@ -43,26 +48,7 @@
         <div class="content-page">
 
             <!-- Top Bar Start -->
-            <div class="topbar">
-
-                <nav class="navbar-custom">
-                    <ul class="list-inline menu-left mb-0">
-                        <li class="float-left">
-                            <button class="button-menu-mobile open-left">
-                                <i class="dripicons-menu"></i>
-                            </button>
-                        </li>
-                        <li>
-                            <div class="page-title-box">
-                                <h4 class="page-title">Course Detail</h4>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-
-            </div>
+            <%@include file="home.jsp" %>
             <!-- Top Bar End -->
 
 
@@ -129,6 +115,10 @@
                                             <p> ${course.trainingClass.rank }</p>
                                         </li>
                                         <li>
+                                            <h5 class="m-b-5">Age Range</h5>
+                                            <p> ${course.trainingClass.ageRange }</p>
+                                        </li>
+                                        <li>
                                             <h5 class="m-b-5">Start Date</h5>
                                             <p> ${course.startTime }</p>
                                         </li>
@@ -148,13 +138,21 @@
                                         <h5 class="m-b-5">${course.students.size() } students add this course</h5>
                                         <div>
                                         	<c:forEach var="student" items="${course.students}">
-                                            <a href="#"> <img class="rounded-circle thumb-sm" alt="64x64" src="http://image.vport.com/${student.icon }"> </a>
+                                            <a href="${pageContext.request.contextPath }/rest/common/showProfile?id=${student.id}"> <img class="rounded-circle thumb-sm" alt="64x64" src="http://image.vport.com/${student.icon }"> </a>
                                             </c:forEach>
                                         </div>
                                         </c:if>
                                     </div>
-                                    <div class="alert alert-custom mt-4">The resitration deadline is <br><strong>${course.deadLine }</strong></div>
-                                    <button class="btn btn-custom btn-addcourse">Add</button>
+                                    <c:if test="${hasAdd != 1 }">
+                                    <div class="alert alert-danger mt-4">The resitration deadline is <br><strong>${course.deadLine }</strong></div>
+                                    </c:if>
+                                    <c:if test="${hasAdd == 1 }">
+                                    <div class="alert alert-custom mt-4"><strong>You have joined into this class</strong></div>
+                                    </c:if>
+                                    <input id="classId" type="hidden" value="${course.trainingClass.classId }">
+                                    <c:if test="${hasAdd != 1 }">
+                                    <button id="addBtn" class="btn btn-custom btn-addcourse">Add</button>
+                                    </c:if>
                                     <div class="clear"></div>
                                 </div>
 
@@ -189,9 +187,9 @@
     <script src="${pageContext.request.contextPath }/assets/js/metisMenu.min.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/waves.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/jquery.slimscroll.js"></script>
-
+	<script src="${pageContext.request.contextPath }/assets/js/info.js"></script>
     
-
+	<script src="${pageContext.request.contextPath }/plugins/sweet-alert/sweetalert2.min.js"></script>
     <!-- KNOB JS -->
         <!--[if IE]>
         <script type="text/javascript" src="${pageContext.request.contextPath }/plugins/jquery-knob/excanvas.js"></script>
@@ -207,6 +205,37 @@
     <!-- App js -->
     <script src="${pageContext.request.contextPath }/assets/js/jquery.core.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/jquery.app.js"></script>
-
+	<script type="text/javascript">
+		
+	 $("#addBtn").click(function () {
+         swal({
+             title: 'Are you sure?',
+             type: 'info',
+             showCancelButton: true,
+             confirmButtonColor: '#3085d6',
+             cancelButtonColor: '#d33',
+             confirmButtonText: 'Yes!'
+         }).then((result) =>{
+             if (result) {
+            	 $.post("${pageContext.request.contextPath}/rest/course/joinTheClass",{"classId":$("#classId").val()},function(res){
+            		 if(res.code == 1){
+	           			 swal(
+                              'Yeah!',
+                              'You have joined into this class,enjoy!!',
+                              'success'
+                            )
+            		 }else{
+            			 swal(
+                               'Error!',
+                               res.msg,
+                               'error'
+                             )
+            		 }
+            	 },"json");
+                 $("#addBtn").attr("disabled","disabled");
+             }
+         })
+     });
+	</script>
 </body>
 </html>

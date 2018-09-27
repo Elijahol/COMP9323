@@ -1,0 +1,96 @@
+.btn-group{
+    display: block;
+}
+.btn input[type=checkbox]{
+    display: none;
+}
+.btn-group label{
+    margin-right: 10px;
+}
+.btn-addPhysical,.btn-addPhysicalForSpe{
+    float: right;
+}
+.second-type{
+    background-color: #dee2e6;
+    padding: 6px 20px;
+    width: 95%;
+    border-radius: 1em !important;
+}
+.no-margin-bottom{
+    margin-bottom: 0px !important;
+}
+.no-margin-top{
+    margin-top: 0px !important;
+}
+.second-type h6{
+    display: inline-block;
+}
+
+.second-type i.mdi-close-circle{
+    font-size: 20px;
+    float: right;
+    line-height: 20px;
+}
+.second-type i.mdi-close-circle:hover{
+    cursor: pointer;
+}
+.second-type i.fa{
+    float: left;
+    font-size: 20px;
+    line-height: 20px;
+}
+.error{
+    border: 1px solid red;
+}
+div.physical-level1{
+    background-color: #dee2e6;
+    width: 100%;
+    border-radius: 2em;
+    padding-left: 15px;
+    font-size: 12px;
+}
+div.inputNumber{
+    display: inline-block;
+    float: right;
+    background-color: #fff;
+    margin: 5px 3px;
+}
+div.inputNumber input.form-control{
+    width: 54px;
+    display: inline-block;
+    padding: 0 0 0 4px;
+    float: right;
+    border: 0;
+}
+div.inputNumber i{
+    float: right;
+    display: inline-block;
+    padding-right: 5px;
+    font-size: 12px;
+    line-height: 20px;
+}
+.physical-level1 i.mdi-close-circle{
+    float: right;
+    display: inline-block;
+    padding: 6px 10px 6px 0;
+    border-radius: 0 2em 2em 0;
+    font-size: 15px;
+}
+.physical-level1 i.mdi-close-circle:hover{
+    cursor: pointer;
+}
+.mdi-arrow-right-drop-circle,.mdi-arrow-down-drop-circle{
+    float: right;
+    font-size: 18px;
+    line-height: 22px;
+    margin-right: 8px;
+}
+.second-card-body{
+    background-color: #eee;
+    width: 95%;
+    margin: 0 0px;
+    border-radius: 1em;
+}
+.special-training-content{
+    margin-bottom: 10px;
+}

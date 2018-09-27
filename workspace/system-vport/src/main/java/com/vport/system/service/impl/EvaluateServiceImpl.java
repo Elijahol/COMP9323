@@ -17,12 +17,16 @@ import com.vport.system.pojo.eval.PerformanceContent;
 import com.vport.system.pojo.eval.PerformanceScore;
 import com.vport.system.pojo.eval.PerformanceScoreWithTime;
 import com.vport.system.service.EvaluateService;
+import com.vport.system.service.InfoService;
 
 @Service
 public class EvaluateServiceImpl implements EvaluateService {
     
     @Autowired
     private EvaluateMapper evaluateMapper;
+    
+    @Autowired
+    private InfoService infoService;
     
     /**
      * 获取评估内容
@@ -52,6 +56,8 @@ public class EvaluateServiceImpl implements EvaluateService {
             performanceContent.setAssessId(performanceAssess.getId());
             evaluateMapper.insertPerformanceContent(performanceContent);
         }
+        
+        infoService.addNewEvalInfo(performanceAssess.getPlayer());
         
     }
     /**

@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select LAST_INSERT_ID()
 		</selectKey>
 		insert into skill_detail (isLimitedTime,isContinuous,isMoved,isMultiple,groupNum,countNumOfGroup,numOfSuccess,requiredTime,isTarget,isCombined,typeOfSkill)
-		values(#{isLimitedTime},#{isContinuous},#{isMoved},#{isMultiple},#{groupNum},#{countNumOfGroup},#{numOfSuccess},#{requiredTime},#{isTarget},#{isCombined},#{typeOfSikll})
+		values(#{isLimitedTime},#{isContinuous},#{isMoved},#{isMultiple},#{groupNum},#{countNumOfGroup},#{numOfSuccess},#{requiredTime},#{isTarget},#{isCombined},#{typeOfSkill})
 	</insert>
 	<insert id="insertSkillSchemaDetail">
 		insert into skill_schema_detail values(#{trainingSchenmaId},#{skillDetailId})
@@ -66,12 +66,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<resultMap type="PhysicalDetailNonSpecilized" id="physicalDetailNonSpecilized">
-		<result column="ch_type_name" property="typeName"/>
+		<result column="ch_type_name" property="typeNameCh"/>
+		<result column="type_name" property="typeName"/>
+		<result column="physical_type" property="physicalType"/>
 		<result column="unit_name" property="unitName"/>
 		<result column="count" property="count"/>
 	</resultMap>
 	<select id="selectWarmUpBySchemaId" parameterType="Long" resultMap="physicalDetailNonSpecilized">
-		SELECT ch_type_name,unit_name,count 
+		SELECT type_name,ch_type_name,unit_name,COUNT,physical_type 
 		FROM physical_schema_detail psd, physical_detail pd,training_hierarchy th, unit u 
 		WHERE psd.physical_detail_id = pd.id 
 		AND pd.physical_type = th.id
@@ -80,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND psd.training_schenma_id = #{value}
 	</select>
 	<select id="selectRelaxiationBySchemaId" parameterType="Long" resultMap="physicalDetailNonSpecilized">
-		SELECT ch_type_name,unit_name,COUNT FROM physical_schema_detail psd, physical_detail pd,training_hierarchy th, unit u 
+		SELECT type_name,ch_type_name,unit_name,COUNT FROM physical_schema_detail psd, physical_detail pd,training_hierarchy th, unit u 
 		WHERE psd.training_schenma_id = #{value} 
 		AND psd.physical_detail_id = pd.id 
 		AND pd.physical_type = th.id
@@ -89,16 +91,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<resultMap type="PhysicalDetailSpecilized" id="physicalDetailSpecilized">
+		<result column="parentNameCh" property="parentNameCh"/>
+		<result column="typeNameCh" property="typeNameCh"/>
 		<result column="parentName" property="parentName"/>
 		<result column="typeName" property="typeName"/>
+		<result column="physicalType" property="physicalType"/>
 		<result column="unit_name" property="unitName"/>
 		<result column="count" property="count"/>
 	</resultMap>
 	<select id="selectSpecilizedBySchemaId" parameterType="Long" resultMap="physicalDetailSpecilized">
-		SELECT h.ch_type_name AS parentName, s.ch_type_name AS typeName, s.count,s.unit_name FROM 
-		((SELECT th.ch_type_name,u.unit_name,pd.count,th.parent_id 
+		SELECT h.ch_type_name AS parentNameCh, h.type_name AS parentName,s.ch_type_name AS typeNameCh,s.type_name AS typeName,s.physical_type AS physicalType, s.count,s.unit_name FROM 
+		((SELECT th.ch_type_name,th.type_name,u.unit_name,pd.count,th.parent_id,pd.physical_type 
 		FROM physical_schema_detail psd, physical_detail pd,training_hierarchy th, unit u 
-		WHERE psd.training_schenma_id = #{value}  
+		WHERE psd.training_schenma_id = #{value} 
 		AND psd.physical_detail_id = pd.id 
 		AND pd.physical_type = th.id
 		AND u.id = th.unit_id
@@ -116,18 +121,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="countNumOfGroup" property="countNumOfGroup"/>
 		<result column="numOfSuccess" property="numOfSuccess"/>
 		<result column="requiredTime" property="requiredTime"/>
+		<result column="isCombined" property="isCombined"/>
+		<result column="isTarget" property="isTarget"/>
+		<result column="typeOfSkill" property="typeOfSkill"/>
 		<result column="typeName" property="typeName"/>
 		<result column="parentName" property="parentName"/>
+		<result column="typeNameCh" property="typeNameCh"/>
+		<result column="parentNameCh" property="parentNameCh"/>
 	</resultMap>
 	<select id="selectSkillDetailWithFullInfo" parameterType="Long" resultMap="skillDetailWithFullInfo">
 		SELECT s.isLimitedTime, s.isContinuous,s.isMoved,s.isMultiple,s.groupNum,s.countNumOfGroup,
-		s.numOfSuccess,s.requiredTime,s.isTarget,s.typeName,h.ch_type_name AS parentName
+		s.numOfSuccess,s.requiredTime,s.isTarget,s.isCombined,s.typeOfSkill,s.typeName,s.typeNameCh,h.ch_type_name AS parentNameCh,h.type_name AS parentName
 		FROM
 		((SELECT sd.isLimitedTime, sd.isContinuous,sd.isMoved,sd.isMultiple,sd.groupNum,sd.countNumOfGroup,
-		sd.numOfSuccess,sd.requiredTime,sd.isTarget,sd.typeOfSkill,th.ch_type_name AS typeName,th.parent_id
+		sd.numOfSuccess,sd.requiredTime,sd.isTarget,sd.isCombined,sd.typeOfSkill,th.type_name AS typeName,th.ch_type_name AS typeNameCh,th.parent_id
 		FROM skill_schema_detail ssd, skill_detail sd,training_hierarchy th
 		WHERE ssd.skill_detail_id = sd.id 
-		AND ssd.training_schema_id = #{value} 
-		AND th.id = sd.typeOfSkill)s INNER JOIN training_hierarchy h ON h.id = s.parent_id);
+		AND ssd.training_schema_id = #{value}
+		AND th.id = sd.typeOfSkill)s INNER JOIN training_hierarchy h ON h.id = s.parent_id)
+	</select>
+	
+	
+	<select id="findSchemaTrainingTimeByClassId" parameterType="Long" resultType="Date">
+		SELECT training_time FROM training_schema WHERE class_id = #{value}
 	</select>
 </mapper>

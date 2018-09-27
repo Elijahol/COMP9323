@@ -1,0 +1,225 @@
+[
+  {
+    "id": 6,
+    "chTypeName": "相持区",
+    "typeName": "stalemate area",
+    "parentId": 2,
+    "isParent": true,
+    "unitName": null,
+    "layerNum": 2,
+    "children": [
+      {
+      "id": 46,
+      "chTypeName": "稳定性训练",
+      "typeName": "stability training",
+      "parentId": 6,
+      "isParent": false,
+      "unitName": null,
+      "layerNum": 3,
+      "children": [
+
+      ]
+    },
+      {
+        "id": 47,
+        "chTypeName": "力量训练",
+        "typeName": "strength training",
+        "parentId": 6,
+        "isParent": false,
+        "unitName": null,
+        "layerNum": 3,
+        "children": [
+
+        ]
+      },
+      {
+        "id": 48,
+        "chTypeName": "角度训练",
+        "typeName": "angles training",
+        "parentId": 6,
+        "isParent": false,
+        "unitName": null,
+        "layerNum": 3,
+        "children": [
+
+        ]
+      },
+      {
+        "id": 49,
+        "chTypeName": "旋转训练",
+        "typeName": "spin training",
+        "parentId": 6,
+        "isParent": false,
+        "unitName": null,
+        "layerNum": 3,
+        "children": [
+
+        ]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "chTypeName": "压迫区",
+    "typeName": "oppression area",
+    "parentId": 2,
+    "isParent": true,
+    "unitName": null,
+    "layerNum": 2,
+    "children": [
+      {
+      "id": 50,
+      "chTypeName": "落地球压迫",
+      "typeName": "one hop oppressing",
+      "parentId": 7,
+      "isParent": false,
+      "unitName": null,
+      "layerNum": 3,
+      "children": [
+
+      ]
+    },
+      {
+        "id": 51,
+        "chTypeName": "凌空压迫与截击",
+        "typeName": "approach shot and volley",
+        "parentId": 7,
+        "isParent": false,
+        "unitName": null,
+        "layerNum": 3,
+        "children": [
+
+        ]
+      },
+      {
+        "id": 52,
+        "chTypeName": "高压压迫",
+        "typeName": "smash",
+        "parentId": 7,
+        "isParent": false,
+        "unitName": null,
+        "layerNum": 3,
+        "children": [
+
+        ]
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "chTypeName": "得分区",
+    "typeName": "score area",
+    "parentId": 2,
+    "isParent": true,
+    "unitName": null,
+    "layerNum": 2,
+    "children": [
+      {
+      "id": 53,
+      "chTypeName": "截击",
+      "typeName": "volley",
+      "parentId": 8,
+      "isParent": false,
+      "unitName": null,
+      "layerNum": 3,
+      "children": [
+
+      ]
+    },
+      {
+        "id": 54,
+        "chTypeName": "高压",
+        "typeName": "smash",
+        "parentId": 8,
+        "isParent": false,
+        "unitName": null,
+        "layerNum": 3,
+        "children": [
+
+        ]
+      },
+      {
+        "id": 55,
+        "chTypeName": "落地球",
+        "typeName": "half-volley",
+        "parentId": 8,
+        "isParent": false,
+        "unitName": null,
+        "layerNum": 3,
+        "children": [
+
+        ]
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "chTypeName": "有效区外",
+    "typeName": "out-side area",
+    "parentId": 2,
+    "isParent": true,
+    "unitName": null,
+    "layerNum": 2,
+    "children": [
+      {
+      "id": 56,
+      "chTypeName": "反击",
+      "typeName": "strike back",
+      "parentId": 9,
+      "isParent": false,
+      "unitName": null,
+      "layerNum": 3,
+      "children": [
+
+      ]
+    },
+      {
+        "id": 57,
+        "chTypeName": "防守",
+        "typeName": "defence",
+        "parentId": 9,
+        "isParent": false,
+        "unitName": null,
+        "layerNum": 3,
+        "children": [
+
+        ]
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "chTypeName": "起始区",
+    "typeName": "serving area",
+    "parentId": 2,
+    "isParent": true,
+    "unitName": null,
+    "layerNum": 2,
+    "children": [
+      {
+      "id": 58,
+      "chTypeName": "发球",
+      "typeName": "serve",
+      "parentId": 10,
+      "isParent": false,
+      "unitName": null,
+      "layerNum": 3,
+      "children": [
+
+      ]
+    },
+      {
+        "id": 59,
+        "chTypeName": "接发球",
+        "typeName": "service return",
+        "parentId": 10,
+        "isParent": false,
+        "unitName": null,
+        "layerNum": 3,
+        "children": [
+
+        ]
+      }
+    ]
+  }
+]

@@ -1,6 +1,7 @@
 package com.vport.system.service.impl;
 
-import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,17 +10,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.abel533.entity.Example;
-import com.mysql.fabric.xmlrpc.base.Array;
 import com.vport.system.bean.CourseTime;
 import com.vport.system.bean.ResponseData;
 import com.vport.system.bean.Student;
 import com.vport.system.bean.TimeTable;
 import com.vport.system.bean.TimeTableWithWeek;
 import com.vport.system.mapper.CourseMapper;
+import com.vport.system.mapper.PlanMapper;
+import com.vport.system.mapper.UserMapper;
 import com.vport.system.pojo.ClassInfoForStu;
 import com.vport.system.pojo.TrainingClassToDisPlay;
 import com.vport.system.pojo.person.User;
@@ -27,6 +30,7 @@ import com.vport.system.pojo.training.TrainingClass;
 import com.vport.system.pojo.training.TrainingClassInfo;
 import com.vport.system.pojo.training.TrainingPlan;
 import com.vport.system.service.CourseService;
+import com.vport.system.service.InfoService;
 import com.vport.system.utils.DateUtil;
 
 @Service
@@ -35,6 +39,14 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseMapper courseMapper;
     
+    @Autowired
+    private PlanMapper planMapper;
+    
+    @Autowired
+    private InfoService infoService;
+    
+    @Autowired
+    private UserMapper userMapper;
     
     /**
      * 根据教练员提取与之有关的课程信息
@@ -119,7 +131,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Map<String, Object> getTimeTable(Long id,Integer role) {
         List<TrainingClassInfo> list = null;
-        if (role == 1) {
+        if (role != 2) {
             list = courseMapper.findClassByTrainer(id);
         }else{
             list = courseMapper.findClassByPlayer(id);
@@ -190,13 +202,14 @@ public class CourseServiceImpl implements CourseService {
         String[] days = trainingClass.getPeriod().split("-");
         String hourTo = trainingClass.getHourTo();
         List<CourseTime> timeList = new ArrayList<CourseTime>();
+        List<Date> historyPlanTime = planMapper.findSchemaTrainingTimeByClassId(classId);
         for (String day : days) {
             int dayOfWeek = Integer.parseInt(day);
             Date futureDate = DateUtil.getDateByWeekday(dayOfWeek);
             String dateToString = DateUtil.dateToString(futureDate);
             String dateToString2 = dateToString +" "+hourTo.split("-")[0];
             futureDate = DateUtil.stringToDate(dateToString2);
-            if (futureDate.compareTo(new Date()) > 0) {
+            if (futureDate.compareTo(new Date()) > 0 && !historyPlanTime.contains(futureDate)) {
                 CourseTime courseTime = new CourseTime(futureDate, dateToString + " " + hourTo+" " + DateUtil.getWeekDay(futureDate));
                 timeList.add(courseTime);
             }
@@ -215,6 +228,7 @@ public class CourseServiceImpl implements CourseService {
         trainingClass.setIsFinish(false);
         courseMapper.storeClass(trainingClass);
         courseMapper.linkClassAndTrainer(trainingClass.getClassId(),trainer,1);
+        infoService.addNewCourseInfo(trainingClass.getClassId());
         
     }
     /**
@@ -258,6 +272,72 @@ public class CourseServiceImpl implements CourseService {
     public List<ClassInfoForStu> getClassInfoForStu(User player) {
         
         return courseMapper.findClassInfoByStu(player.getId());
+    }
+    
+    /**
+     * 学生申请加入课程
+     * 1.校验年龄
+     * 2.根据年龄是否符合返回结果
+     * @throws ParseException 
+     */
+    @Override
+    public ResponseData joinTheClass(User student, Long classId) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        Integer code = 1;
+        String msg = "";
+        TrainingClass trainingClass = courseMapper.selectByPrimaryKey(classId);
+        String[] ageRange = trainingClass.getAgeRange().split("-");
+        Integer stuAge = student.getAge();
+        Integer start = Integer.parseInt(ageRange[0]);
+        Integer end = Integer.parseInt(ageRange[1]);
+        /**
+         * 1.比较年龄是否符合
+         * 2.比较上课时间是否冲突
+         *      a.先比较上课天是否有重合，如果有：
+         *              b.比较具体时间是否重叠
+         */
+        if (stuAge >= start && stuAge <= end) {
+            
+            //1.查出关于这个学生有关的课程信息
+            List<TrainingClassInfo> stuClassList = courseMapper.findClassByPlayer(student.getId());
+            //2.比较上课时间
+            for (TrainingClassInfo stuClass : stuClassList) {
+                List<String> stuTimes = Arrays.asList(stuClass.getPeriod().split("-"));
+                List<String> tartTimes = Arrays.asList(trainingClass.getPeriod().split("-"));
+                for (String tartTime : tartTimes) {
+                    if (stuTimes.contains(tartTime)) {
+                        String[] periods1 = stuClass.getHourTo().split("-");
+                        String[] periods2 = trainingClass.getHourTo().split("-");
+                        Date s = sdf.parse(periods1[0]);
+                        Date e = sdf.parse(periods1[1]);
+                        Date s1 = sdf.parse(periods2[0]);
+                        Date e1 = sdf.parse(periods2[1]);
+                        if (s1.compareTo(s) <= 0 && e1.compareTo(s) >= 0) {
+                            code = 0;
+                            msg = "The traing time of one of your current classes conflicts with this class";
+                            break;
+                        }else if (s1.compareTo(e) <= 0 && e1.compareTo(e) >= 0){
+                            code = 0;
+                            msg = "The traing time of one of your current classes conflicts with this class";
+                            break;
+                        }else if (s1.compareTo(s) >= 0 && e1.compareTo(e) <= 0 ) {
+                            code = 0;
+                            msg = "The traing time of one of your current classes conflicts with this class";
+                            break;
+                        }
+                        
+                    }
+                }
+            }
+            if (code == 1) {
+                courseMapper.linkClassAndStu(classId,student.getId());
+                infoService.addNewJoinInfo(student.getId(),trainingClass.getClassId());
+            }
+        }else{
+            code = 0;
+            msg = "Your age does not meet the requirements of the class";
+        }
+        return new ResponseData(code, msg, null);
     }
     
 

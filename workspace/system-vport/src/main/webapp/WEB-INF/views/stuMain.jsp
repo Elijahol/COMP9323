@@ -20,7 +20,11 @@
     <link href="${pageContext.request.contextPath }/assets/css/style_dark.css" rel="stylesheet" type="text/css" />
 
     <script src="${pageContext.request.contextPath }/assets/js/modernizr.min.js"></script>
-
+	<style type="text/css">
+		#link{
+		 height: auto!important;
+		}
+	</style>
 </head>
 
 
@@ -42,26 +46,7 @@
     <div class="content-page">
 
         <!-- Top Bar Start -->
-        <div class="topbar">
-
-            <nav class="navbar-custom">
-                <ul class="list-inline menu-left mb-0">
-                    <li class="float-left">
-                        <button class="button-menu-mobile open-left">
-                            <i class="dripicons-menu"></i>
-                        </button>
-                    </li>
-                    <li>
-                        <div class="page-title-box">
-                            <h4 class="page-title">Home</h4>
-                        </div>
-                    </li>
-
-                </ul>
-
-            </nav>
-
-        </div>
+        <%@include file="home.jsp" %>
         <!-- Top Bar End -->
 
 
@@ -73,10 +58,12 @@
                 <!-- user-info template -->
                 <div class="row m-t-50">
                     <div class="col-12">
-                        <div class="card-box user-box-1">
-                            <img src="http://image.vport.com/${existUser.icon }" alt="">
-                            <h4>Hi, ${existUser.name }</h4>
-                            <p id="firstReminder"><i class="mdi mdi-bell-ring-outline"></i></p>
+                        <div class="card-box user-box-1" style="background-image: url('http://image.vport.com/${existUser.icon }');">
+                            <div class="mask">
+                            	<img src="http://image.vport.com/${existUser.icon }" alt="">
+                            	<h4>Hi, ${existUser.name }</h4>
+                            	<p id="firstReminder"><i class="mdi mdi-bell-ring-outline"></i></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -176,7 +163,10 @@
 
 
 <!-- jQuery  -->
+
+
 <script src="${pageContext.request.contextPath }/assets/js/jquery.min.js"></script>
+
 <script src="${pageContext.request.contextPath }/assets/js/popper.min.js"></script>
 <script src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath }/assets/js/metisMenu.min.js"></script>
@@ -202,6 +192,7 @@
 <!-- App js -->
 <script src="${pageContext.request.contextPath }/assets/js/jquery.core.js"></script>
 <script src="${pageContext.request.contextPath }/assets/js/jquery.app.js"></script>
+
 <script type="text/javascript">
 	$(function(){
 		var date = {};
@@ -215,8 +206,11 @@
 			}
 		});
 		//添加最近课程
-		var firstReminder = date["00"];
-		$("#firstReminder").append(" Next Course: "+firstReminder.visualTime);
+		if(date["00"] != null){
+			var firstReminder = date["00"];
+			$("#firstReminder").append(" Next Course: "+firstReminder.visualTime);
+		}
+		
 		
 		
 		//对date的key进行排序
@@ -302,5 +296,6 @@
 	});
 
 </script>
+<script src="${pageContext.request.contextPath }/assets/js/info.js"></script>
 </body>
 </html>

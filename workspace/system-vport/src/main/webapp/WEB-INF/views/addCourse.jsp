@@ -26,6 +26,9 @@
 		.input-group .layui-form-checkbox{
 			margin-bottom: 5px;
 		}
+		#link{
+		 height: auto!important;
+		}
 	</style>
 </head>
 
@@ -48,26 +51,7 @@
         <div class="content-page">
 
             <!-- Top Bar Start -->
-            <div class="topbar">
-
-                <nav class="navbar-custom">
-                    <ul class="list-inline menu-left mb-0">
-                        <li class="float-left">
-                            <button class="button-menu-mobile open-left">
-                                <i class="dripicons-menu"></i>
-                            </button>
-                        </li>
-                        <li>
-                            <div class="page-title-box">
-                                <h4 class="page-title">Add a new course</h4>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-
-            </div>
+            <%@include file="home.jsp" %>
             <!-- Top Bar End -->
 
 
@@ -121,6 +105,11 @@
                                         <input name="hourTo1" class="form-control" type="time"><span style="font-size: 18px;line-height: 1.5;padding: 6px;">to</span>
                                         <input name="hourTo2" class="form-control" type="time">
                                     </div>
+                                    <label class="col-form-label mt-3">Age Range</label>
+                                    <div class="input-group">
+                                        <input name="ageRange1" class="form-control" type="number" min="0"><span style="font-size: 18px;line-height: 1.5;padding: 6px;">to</span>
+                                        <input name="ageRange2" class="form-control" type="number" min="0">
+                                    </div>
                                     <label class="col-form-label mt-3">Registration Deadline</label>
                                     <div class="input-group">
                                         <input name="deadLine" class="form-control" type="date">
@@ -169,7 +158,7 @@
     <script src="${pageContext.request.contextPath }/assets/js/metisMenu.min.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/waves.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/jquery.slimscroll.js"></script>
-
+	<script src="${pageContext.request.contextPath }/assets/js/info.js"></script>
     
 
     <!-- KNOB JS -->

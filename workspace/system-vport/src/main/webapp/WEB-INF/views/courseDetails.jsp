@@ -13,7 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="${pageContext.request.contextPath }/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
 
     <!-- App css -->
     <link href="${pageContext.request.contextPath }/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -22,7 +22,16 @@
     <link href="${pageContext.request.contextPath }/assets/css/style_dark.css" rel="stylesheet" type="text/css" />
 
     <script src="${pageContext.request.contextPath }/assets/js/modernizr.min.js"></script>
-
+    <!-- Plugins css-->
+    <link href="${pageContext.request.contextPath }/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath }/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath }/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/plugins/switchery/switchery.min.css">
+	<style type="text/css">
+		#link{
+		 height: auto!important;
+		}
+	</style>
 </head>
 
 
@@ -44,26 +53,7 @@
         <div class="content-page">
 
             <!-- Top Bar Start -->
-            <div class="topbar">
-
-                <nav class="navbar-custom">
-                    <ul class="list-inline menu-left mb-0">
-                        <li class="float-left">
-                            <button class="button-menu-mobile open-left">
-                                <i class="dripicons-menu"></i>
-                            </button>
-                        </li>
-                        <li>
-                            <div class="page-title-box">
-                                <h4 class="page-title">Home</h4>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-
-            </div>
+            <%@include file="home.jsp" %>
             <!-- Top Bar End -->
 
 
@@ -71,17 +61,27 @@
             <!-- Start Page content -->
             <div class="content">
                 <div class="container-fluid">
-
-                    <!-- user-info template -->
-                    <div class="row m-t-50">
+					<div class="row m-t-50">
                         <div class="col-12">
                             <div class="card-box course-box-1">
-                                <h4>Class Name:${classInfo.className }&nbsp;&nbsp;Rank: ${classInfo.rank }</h4>
+                                <div class="mask">
+                                    <h4>${classInfo.className }&nbsp;&nbsp;${classInfo.rank }</h4>
+                                <p><i class="mdi mdi-calendar-clock"></i> 12:00pm</p>
+                                <p><i class="mdi mdi-map-marker-outline"></i> ${classInfo.place }</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- user-info template -->
+                    <%-- <div class="row m-t-50">
+                        <div class="col-12">
+                            <div class="card-box course-box-1">
+                                <h4>${classInfo.className }&nbsp;&nbsp;${classInfo.rank }</h4>
                                 <p><i class="mdi mdi-calendar-clock"></i> 12:00pm</p>
                                 <p><i class="mdi mdi-map-marker-outline"></i> ${classInfo.place }</p>
                             </div>
                         </div>
-                    </div>
+                    </div> --%>
                     <!-- end row -->
 
 
@@ -101,7 +101,7 @@
 
                                     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                                         <div class="card-body bg-transparent">
-                                            <a href="#" class="btn btn-custom btn-block mb-3 waves-effect waves-light"><i class="mdi mdi-plus-circle"></i> Add A New Plan</a>
+                                            <a href="${pageContext.request.contextPath }/rest/course/returnPlan?classId=${classInfo.classId}" class="btn btn-custom btn-block mb-3 waves-effect waves-light"><i class="mdi mdi-plus-circle"></i> Add A New Plan</a>
 
                                     <ul class="sortable-list taskList list-unstyled" id="upcoming">
                                         <!-- student brief info template -->
@@ -143,7 +143,7 @@
                                                 </div>
                                                 <div class="class-box-body">
                                                     <p> ${plan.trainingDate }</p>
-                                                    <a href="#" class=""><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">View</button></a>
+                                                    <a href="${pageContext.request.contextPath }/rest/course/toEachPlan?id=${plan.id}" class=""><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">View</button></a>
                                                 </div>
                                             </div>
                                             </c:forEach>
@@ -196,59 +196,59 @@
                                         <div class="form-group">
                                             <label class="col-form-label">Front Hand</label>
                                             <input type="hidden" name="performanceContents[0].contentId" value="1">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[0].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[0].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Back Hand</label>
                                             <input type="hidden" name="performanceContents[1].contentId" value="2">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[1].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[1].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Front Volley</label>
                                             <input type="hidden" name="performanceContents[2].contentId" value="3">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[2].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[2].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Back Volley</label>
                                             <input type="hidden" name="performanceContents[3].contentId" value="4">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[3].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[3].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Smash</label>
                                             <input type="hidden" name="performanceContents[4].contentId" value="5">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[4].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[4].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Serve</label>
                                             <input type="hidden" name="performanceContents[5].contentId" value="6">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[5].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[5].count">
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="physicaltab">
                                         <div class="form-group">
                                             <label class="col-form-label">Speed</label>
                                             <input type="hidden" name="performanceContents[6].contentId" value="7">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[6].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[6].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Strength</label>
                                             <input type="hidden" name="performanceContents[7].contentId" value="8">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[7].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[7].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Explosive Force</label>
                                             <input type="hidden" name="performanceContents[8].contentId" value="9">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[8].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[8].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Flexibility</label>
                                             <input type="hidden" name="performanceContents[9].contentId" value="10">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[9].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[9].count">
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Coordination</label>
                                             <input type="hidden" name="performanceContents[10].contentId" value="11">
-                                            <input type="number" class="form-control" placeholder="0-100" min="0" max="5" name="performanceContents[10].count">
+                                            <input type="number" class="form-control" placeholder="0-5" min="0" max="5" name="performanceContents[10].count">
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="commenttab">
@@ -257,7 +257,10 @@
                                 </div>                      
                             </form>
                         </div>
+                        
                         <div class="modal-footer">
+	                        <div id="alertInfo" class="alert alert-danger mt-4" style="display: none">
+	                    	</div>
                             <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Close</button>
                             <button id="submit" type="button" class="btn btn-custom waves-effect waves-light">Save</button>
                         </div>
@@ -288,7 +291,7 @@
     <script src="${pageContext.request.contextPath }/assets/js/metisMenu.min.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/waves.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/jquery.slimscroll.js"></script>
-
+	<script src="${pageContext.request.contextPath }/assets/js/info.js"></script>
     
 
      <!-- KNOB JS -->
@@ -325,19 +328,23 @@
     	
     	$("#submit").click(function(){
     		var form = $('#eval-form').formGet();
-    		/* console.log(form.player); */
+    		console.log(form); 
     		var myarr = new Array();
     		var per = {};
+    		var isValid = true;
     		for(var o in form){
     			if(o.startWith("performanceContents")){
+    				if(form[o].count == ''){
+    					isValid = false
+    				}
     				myarr.push(form[o]);
     			}else{
     				per[o] = form[o];
     			}
     		}
     		per["performanceContents"] = myarr;
-    		console.log(per); 
-    		$.ajax({
+    		if(isValid){
+    			$.ajax({
     			url:"${pageContext.request.contextPath}/rest/performance/storeEvaluateData",
     			type:"post",
     			contentType: "application/json",
@@ -350,6 +357,14 @@
     				}
     			}
     		}); 
+    		} else{
+    			$("#alertInfo").html("Content Missing!");
+        		$("#alertInfo").show();
+                setTimeout(function () {
+                    $("#alertInfo").hide();
+                },3000);
+    		}
+    		
     	});
     
     	/*-------------------------*/

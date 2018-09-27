@@ -35,6 +35,7 @@ import com.vport.system.pojo.training.TrainingPlan;
 import com.vport.system.pojo.training.TrainingPlanInfo;
 import com.vport.system.service.CourseService;
 import com.vport.system.service.EvaluateService;
+import com.vport.system.service.InfoService;
 import com.vport.system.service.PlanService;
 import com.vport.system.service.UserService;
 import com.vport.system.utils.DateUtil;
@@ -63,6 +64,14 @@ public class Demo {
     
     @Autowired
     private MailUtils mailUtils;
+    
+    @Autowired
+    private InfoService infoService;
+    
+    @Test
+    public void fun13(){
+        infoService.deleteInfoByUser(4L);
+    }
     
     
     @Test
@@ -117,62 +126,7 @@ public class Demo {
        List<PlanType> list = planMapper.selectTypeWithUnit();
         System.out.println(1);
     }
-    @Test
-    public void fun5(){
-       TrainingPlan plan = new TrainingPlan();
-       plan.setChiefTrainer(1L);
-       plan.setAssistantTrainer(5L);
-       plan.setClassId(1L);
-       plan.setCreated(new Date());
-       plan.setTrainingTime(new Date());
-       plan.setUpdated(new Date());
-       MakeTrainingPlan newPlan = new MakeTrainingPlan();
-       List<PhysicalDetail> physicalDetails = new ArrayList<PhysicalDetail>();
-       PhysicalDetail physicalDetail1 = new PhysicalDetail();
-       physicalDetail1.setPhysicalType(20L);
-       physicalDetail1.setCount(15);
-       physicalDetails.add(physicalDetail1);
-       
-       PhysicalDetail physicalDetail2 = new PhysicalDetail();
-       physicalDetail2.setPhysicalType(35L);
-       physicalDetail2.setCount(10);
-       physicalDetails.add(physicalDetail2);
-       
-       List<SkillDetail> skillDetails = new ArrayList<SkillDetail>();
-       SkillDetail skillDetail1 = new SkillDetail();
-       skillDetail1.setIsLimitedTime("Limited Time");
-       skillDetail1.setIsContinuous("Non-Continuous");
-       skillDetail1.setIsMoved("Move");
-       skillDetail1.setIsMultiple("Bandy");
-       skillDetail1.setGroupNum(3);
-       skillDetail1.setCountNumOfGroup(15);
-       skillDetail1.setNumOfSuccess(5);
-       skillDetail1.setRequiredTime(10);
-       skillDetail1.setIsTarget("Non-Target");
-       skillDetail1.setIsCombined("combined");
-       skillDetail1.setTypeOfSikll(49L);
-       
-       skillDetails.add(skillDetail1);
-       
-       
-       SkillDetail skillDetail2 = new SkillDetail();
-       skillDetail2.setIsLimitedTime("Non-Limited-Time");
-       skillDetail2.setIsContinuous("Non-Continuous");
-       skillDetail2.setIsMoved("Fixed");
-       skillDetail2.setIsMultiple("Multi-Ball");
-       skillDetail2.setGroupNum(4);
-       skillDetail2.setCountNumOfGroup(25);
-       skillDetail2.setNumOfSuccess(20);
-       skillDetail2.setIsTarget("Non-Target");
-       skillDetail2.setTypeOfSikll(59L);
-       
-       skillDetails.add(skillDetail2);
-       
-       newPlan.setPhysicalDetails(physicalDetails);
-       newPlan.setSkillDetails(skillDetails);
-       newPlan.setPlan(plan);
-       planService.makeNewPlan(newPlan);
-    }
+    
     
     @Test
     public void fun4(){

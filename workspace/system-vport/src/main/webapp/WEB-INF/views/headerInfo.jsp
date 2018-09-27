@@ -4,21 +4,26 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 <div class="row m-t-50">
     <div class="col-12">
-        <div class="card-box user-box-2">
-            <img src="http://image.vport.com/${user.icon }" alt="">
-            <div class="user-name">
-                <h4>${user.name } <i class=""></i></h4>
-            </div>
-            <!-- if edit the profile -->
-            <c:if test="${user.id == existUser.id }">
-            <button class="btn btn-outline-custom btn-rounded waves-light waves-effect" data-toggle="modal" data-target="#myModal">Edit</button>
-            </c:if>
-            <!-- else if view this profile -->
-            <!-- <a href="dataCenter.html"><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">More</button></a> -->
-            <!-- end if -->
-
-            <p><i class="mdi mdi-map-marker-outline"></i> ${user.email }</p>
-        </div>
+        <div class="card-box user-box-2" style="background-image: url(http://image.vport.com/${user.icon });">
+		    <div class="mask">
+		        <img src="http://image.vport.com/${user.icon }" alt="">
+		    	<div class="user-name">
+		        	<h4>${user.name } <i class=""></i></h4>
+		    	</div>
+		    
+		    <!-- if edit the profile -->
+		    <p><i class="mdi mdi-map-marker-outline"></i> ${user.email }</p>
+		    <c:if test="${user.id == existUser.id }">
+		    <button class="btn btn-outline-custom btn-rounded waves-light waves-effect"  data-toggle="modal" data-target="#myModal">Edit</button>
+			</c:if>
+		    </div>
+		    
+		    <!-- else if view this profile -->
+		    <!-- <a href="dataCenter.html"><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">More</button></a> -->
+		    <!-- end if -->
+		
+		    
+		</div>
         <div class="user-data-box">
             <div class="user-data">
                 <h6>${user.age }</h6>
