@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.security.auth.login.FailedLoginException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -37,9 +36,9 @@ import com.vport.system.pojo.TrainingClassToDisPlay;
 import com.vport.system.pojo.person.User;
 import com.vport.system.pojo.training.TrainingClass;
 import com.vport.system.pojo.training.TrainingClassInfo;
+import com.vport.system.pojo.training.TrainingPlan;
 import com.vport.system.pojo.training.TrainingPlanInfo;
 import com.vport.system.service.CourseService;
-import com.vport.system.service.InfoService;
 import com.vport.system.service.PlanService;
 import com.vport.system.service.UserService;
 import com.vport.system.utils.UUIDUtils;
@@ -152,6 +151,7 @@ public class CourseController {
         List<TrainingClassInfo> classInfo = courseService.getClassInfo(trainer);
         return classInfo;
     }
+    
     @RequestMapping(value = "classInfoForStu",method = RequestMethod.GET)
     @ResponseBody
     public List<ClassInfoForStu> classInfoForStu(){
@@ -286,8 +286,18 @@ public class CourseController {
         
         return courseService.joinTheClass(stu,classId);
     }
-    
-    
+    /**
+     * 获得最近的未来训练计划
+     * @param pictureFile
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="closestPlan",method = RequestMethod.GET)
+    @ResponseBody
+    public TrainingPlan getClosestPlan(Long classId){
+        TrainingPlan plan =  planService.getClosestPlan(classId);
+        return plan;
+    }
     private String checkTheFile(MultipartFile pictureFile) throws Exception{
         //保存图片
         String fileName = UUIDUtils.getUUID();

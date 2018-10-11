@@ -1,7 +1,9 @@
 package com.vport.system.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,5 +35,16 @@ public class PerformanceController {
     public String storeEvaluateData(@RequestBody PerformanceAssess performanceAssess){
         evaluateService.storePerfomanceData(performanceAssess);
         return "1";
+    }
+    
+    @RequestMapping(value="suggestion",method=RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getSuggestion(Long classId){
+        try {
+           return evaluateService.getAdviceAndDataForClass(classId);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

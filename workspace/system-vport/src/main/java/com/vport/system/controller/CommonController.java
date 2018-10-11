@@ -111,6 +111,8 @@ public class CommonController {
         User user = userService.findUserById(id);
         user.setPassword(null);
         model.addAttribute("student", user);
+        String comment = evaluateService.getRecentCommet(id);
+        model.addAttribute("comment", comment);
         return "dataCenter";
     }
     

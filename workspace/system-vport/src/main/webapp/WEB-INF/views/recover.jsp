@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,60 +43,35 @@
                                         </a>
                                     </h2>
 
-                                    <form class="" action="${pageContext.request.contextPath }/rest/user/login" method="post">
+                                    <form class="" action="${pageContext.request.contextPath }/rest/user/recover" method="post">
 
                                         <div class="form-group m-b-20 row">
+
                                             <div class="col-12">
-                                                <label for="emailaddress" class="text-muted">Email address</label>
-                                                <input class="form-control b-r-30" type="email" name="email" id="emailaddress" required="" placeholder=" Enter your email">
+                                            	<c:if test="${error == null }">
+                                                <h4 style="color: #fff3cd;">Find your Vport account</h4>
+                                                <label for="emailaddress" class="text-muted">Enter your email</label>
+                                                </c:if>
+                                                <c:if test="${error != null }">
+                                                <h4 style="color: #C0293C;">${error }</h4>
+                                                <label for="emailaddress" class="text-muted">Please try searching for your email again.</label>
+                                                </c:if>
+                                                <input class="form-control b-r-30" name="email" type="email" id="emailaddress" required="" placeholder=" Enter your email">
                                             </div>
                                         </div>
 
-                                        <div class="form-group row m-b-20">
+
+                                        <div class="form-group row text-left m-t-10">
                                             <div class="col-12">
-                                                <a href="${pageContext.request.contextPath }/rest/page/recover" class="text-muted pull-right"><small>Forgot your password?</small></a>
-                                                <label for="password" class="text-muted">Password</label>
-                                                <input class="form-control b-r-30" type="password" required="" name="password" id="password" placeholder=" Enter your password">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row m-b-20">
-                                            <div class="col-12">
-
-                                                <div class="checkbox checkbox-custom">
-                                                    <input id="remember" type="checkbox" checked="" name="remember" value="1">
-                                                    <label for="remember" class="text-muted">
-                                                        Remember me
-                                                    </label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row text-center m-t-10">
-                                            <div class="col-12">
-                                                <button class="btn btn-block btn-custom waves-effect waves-light b-r-30" type="submit">Sign In</button>
+                                                <button style="width: 50%" class="btn btn-primary b-r-30" type="submit">Search</button>
                                             </div>
                                         </div>
 
                                     </form>
-                                    <div class="text-center">
-                                        <p class=""><a href="${pageContext.request.contextPath }/rest/page/register" class="text-muted">Don't have an account?</a></p>
-                                    </div>
-
                                     <!-- notification template -->
-                                    <c:if test="${not empty msg}">
-                                    <div class="row" style="height: 80px;">
-                                        <!-- error -->
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                            ${msg }
-                                        </div>
-                                        <!-- end -->
-                                    </div>
-									</c:if>
+                                    
+
+
                                 </div>
                             </div>
                         </div>
@@ -107,8 +81,8 @@
         </div>
     </div>
     <div class="m-t-40 text-center">
-                <p class="account-copyright">2018 © Vport. - vport.com.au</p>
-            </div>
+        <p class="account-copyright">2018 © Vport. - vport.com.au</p>
+    </div>
 
 
 
@@ -125,6 +99,6 @@
     <!-- App js -->
     <script src="${pageContext.request.contextPath }/assets/js/jquery.core.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/jquery.app.js"></script>
-
+    
 </body>
 </html>

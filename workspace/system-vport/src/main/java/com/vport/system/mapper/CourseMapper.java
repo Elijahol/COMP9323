@@ -17,7 +17,7 @@ public interface CourseMapper extends Mapper<TrainingClass> {
 
     List<User> findStudentsByClass(Long classId);
     
-    List<TrainingPlan> findPlanByClass(Long classId);
+    List<TrainingPlan> findPlanHistoryByClass(Long classId);
 
     TrainingClassInfo findClassInfoByClassId(Long classId);
 
@@ -34,4 +34,6 @@ public interface CourseMapper extends Mapper<TrainingClass> {
     ClassInfoForStu findClassInfoForStuByClassId(Long classId);
 
     void linkClassAndStu(@Param("classId")Long classId, @Param("student")Long id);
+
+    List<TrainingPlan> findFuturePlansByClass(Long classId);
 }

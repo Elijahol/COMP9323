@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.abel533.entity.Example;
+import com.jolbox.bonecp.ConnectionTesterThread;
 import com.vport.system.mapper.CourseMapper;
 import com.vport.system.mapper.InfoMapper;
 import com.vport.system.mapper.UserMapper;
@@ -71,6 +72,19 @@ public class InfoServiceimpl implements InfoService {
         Date time = new Date();
         Info info = new Info(id, content, url, time, 0);
         infoMapper.insert(info);
+        
+        content = "New Student Joined";
+        url = "http://www.vport.com/rest/course/classInfoByClassIdForStu?classId="+classId;
+        User trainer = courseMapper.findChiefTrainerOfClass(classId);
+        Info infoForT = new Info(trainer.getId(), content, url, time, 0);
+        infoMapper.insert(infoForT);
+        List<User> admins = userMapper.findUserByRole(3L);
+        for (User admin : admins) {
+            if (admin.getId() != trainer.getId()) {
+                infoForT.setUserId(admin.getId());
+                infoMapper.insert(infoForT);
+            }
+        }
         
     }
     @Override

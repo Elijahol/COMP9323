@@ -112,7 +112,8 @@
                                 </div>
                                 </c:if>
                             </div>
-                            <div class="alert alert-custom mt-4">The resitration deadline is <br><strong>21.12.2018 12:00PM</strong></div>
+                            <input type="hidden" id="classId" value="${classInfo.classId }">
+                            
                             <div class="clear"></div>
                         </div>
                         <div class="card bg-transparent">
@@ -188,5 +189,19 @@
 <!-- App js -->
 <script src="${pageContext.request.contextPath }/assets/js/jquery.core.js"></script>
 <script src="${pageContext.request.contextPath }/assets/js/jquery.app.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$.get("${pageContext.request.contextPath}/rest/course/closestPlan?classId="+$("#classId").val(),function(data){
+			
+			if(data != null && data != ''){
+				$("#classId").after("<a href='http://www.vport.com/rest/course/toEachPlan?id="+data.id+"'>"+
+					                  	"<div class='alert alert-primary bg-primary text-white border-0'  style='margin-top: 10px'>"+
+								      		"View the nearest future training plan <strong>"+data.trainingDate+"</strong>"+
+								      	"</div>"+
+							     	"</a>");
+			}
+		});
+	});
+</script>
 </body>
 </html>

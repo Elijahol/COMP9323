@@ -1,15 +1,20 @@
 package com.vport.system.pojo.training;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.vport.system.utils.DateUtil;
 
 @Table(name = "training_class")
 public class TrainingClass implements Serializable{
@@ -39,9 +44,28 @@ public class TrainingClass implements Serializable{
     private String pic;
     private String ageRange;
     
+    @Transient
+    private List<String> trainingDay;
+    
+    
     
     
    
+    public List<String> getTrainingDay() {
+        return trainingDay;
+    }
+    public void setTrainingDay(String period){
+        String[] daysNum = period.split("-");
+        List<String> trainingDay = new ArrayList<>();
+        for (String dayNum : daysNum) {
+            long dayLong = Long.parseLong(dayNum);
+            trainingDay.add(DateUtil.dayOfWeek.get(dayLong));
+        }
+        this.trainingDay = trainingDay;
+    }
+    public void setTrainingDay(List<String> trainingDay) {
+        this.trainingDay = trainingDay;
+    }
     public String getAgeRange() {
         return ageRange;
     }

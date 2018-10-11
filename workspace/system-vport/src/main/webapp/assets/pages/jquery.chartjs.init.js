@@ -67,6 +67,7 @@ File: Chartjs
         var physicalScoreByTime=[];
         //end
         
+
       //ajax get arrays 
         var studentId = $("#studentId").text();
         console.log(studentId);
@@ -76,6 +77,7 @@ File: Chartjs
 			type:"get",
 			dataType:"json",
 			success:function(data){
+				console.log(data);
 				//skillsByTimeLabel
 				$(data.skillsByTimeData).each(function(i,n){
 					skillsByTimeLabel[i] = n.visualTime;
@@ -136,7 +138,68 @@ File: Chartjs
         
         
         //
+
         var skillsLabel = ["Front Hand", "Back Hand", "Front Volley", "Back Volley", "Smash", "serve"];
+        var physicalLabel = ["Speed", "Strength", "Explosive Force", "Flexibility", "Coordination"];
+       //class data
+        var classId = $("#classId").val();
+        if(classId != ''&&　typeof classId != "undefined"){
+        	var classSkillsAverageData = [65, 59, 90, 81, 56, 55];
+            var classPhysicalAverageData = [59, 90, 81, 56, 55];
+        	console.log("classID: " + classId);
+        	$.ajax({
+    			url:"http://www.vport.com/rest/performance/suggestion?classId="+classId,
+    			async:false,
+    			type:"get",
+    			dataType:"json",
+    			success:function(data){
+    				console.log("sec:" +data);
+    				$("#suggestion").append(data["advice"]);
+    				$.each(data.physical,function(i,n){
+    					classPhysicalAverageData[i] = n.score;
+    				});
+    				$.each(data.skills,function(i,n){
+    					classSkillsAverageData[i] = n.score;
+    				});
+    			}
+        	});
+        	 
+             var classSkillsRadarChart = {
+                 labels: skillsLabel,
+                 datasets: [
+                     {
+                         label: "Skills",
+                         backgroundColor: "rgba(2, 192, 206, 0.3)",
+                         borderColor: "#02c0ce",
+                         pointBackgroundColor: "#EC492A",
+                         pointBorderColor: "#fff",
+                         pointHoverBackgroundColor: "#fff",
+                         pointHoverBorderColor: "#02c0ce",
+                         data: classSkillsAverageData
+                     }
+                 ]
+             };
+             var classPhysicalRadarChart = {
+                 labels: physicalLabel,
+                 datasets: [
+                     {
+                         label: "Physical Ability",
+                         backgroundColor: "rgba(2, 192, 206, 0.3)",
+                         borderColor: "#02c0ce",
+                         pointBackgroundColor: "#EC492A",
+                         pointBorderColor: "#fff",
+                         pointHoverBackgroundColor: "#fff",
+                         pointHoverBorderColor: "#02c0ce",
+                         data: classPhysicalAverageData
+                     }
+                 ]
+             };
+             this.respChart($("#classSkills"),'Radar',classSkillsRadarChart);
+             this.respChart($("#classPhysical"),'Radar',classPhysicalRadarChart);
+        }
+       
+        // 
+
         var skillsRadarChart = {
             labels: skillsLabel,
             datasets: [
@@ -163,6 +226,7 @@ File: Chartjs
             ]
         };
         this.respChart($("#skills"),'Radar',skillsRadarChart);
+        
 
         //barchart
         var skillsBarChart = {
@@ -275,7 +339,7 @@ File: Chartjs
         this.respChart($("#skillsByScore"),'Line',skillsLineChart, lineOpts);
 
 
-        var physicalLabel = ["Speed", "Strength", "Explosive Force", "Flexibility", "Coordination"];
+        
         var physicalRadarChart = {
             labels: physicalLabel,
             datasets: [

@@ -2,15 +2,18 @@ package com.vport.system.service.impl;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.abel533.entity.Example;
 import com.vport.system.bean.MakeTrainingPlan;
 import com.vport.system.bean.PlanTree;
 import com.vport.system.mapper.InfoMapper;
@@ -171,6 +174,19 @@ public class PlanServiceImpl implements PlanService {
         
         setSkillContent(schemaId, trainingPlanInfo);
         return trainingPlanInfo;
+    }
+
+    @Override
+    public TrainingPlan getClosestPlan(Long classId) {
+        List<TrainingPlan> list = planMapper.findFuturePlan(classId);
+        if (list.isEmpty()) {
+            return null;
+        }
+        TrainingPlan trainingPlan = list.get(0);
+        Date trainingTime = trainingPlan.getTrainingTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm EEEE",Locale.ENGLISH);
+        trainingPlan.setTrainingDate(sdf.format(trainingTime));
+        return trainingPlan;
     }
 
     

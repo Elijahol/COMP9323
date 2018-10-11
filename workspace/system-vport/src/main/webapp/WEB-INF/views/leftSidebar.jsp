@@ -23,10 +23,15 @@
         <div class="user-box">
             <div class="user-img">
                 <!-- user photo -->
-                <img src="http://image.vport.com/${existUser.icon }" alt="user-img" title="Mat Helme" class="rounded-circle img-fluid">
+                <img src="http://image.vport.com/${existUser.icon }" alt="user-img" title="Mat Helme" style="height: 46px" class="rounded-circle img-fluid">
             </div>
             <!-- user name -->
-            <h5><a href="#">${existUser.name }</a> </h5>
+            <c:if test="${existUser.role != 2 }">
+            <h5><a href="${pageContext.request.contextPath }/rest/page/trainerMain">${existUser.name }</a> </h5>
+            </c:if>
+            <c:if test="${existUser.role == 2 }">
+            <h5><a href="${pageContext.request.contextPath }/rest/page/stuMain">${existUser.name }</a> </h5>
+            </c:if>
         </div>
 
         <!--- Sidemenu -->

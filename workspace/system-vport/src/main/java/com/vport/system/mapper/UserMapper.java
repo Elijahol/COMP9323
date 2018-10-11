@@ -2,6 +2,8 @@ package com.vport.system.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.github.abel533.mapper.Mapper;
 import com.vport.system.pojo.person.Reward;
 import com.vport.system.pojo.person.User;
@@ -21,6 +23,10 @@ public interface UserMapper extends Mapper<User>{
     void addReward(Reward reward);
 
     List<User> findUserByRole(long role);
+
+    void insertRecoverCode(@Param("userId")Long id, @Param("code")String code);
+
+    User findUserByRecoverCode(String code);
 
     /*void insertTrainer(Long id);
 

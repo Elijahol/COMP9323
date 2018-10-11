@@ -26,6 +26,12 @@
 		#link{
 		 height: auto!important;
 		}
+		.share{
+			display: inline-block;
+		}
+		.share img{
+			height: 30px;
+		}
 	</style>
 </head>
 
@@ -101,6 +107,27 @@
                                             <a href="${pageContext.request.contextPath }/rest/common/showProfile?id=${course.trainer.id}" class="text-dark"><h5 class="media-heading mb-0 mt-0">${course.trainer.name }</h5></a>
                                             <span class="badge badge-info">Instuctor</span>
                                         </div>
+                                        <!-- Facebook -->
+                                        <div class="share">
+										    <a href="http://www.facebook.com/sharer.php?u=http://www.vport.com/rest/course/showOpenCourseDetail?classId=13" target="_blank">
+										        <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+										    </a>
+										    <!-- Google+ -->
+										    <a href="https://plus.google.com/share?url=https://simplesharebuttons.com" target="_blank">
+										        <img src="https://simplesharebuttons.com/images/somacro/google.png" alt="Google" />
+										    </a>
+										
+										
+										    <!-- Tumblr-->
+										    <a href="http://www.tumblr.com/share/link?url=https://simplesharebuttons.com&amp;title=Simple Share Buttons" target="_blank">
+										        <img src="https://simplesharebuttons.com/images/somacro/tumblr.png" alt="Tumblr" />
+										    </a>
+										
+										    <!-- Twitter -->
+										    <a href="https://twitter.com/share?url=http://www.vport.com/rest/course/showOpenCourseDetail?classId=13;text=Vport;hashtags=NewCourse">
+										        <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
+										    </a>
+									    </div>
                                     </div>
 
                                     <h4 class="m-b-20">${course.trainingClass.className }</h4>
@@ -122,6 +149,22 @@
                                             <h5 class="m-b-5">Start Date</h5>
                                             <p> ${course.startTime }</p>
                                         </li>
+                                        <li>
+		                                	<h5 class="m-b-5">Training Days</h5>
+		                                    <p style="padding: 5px"> 
+												<c:forEach var="day" items="${course.trainingClass.trainingDay }" varStatus="status">
+													<c:if test="${status.index % 3 == 0 }">
+													<strong class="badge badge-pill badge-danger" style="margin-bottom:3px; font-size:14px">${day }</strong>
+													</c:if>
+													<c:if test="${status.index % 3 == 1 }">
+													<strong class="badge badge-pill badge-info" style="margin-bottom:3px;font-size:14px">${day }</strong>
+													</c:if>
+													<c:if test="${status.index % 3 == 2 }">
+													<strong class="badge badge-pill badge-warning" style="margin-bottom:3px;font-size:14px">${day }</strong>
+													</c:if>
+												</c:forEach>
+		                                    </p>
+		                                </li>
 										<li>
                                             <h5 class="m-b-5">Training Time</h5>
                                             <p> ${course.trainingClass.hourTo }</p>
@@ -143,8 +186,9 @@
                                         </div>
                                         </c:if>
                                     </div>
+                                    <c:if test="${existUser.role == 2 }">
                                     <c:if test="${hasAdd != 1 }">
-                                    <div class="alert alert-danger mt-4">The resitration deadline is <br><strong>${course.deadLine }</strong></div>
+                                    <div class="alert alert-danger mt-4">The registration deadline is &nbsp;&nbsp;<strong>${course.deadLine }</strong></div>
                                     </c:if>
                                     <c:if test="${hasAdd == 1 }">
                                     <div class="alert alert-custom mt-4"><strong>You have joined into this class</strong></div>
@@ -152,6 +196,7 @@
                                     <input id="classId" type="hidden" value="${course.trainingClass.classId }">
                                     <c:if test="${hasAdd != 1 }">
                                     <button id="addBtn" class="btn btn-custom btn-addcourse">Add</button>
+                                    </c:if>
                                     </c:if>
                                     <div class="clear"></div>
                                 </div>
@@ -223,7 +268,9 @@
                               'Yeah!',
                               'You have joined into this class,enjoy!!',
                               'success'
-                            )
+                            );
+	           			window.location.reload();
+                            
             		 }else{
             			 swal(
                                'Error!',
@@ -234,7 +281,8 @@
             	 },"json");
                  $("#addBtn").attr("disabled","disabled");
              }
-         })
+         });
+       //window.location.reload();
      });
 	</script>
 </body>

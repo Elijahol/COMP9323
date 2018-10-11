@@ -28,6 +28,7 @@ import com.vport.system.exception.MessageException;
 import com.vport.system.pojo.person.User;
 import com.vport.system.service.UserService;
 import com.vport.system.utils.EncryptUtil;
+import com.vport.system.utils.MailUtils;
 import com.vport.system.utils.UUIDUtils;
 
 @Controller
@@ -126,5 +127,47 @@ public class UserController {
         cookie.setMaxAge(0);
         response.addCookie(cookie);
         return "login";
+    }
+    
+    @RequestMapping(value = "recover",method=RequestMethod.POST)
+    public String recover(String email,Model model) {
+        User user = new User();
+        user.setEmail(email);
+        User existUser = userService.findByEmailandPassword(user);
+        if (existUser == null) {
+            model.addAttribute("error", "We couldn't find your account with that information");
+            return "recover";
+        }
+        session.setAttribute("existUser", existUser);
+        String start = email.substring(0, 2);
+        String sec = email.substring(2,email.indexOf("@")).replaceAll("\\w", "*");
+        String end = email.substring(email.indexOf("@")+2, email.length()).replaceAll("\\w", "*");
+        String te = start + sec + email.substring(email.indexOf("@"), email.indexOf("@")+2) + end;
+       
+        model.addAttribute("email", te);
+        return "sendEmail";
+    }
+    @RequestMapping(value = "sendRecover", method=RequestMethod.GET)
+    @ResponseBody
+    public String sendRecover() throws MessageException {
+        User user = (User) session.getAttribute("existUser");
+        userService.sendRecoverEmail(user);
+        return "1";
+    }
+    @RequestMapping(value="resetPassword",method=RequestMethod.GET)
+    public String resetPassword(String code,Model model) {
+        User user = userService.findUserbyRecoverCode(code);
+        if (user != null) {
+            user.setPassword(null);
+            model.addAttribute("user", user);
+            return "resetPassword";
+        }
+        return null;
+    }
+    @RequestMapping(value="changePassword",method=RequestMethod.POST)
+    @ResponseBody
+    public String changePassword(@RequestBody User user) {
+        userService.updateUserSelective(user);
+        return "1";
     }
 }

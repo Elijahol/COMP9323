@@ -15,15 +15,25 @@ public class TrainingClassInfo extends TrainingClass{
     
     private List<Student> students;
     
-    private List<TrainingPlan> plans;
+    private List<TrainingPlan> plansHistory;
+    private List<TrainingPlan> futurePlans;
     
     
-    public List<TrainingPlan> getPlans() {
-        return plans;
+
+    public List<TrainingPlan> getFuturePlans() {
+        return futurePlans;
     }
 
-    public void setPlans(List<TrainingPlan> plans) {
-        this.plans = plans;
+    public void setFuturePlans(List<TrainingPlan> futurePlans) {
+        this.futurePlans = futurePlans;
+    }
+
+    public Boolean getIsChief() {
+        return isChief;
+    }
+
+    public void setIsChief(Boolean isChief) {
+        this.isChief = isChief;
     }
 
     public List<Student> getStudents() {
@@ -34,13 +44,14 @@ public class TrainingClassInfo extends TrainingClass{
         this.students = students;
     }
 
-    public Boolean getIsChief() {
-        return isChief;
+    public List<TrainingPlan> getPlansHistory() {
+        return plansHistory;
     }
 
-    public void setIsChief(Boolean isChief) {
-        this.isChief = isChief;
+    public void setPlansHistory(List<TrainingPlan> plansHistory) {
+        this.plansHistory = plansHistory;
     }
     
+   
 
 }

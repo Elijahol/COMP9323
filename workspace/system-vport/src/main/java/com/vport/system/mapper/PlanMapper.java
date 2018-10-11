@@ -41,4 +41,6 @@ public interface PlanMapper extends Mapper<PlanType>{
     
     List<Date> findSchemaTrainingTimeByClassId(Long classId);
 
+    List<TrainingPlan> findFuturePlan(Long classId);
+
 }

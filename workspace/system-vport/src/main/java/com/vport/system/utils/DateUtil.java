@@ -2,9 +2,11 @@ package com.vport.system.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -237,12 +239,12 @@ public class DateUtil {
         calendar.add(Calendar.DATE, dayOfWeek - day);
         return calendar.getTime();
     }
-    public static Date getDateByMonthDay(Integer dayofMonth){
+    public static Date getDateByMonthDay(Integer dayofMonth,Integer lastMonthMaxDay){
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int i = calendar.get(Calendar.DAY_OF_MONTH);
-        calendar.add(Calendar.DATE, dayofMonth - i);
+        calendar.add(Calendar.DATE, dayofMonth - i - lastMonthMaxDay);
         return calendar.getTime();
     }
   //获取当前(上，下)周的日期范围如：...,-1上一周，0本周，1下一周...
@@ -271,27 +273,62 @@ public class DateUtil {
     
             
             String beginDate = sdf.format(calendar1.getTime());
+            int lastMothday = calendar1.getActualMaximum(Calendar.DAY_OF_MONTH);
             calendar1.add(Calendar.DATE, 6);
-    
+            int nowMonthDay = calendar1.getActualMaximum(Calendar.DAY_OF_MONTH);
+            int tar = Integer.parseInt(beginDate);
+            
+            
             String endDate = sdf.format(calendar1.getTime());
+            List<Integer> days = new ArrayList<>();
+            System.out.println("beginDate: " + beginDate);
+            System.out.println("endDate: " + endDate);
+            int index = 0;
+            int tarIndex = -1;
+            while(tar != Integer.parseInt(endDate)){
+                if (tar > lastMothday) {
+                    tar = 1;
+                    tarIndex = index-1;
+                }
+                days.add(tar);
+                tar ++;
+                index ++;
+                
+            }
+            days.add(tar);
             Map<String, Object> map = new TreeMap<String,Object>();
-            for (int j = Integer.parseInt(beginDate); j <= Integer.parseInt(endDate); j++) {
-                Date dateByWeekday = DateUtil.getDateByMonthDay(j);
+            for(int k = 0; k < days.size();k++){
+                Date dateByWeekday = null;
+                if (tarIndex >=0 && k<=tarIndex) {
+                    dateByWeekday  = DateUtil.getDateByMonthDay(days.get(k),lastMothday);
+                }else{
+                    dateByWeekday = DateUtil.getDateByMonthDay(days.get(k),0);
+                }
                 TimeTableWithWeek timeTableWithWeek = new TimeTableWithWeek();
                 timeTableWithWeek.setTime(dateByWeekday);
-                if (j<10) {
-                    map.put("0"+j, timeTableWithWeek);
+                if (days.get(k)<10) {
+                    map.put("0"+days.get(k), timeTableWithWeek);
                 }else{
-                    map.put(""+j, timeTableWithWeek);
+                    map.put(""+days.get(k), timeTableWithWeek);
                 }
             }
+           /* for (Integer eachDay : days) {
+                Date dateByWeekday = DateUtil.getDateByMonthDay(eachDay);
+                TimeTableWithWeek timeTableWithWeek = new TimeTableWithWeek();
+                timeTableWithWeek.setTime(dateByWeekday);
+                if (eachDay<10) {
+                    map.put("0"+eachDay, timeTableWithWeek);
+                }else{
+                    map.put(""+eachDay, timeTableWithWeek);
+                }
+            }*/
             return map;
     }
     
     public static String getDayOfMonth(Date time){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(time);
-        return calendar.get(Calendar.DAY_OF_MONTH)+"";
+        return calendar.get(Calendar.DAY_OF_MONTH) >= 10 ? calendar.get(Calendar.DAY_OF_MONTH)+"":"0"+calendar.get(Calendar.DAY_OF_MONTH);
     }
     
 }

@@ -33,7 +33,7 @@ public class TrainingClassToDisPlay {
         return deadLine;
     }
     public void setDeadLine(Date deadLine) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyy KK:mm aa",Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy",Locale.ENGLISH);
         this.deadLine = sdf.format(deadLine);
     }
     public List<User> getStudents() {

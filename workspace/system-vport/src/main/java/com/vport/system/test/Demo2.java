@@ -1,5 +1,8 @@
 /*package com.vport.system.test;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,6 +16,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.apache.commons.collections.map.HashedMap;
@@ -22,6 +27,7 @@ import org.junit.Test;
 import com.vport.system.bean.TimeTableWithWeek;
 import com.vport.system.utils.DateUtil;
 
+@SuppressWarnings("all")
 public class Demo2 {
     private static class ValueComparator implements Comparator<Map.Entry<String,Integer>>{
 
@@ -34,15 +40,18 @@ public class Demo2 {
         
         
     }
-    public static void main(String[] args) throws InterruptedException, ParseException {
-       SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-       String hour = "15:00";
-       String hour2 = "9:00";
-       Date date = sdf.parse(hour);
-       Date date2 = sdf.parse(hour2);
-       System.out.println(date);
-       System.out.println(date2);
-       System.out.println(date2.compareTo(date));
+    *//**
+     * Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int i = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.add(Calendar.DATE, dayofMonth - i);
+        return calendar.getTime();
+     *//*
+    public static void main(String[] args) throws InterruptedException, ParseException, IOException {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm EEEE",Locale.ENGLISH);
+        System.out.println(sdf.format(date));
         
     }
     

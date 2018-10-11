@@ -89,14 +89,14 @@
                                                     	<td>Type</td>
                                                         <td>Group Number</td>
                                                         <td>Number of Each Group</td>
-                                                        <td>Is LimitedTime</td>
-                                                        <td>Is Continous</td>
-                                                        <td>Is Moved</td>
-                                                        <td>Is Multiple</td>
-                                                        <td>Is Target</td>
+                                                        <td>Time Requirement</td>
+                                                        <td>Time-continuing Requirement</td>
+                                                        <td>Position Requirement</td>
+                                                        <td>Training Mode </td>
+                                                        <td>Target Requirement</td>
                                                         <td>Number of Success</td>
                                                         <td>Required Time</td>
-                                                        <td>Is Combined</td>
+                                                        <td>Type Of Skill</td>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

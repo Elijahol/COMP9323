@@ -81,4 +81,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LIMIT 5) m
 		WHERE pd.content_id = ec.id AND ec.type=et.id AND pd.assess_id = m.assess_id AND ec.type = #{typeId}
 	</select>
+	
+	<resultMap type="PerformanceForClass" id="performanceForClass">
+		<result column="name" property="name"/>
+		<result column="ch_name" property="chName"/>
+		<result column="score" property="score"/>
+	</resultMap>
+	<select id="findAvgDataOfClass" resultMap="performanceForClass">
+		SELECT ec.name,ec.ch_name,ROUND(AVG(pd.count),2) as score 
+		FROM performance_data pd,evaluation_content ec
+		WHERE pd.content_id = ec.id
+		AND pd.assess_id IN 
+		(SELECT pa.id FROM player p,performance_assess pa
+		WHERE pa.player = p.player 
+		AND p.class_id = #{classId}
+		AND ec.type = #{type}
+		)
+		GROUP BY ec.ch_name
+		ORDER BY pd.content_id
+	</select>
+	<select id="findRecentCommentByPlayer" parameterType="Long" resultType="String">
+		SELECT comment FROM performance_assess WHERE player=#{value}
+		ORDER BY time DESC 
+	</select>
 </mapper>

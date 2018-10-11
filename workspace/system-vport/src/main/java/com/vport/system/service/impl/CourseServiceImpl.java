@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,8 +93,10 @@ public class CourseServiceImpl implements CourseService {
             students.add(student);
         }
         classInfo.setStudents(students);
-        List<TrainingPlan> plans = courseMapper.findPlanByClass(classId);
-        classInfo.setPlans(plans);
+        List<TrainingPlan> plansHistory = courseMapper.findPlanHistoryByClass(classId);
+        classInfo.setPlansHistory(plansHistory);
+        List<TrainingPlan> futurePlans = courseMapper.findFuturePlansByClass(classId);
+        classInfo.setFuturePlans(futurePlans);
         return classInfo;
     }
     /**
@@ -120,7 +123,7 @@ public class CourseServiceImpl implements CourseService {
             students.add(student);
         }
         classInfoForStu.setStudents(students);
-        List<TrainingPlan> plans = courseMapper.findPlanByClass(classId);
+        List<TrainingPlan> plans = courseMapper.findPlanHistoryByClass(classId);
         classInfoForStu.setPlans(plans);
         return classInfoForStu;
     }
@@ -171,7 +174,9 @@ public class CourseServiceImpl implements CourseService {
                 }
             }
         }
-       
+        //对字典排序按照日期
+        
+        
         Date currTime = new Date();
         long curr = currTime.getTime();
         Long min = Long.MAX_VALUE;
@@ -237,6 +242,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public TrainingClassToDisPlay getOpenCourseDetail(Long classId) {
         TrainingClass trainingClass = courseMapper.selectByPrimaryKey(classId);
+        trainingClass.setTrainingDay(trainingClass.getPeriod());
         TrainingClassToDisPlay trainingClassToDisPlay = new TrainingClassToDisPlay();
         trainingClassToDisPlay.setPics(Arrays.asList(trainingClass.getPic().split(",")));
         User trainer = courseMapper.findChiefTrainerOfClass(trainingClass.getClassId());
@@ -339,6 +345,8 @@ public class CourseServiceImpl implements CourseService {
         }
         return new ResponseData(code, msg, null);
     }
+    
+    
     
 
     

@@ -71,6 +71,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findUserByRole" parameterType="Long" resultType="User">
 		select id,name from user
 		where role = #{value};
+	</select>
 	
+	<insert id="insertRecoverCode">
+		insert into recover_code (user_id,code) values(#{userId},#{code})
+	</insert>
+	
+	<select id="findUserByRecoverCode" parameterType="String" resultType="User">
+		select * from user u
+		where u.id = (
+			select rc.user_id 
+			from recover_code rc
+			where rc.code = #{value}
+		) 
 	</select>
 </mapper>

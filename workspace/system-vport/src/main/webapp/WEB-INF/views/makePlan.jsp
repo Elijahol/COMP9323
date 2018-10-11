@@ -272,24 +272,29 @@
                     <input type="hidden" name="typeOfSkill">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="col-form-label">is LimitedTime</label>
+                            <label class="col-form-label">Non-Limited Time</label>
                             <input name="isLimitedTime" value="Non-Limited Time" type="checkbox" class="js-switch js-check-click"/>
+                        	<label class="col-form-label">Limited Time</label>
                         </div>
                         <div class="form-group">
-                            <label class="col-form-label">is Continuous</label>
+                            <label class="col-form-label">Non-Continuous</label>
                             <input name="isContinuous" value="Non-Continuous" type="checkbox" class="js-switch js-check-click"/>
+                        	<label class="col-form-label">Continuous</label>
                         </div>
                         <div class="form-group">
-                            <label class="col-form-label">is Moved</label>
+                            <label class="col-form-label">Position Fixed</label>
                             <input name="isMoved" value="Fixed" type="checkbox" class="js-switch js-check-click"/>
+                        	<label class="col-form-label">Position Change</label>
                         </div>
                         <div class="form-group">
-                            <label class="col-form-label">is Multiple</label>
+                            <label class="col-form-label">Bandy Bout</label>
                             <input name="isMultiple" value="Bandy" type="checkbox" class="js-switch js-check-click"/>
+                        	<label class="col-form-label">Multi-ball Training</label>
                         </div>
                         <div class="form-group">
-                            <label class="col-form-label">is Target</label>
+                            <label class="col-form-label">Non-Target</label>
                             <input name="isTarget" value="Non-Target" type="checkbox" class="js-switch js-check-click"/>
+                        	<label class="col-form-label">Target</label>
                         </div>
                         <div class="form-group">
                             <label class="col-form-label">Group Number</label>
@@ -315,7 +320,7 @@
                                 <input id="radio2" name="isCombined" type="radio" class="radio-danger" value="Back Hand"/>
                                 <label for="radio2" style="margin-right: 12px;">Back Hand</label>
                                 <input id="radio3" name="isCombined" type="radio" class="radio-danger" value="Combine"/>
-                                <label for="radio3">Combine</label>
+                                <label for="radio3">Combination</label>
                             </div>
                         </div>
                     </div>

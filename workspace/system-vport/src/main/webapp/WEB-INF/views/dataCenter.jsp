@@ -92,6 +92,19 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div id="accordion" role="tablist" aria-multiselectable="true" class="m-b-30">
+                            	<c:if test="${comment != '' }">
+		                            <div class="card bg-transparent">
+		                            	<div class="alert alert-primary alert-dismissible fade show" role="alert">
+	                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	                                            <span aria-hidden="true">×</span>
+	                                        </button>
+	                                        <div>
+	                                        	<strong>Recent Comment</strong>
+	                                        </div>
+	                                        <p>${comment }</p>
+	                                    </div>
+		                            </div>
+	                            </c:if>
                                 <div class="card bg-transparent">
                                     <div class="card-header b-r-30 listgroup-title" role="tab" id="headingOne">
                                         <h5 class="mb-0 mt-0">

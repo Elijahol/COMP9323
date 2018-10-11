@@ -5,7 +5,6 @@ $(function(){
 		type:"get",
 		dataType:"json",
 		success:function(data){
-			console.log(data);
 			$("#link").children().remove();
 			if(data.length != 0){
 				var count = 0;
@@ -54,6 +53,7 @@ $(function(){
 				$("#link").append("<div class='dropdown-item notify-item'>"+
                                         "<p class='text-muted'><strong>No New Info</strong></p>"+
                                     "</div>");
+				window.location.reload();
 			}
 		},"json");
 	});

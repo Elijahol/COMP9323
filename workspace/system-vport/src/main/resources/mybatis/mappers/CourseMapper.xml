@@ -50,10 +50,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="assistant_trainer_id" property="assistantTrainer"/>
 	</resultMap>
 	
-	<select id="findPlanByClass" parameterType="Long" resultMap="trainingPlan">
+	<select id="findPlanHistoryByClass" parameterType="Long" resultMap="trainingPlan">
 		SELECT * FROM training_schema 
 		WHERE class_id = #{value}
+		AND training_time &lt; NOW()
 		ORDER BY training_time DESC
+	</select>
+	<select id="findFuturePlansByClass" parameterType="Long" resultMap="trainingPlan">
+		SELECT * FROM training_schema 
+		WHERE class_id = #{value}
+		AND training_time &gt;= NOW()
+		ORDER BY training_time
 	</select>
 	
 	<select id="findClassInfoByClassId" parameterType="Long" resultMap="trainerAndClass">

@@ -31,6 +31,14 @@
 		#link{
 		 height: auto!important;
 		}
+		.background{
+			background-color: #f3f6f8
+		}
+		.suggInfo{
+		    background-color: #fff;
+  			border-left: 1px solid #eee;
+  			padding: 10px;
+		}
 	</style>
 </head>
 
@@ -64,11 +72,14 @@
 					<div class="row m-t-50">
                         <div class="col-12">
                             <div class="card-box course-box-1">
+                            	<a href="${pageContext.request.contextPath }/rest/course/classInfoByClassIdForStu?classId=${classInfo.classId}" style="color:#fff">
                                 <div class="mask">
                                     <h4>${classInfo.className }&nbsp;&nbsp;${classInfo.rank }</h4>
-                                <p><i class="mdi mdi-calendar-clock"></i> 12:00pm</p>
+                                    <input type="hidden" id="classId" value="${classInfo.classId }">
+                                <p><i class="mdi mdi-calendar-clock"></i> ${classInfo.hourTo }</p>
                                 <p><i class="mdi mdi-map-marker-outline"></i> ${classInfo.place }</p>
                                 </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -101,25 +112,112 @@
 
                                     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                                         <div class="card-body bg-transparent">
-                                            <a href="${pageContext.request.contextPath }/rest/course/returnPlan?classId=${classInfo.classId}" class="btn btn-custom btn-block mb-3 waves-effect waves-light"><i class="mdi mdi-plus-circle"></i> Add A New Plan</a>
+	                                        <div>
+	                                        	<a href="${pageContext.request.contextPath }/rest/course/returnPlan?classId=${classInfo.classId}" class="btn btn-custom btn-block mb-3 waves-effect waves-light" style="width: 65%"><i class="mdi mdi-plus-circle"></i> Add A New Plan</a>
+		                                        <div class="btn btn-purple waves-effect waves-light" style="display: inline-block;width: 30%;margin-bottom: 1rem" role="tab" id="SuggInfo" data-toggle="collapse" data-parent="#collapseOne" href="#suggInfoContent" aria-expanded="flase" aria-controls="suggInfoContent">
+			                                        <a>Suggestion</a>
+			                                    </div>
+			                                    
+			                                </div>
+		                                    <div id="suggInfoContent" class="collapse" role="tabpanel" aria-labelledby="SuggInfo">
+		                                        <ul class="nav nav-tabs">
+	                                                <li class="nav-item">
+	                                                    <a href="#sugg-plan-tab" data-toggle="tab" aria-expanded="true" class="nav-link active">
+	                                                        <i class="fa fa-info"> </i> Suggestion
+	                                                    </a>
+	                                                </li>
+	                                                <li class="nav-item">
+	                                                    <a href="#skills-plan-tab" data-toggle="tab" aria-expanded="false" class="nav-link">
+	                                                        <i class="mdi mdi-hexagon-outline mr-2"></i>Skills
+	                                                    </a>
+	                                                </li>
+	                                                <li class="nav-item">
+	                                                    <a href="#physical-plan-tab" data-toggle="tab" aria-expanded="false" class="nav-link">
+	                                                        <i class="mdi mdi-human mr-2"></i>Physical
+	                                                    </a>
+	                                                </li>
+	                                            </ul>
+                                            	<div class="tab-content" style="padding: 0">
+					                            	<div class="tab-pane" id="skills-plan-tab">
+					                            		<div class="plan-content">
+		                                        			<div class="card-box ribbon-box">
+		                                        				<div class="ribbon ribbon-danger">
+			                                                		<span>Skill AVG</span>
+			                                                	</div>
+		                                                   	 	<canvas id="classSkills" height="350" class=""></canvas>
+		                                                	</div>
+		                                                </div>
+	                                                </div>
+                                                	<div class="tab-pane" id="physical-plan-tab">
+	                                                	<div class="plan-content">
+	                                                		<div class="card-box ribbon-box">
+	                                                			<div class="ribbon ribbon-purple">
+		                                                			<span>Physical AVG</span>
+		                                                		</div>
+	                                                   		 	<canvas id="classPhysical" height="350" class=""></canvas>
+	                                                		</div>
+	                                                	</div>
+                                                	</div>
+                                                	<div class="tab-pane show active" id="sugg-plan-tab">
+	                                                	<div class="plan-content">
+	                                                	
+		                                                	<div id="suggestion" class="card-box text-primary ribbon-box">
+		                                                		<div class="ribbon ribbon-primary">
+		                                                			<span>SUGGESTION</span>
+		                                                		</div><br><br>
+		                                                	<!-- <strong>Suggestion:</strong><br> -->
+		                                                	</div>
+	                                                	</div>
+                                                	</div>
+                                                </div>
+                                            </div> 
+                                            
 
-                                    <ul class="sortable-list taskList list-unstyled" id="upcoming">
-                                        <!-- student brief info template -->
-                                        <c:forEach var="stu" items="${classInfo.students }">
-                                        <li class="" id="task1">
-                                            <div class="clearfix"></div>
-                                            <div class="">
-                                                <p class="pull-right mb-0 mt-2">
-                                                    <button type="button" class="btn btn-custom btn-sm waves-effect waves-light btn-evaluate" data-studentId="${stu.id }" data-studentName="${stu.name }" data-toggle="modal" data-toggle="modal" data-target="#evaluateModal" >Evaluate</button>
-                                                </p>
-                                                <p class="mb-0"><a href="${pageContext.request.contextPath }/rest/common/showStu?id=${stu.id}" class="text-muted"><img src="http://image.vport.com/${stu.icon }" alt="task-user" class="thumb-sm rounded-circle mr-2"> <span class="font-bold font-secondary">${stu.name }</span></a> </p>
-                                            </div>
-                                        </li>
-                                        </c:forEach>
-                                        <!-- end template -->
-                                    </ul>
+		                                    <ul class="sortable-list taskList list-unstyled" id="upcoming">
+		                                        <!-- student brief info template -->
+		                                        <c:forEach var="stu" items="${classInfo.students }">
+		                                        <li class="" id="task1">
+		                                            <div class="clearfix"></div>
+		                                            <div class="">
+		                                                <p class="pull-right mb-0 mt-2">
+		                                                    <button type="button" class="btn btn-custom btn-sm waves-effect waves-light btn-evaluate" data-studentId="${stu.id }" data-studentName="${stu.name }" data-toggle="modal" data-toggle="modal" data-target="#evaluateModal" >Evaluate</button>
+		                                                </p>
+		                                                <p class="mb-0"><a href="${pageContext.request.contextPath }/rest/common/showStu?id=${stu.id}" class="text-muted"><img src="http://image.vport.com/${stu.icon }" alt="task-user" class="thumb-sm rounded-circle mr-2"> <span class="font-bold font-secondary">${stu.name }</span></a> </p>
+		                                            </div>
+		                                        </li>
+		                                        </c:forEach>
+		                                        <!-- end template -->
+		                                    </ul>
                                     
                                             
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card bg-transparent">
+                                    <div class="card-header b-r-30 listgroup-title" role="tab" id="headingThree">
+                                        <h5 class="mb-0 mt-0">
+                                            <a>
+                                                	　FUTURE PLAN
+                                            </a>
+                                        </h5>
+                                        <a><i class="mdi mdi-chevron-down listgroup-collapse"data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree"></i></a>
+                                    </div>
+                                    <div id="collapseThree" class="collaps show" role="tabpanel" aria-labelledby="headingThree">
+                                        <div class="card-body plan-box" >
+                                            <!-- plan brief info template  trainingDate-->
+                                            <c:forEach var="plan" items="${classInfo.futurePlans }">
+                                            <div class="class-box">
+                                                <div class="class-box-header">
+                                                    <h5><i class="mdi mdi-bullseye"></i> ${plan.trainingDate }</h5>
+                                                    <p class="class-box-time">${classInfo.place }</p>
+                                                </div>
+                                                <div class="class-box-body">
+                                                    <p> ${plan.trainingDate }</p>
+                                                    <a href="${pageContext.request.contextPath }/rest/course/toEachPlan?id=${plan.id}" class=""><button class="btn btn-outline-custom btn-rounded waves-light waves-effect">View</button></a>
+                                                </div>
+                                            </div>
+                                            </c:forEach>
+                                            <!-- end template -->
                                         </div>
                                     </div>
                                 </div>
@@ -135,7 +233,7 @@
                                     <div id="collapseTwo" class="collaps show" role="tabpanel" aria-labelledby="headingTwo">
                                         <div class="card-body plan-box" >
                                             <!-- plan brief info template  trainingDate-->
-                                            <c:forEach var="plan" items="${classInfo.plans }">
+                                            <c:forEach var="plan" items="${classInfo.plansHistory }">
                                             <div class="class-box">
                                                 <div class="class-box-header">
                                                     <h5><i class="mdi mdi-bullseye"></i> ${plan.trainingDate }</h5>
@@ -309,6 +407,13 @@
     <script src="${pageContext.request.contextPath }/assets/js/jquery.core.js"></script>
     <script src="${pageContext.request.contextPath }/assets/js/jquery.app.js"></script>
     
+    <!-- Chart JS -->
+    <script src="${pageContext.request.contextPath }/plugins/chart.js/chart.bundle.js"></script>
+    <script src="${pageContext.request.contextPath }/assets/pages/jquery.chartjs.init.js"></script>
+
+    <!-- Modal-Effect -->
+    <script src="${pageContext.request.contextPath }/plugins/custombox/js/custombox.min.js"></script>
+    <script src="${pageContext.request.contextPath }/plugins/custombox/js/legacy.min.js"></script>
     <script type="text/javascript">
     	/*
     		1.绑定evaluate点击事件

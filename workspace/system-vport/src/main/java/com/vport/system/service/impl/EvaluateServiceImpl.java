@@ -1,10 +1,19 @@
 package com.vport.system.service.impl;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
+import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +23,7 @@ import com.vport.system.pojo.eval.EvaluateType;
 import com.vport.system.pojo.eval.GeneralPerformanceDataOrderByTime;
 import com.vport.system.pojo.eval.PerformanceAssess;
 import com.vport.system.pojo.eval.PerformanceContent;
+import com.vport.system.pojo.eval.PerformanceForClass;
 import com.vport.system.pojo.eval.PerformanceScore;
 import com.vport.system.pojo.eval.PerformanceScoreWithTime;
 import com.vport.system.service.EvaluateService;
@@ -156,6 +166,54 @@ public class EvaluateServiceImpl implements EvaluateService {
         
     }
     
+    /**
+     * 获得班级训练建议
+     *  1.文字部分：技术部分那一项最低，体能部分那一项最低
+     *  2.技术部分的平均分：6项
+     *  3.技术部分的平均：5项
+     *  结果集用map
+     * @throws IOException 
+     */
+    @Override
+    public Map<String, Object> getAdviceAndDataForClass(Long classId) throws IOException {
+        Map<String, Object> map = new HashMap<>();
+        Properties properties = new Properties();
+        List<PerformanceForClass> skills = evaluateMapper.findAvgDataOfClass(classId,1L);
+        List<PerformanceForClass> physical = evaluateMapper.findAvgDataOfClass(classId,2L);
+        map.put("skills", skills);
+        map.put("physical", physical);
+        List<PerformanceForClass> skillMins = getLowest(skills);
+        List<PerformanceForClass> physicalMins = getLowest(physical);
+        
+        InputStream in = EvaluateServiceImpl.class.getClassLoader().getResourceAsStream("advice.properties");
+        properties.load(in);
+        
+        String params[] = {skillMins.get(0).getName(),skillMins.get(0).getScore()+"",skillMins.get(1).getName(),skillMins.get(1).getScore()+"",
+                physicalMins.get(0).getName(),physicalMins.get(0).getScore()+"",physicalMins.get(1).getName(),physicalMins.get(1).getScore()+""};
+        String msg = MessageFormat.format(properties.getProperty("msg"), params);
+        map.put("advice", msg);
+        return map;
+    }
     
-    
+    private List<PerformanceForClass> getLowest(List<PerformanceForClass> list){
+        List<PerformanceForClass> list2 = new ArrayList<>();
+        for (PerformanceForClass performanceForClass : list) {
+            PerformanceForClass class1 = new PerformanceForClass();
+            class1.setChName(performanceForClass.getChName());
+            class1.setName(performanceForClass.getName());
+            class1.setScore(performanceForClass.getScore());
+            list2.add(class1);
+        }
+        Collections.sort(list2);
+        return list2;
+    }
+    @Override
+    public String getRecentCommet(Long userId) {
+        List<String> comments = evaluateMapper.findRecentCommentByPlayer(userId);
+        if (comments != null && comments.size() != 0) {
+            return comments.get(0);
+        }
+        return "";
+        
+    }
 }

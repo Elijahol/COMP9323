@@ -22,4 +22,6 @@ public interface UserService {
     void addReward(Reward reward);
     List<User> findUserByRole(long role);
     List<User> findTrainer();
+    void sendRecoverEmail(User user) throws MessageException;
+    User findUserbyRecoverCode(String code);
 }

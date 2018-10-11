@@ -37,8 +37,9 @@ public class UserServiceImpl implements UserService {
         user.setStatus(0);//未激活
         String code = UUIDUtils.getUUID()+UUIDUtils.getUUID();
         user.setCode(code);
+        user.setIcon("moren.jpg");
         user.setCreatetime(new Date());
-        mailutils.sendMail(user.getEmail(), user.getName(), code);
+        mailutils.sendMail(user.getEmail(), user.getName(), code,"reg");
         userMapper.insert(user);
     }
     
@@ -105,6 +106,19 @@ public class UserServiceImpl implements UserService {
         
         
         return userMapper.selectByExample(example);
+    }
+
+    @Override
+    public void sendRecoverEmail(User user) throws MessageException {
+        String code = UUIDUtils.getUUID();
+        userMapper.insertRecoverCode(user.getId(),code);
+        mailutils.sendMail(user.getEmail(), user.getName(), code,"rec");
+    }
+
+    @Override
+    public User findUserbyRecoverCode(String code) {
+        
+        return userMapper.findUserByRecoverCode(code);
     }
 
    /* @Override

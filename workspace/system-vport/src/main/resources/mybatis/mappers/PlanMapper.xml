@@ -145,4 +145,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findSchemaTrainingTimeByClassId" parameterType="Long" resultType="Date">
 		SELECT training_time FROM training_schema WHERE class_id = #{value}
 	</select>
+	
+	<select id="findFuturePlan" parameterType="Long" resultType="TrainingPlan">
+		SELECT id, class_id as classId,training_time as trainingTime FROM training_schema
+		WHERE class_id = #{value}
+		AND training_time >=NOW()
+		ORDER BY training_time
+	
+	</select>
 </mapper>

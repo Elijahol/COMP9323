@@ -216,11 +216,16 @@
 		//对date的key进行排序
 		var arr = [];
 		for(var key in date){
-			if(key != "00")arr.push(key);
+			if(key != "00"){
+				date[key].key = key;
+				arr.push(date[key]);
+			}
 		}
-		arr.sort();
+		arr.sort(function(a,b){
+			return a.time - b.time;
+		});
 		
-		
+		console.log(arr);
 		//获得当前几号
 		function dayFormat(s) {
 		    return s < 10 ? '0' + s: s;
@@ -231,9 +236,9 @@
 		/* 注入课程信息 */
 		var days = $("#tech-companies-1 li");
 		$(days).each(function(i,n){
-			$(n).text(arr[i]);
-			if(currDay == arr[i]){
-				var timeTables = date[arr[i]].timeTables;
+			$(n).text(arr[i].key);
+			if(currDay == arr[i].key){
+				var timeTables = arr[i].timeTables;
 				
 				$(n).addClass("checked");
 				$("#currDate").text(date[$(this).text()].visualTime);
@@ -243,7 +248,9 @@
 			                    +"<h5><i class='mdi mdi-bullseye'></i> "+n.visualTime+"</h5>"
 			                +"</div>"
 			                +"<div class='class-box-body'>"
+			                	+"<a href='http://www.vport.com/rest/course/classInfoByClassIdForStu?classId="+n.classId+"'>"
 			                    +"<p class='name'><strong>"+n.className+"</strong></p>"
+			                    +"</a>"
 			                    +"<p class='address'><i class='mdi mdi-map-marker-outline'></i> "+n.place+"</p>"
 			                +"</div>"
 			            +"</div>");
@@ -270,7 +277,9 @@
 		                    +"<h5><i class='mdi mdi-bullseye'></i> "+n.visualTime+"</h5>"
 		                +"</div>"
 		                +"<div class='class-box-body'>"
-		                    +"<p class='name'>"+n.className+"</p>"
+		                	+"<a href='http://www.vport.com/rest/course/classInfoByClassIdForStu?classId="+n.classId+"'>"
+		                    +"<p class='name'><strong>"+n.className+"</strong></p>"
+		                    +"</a>"
 		                    +"<p class='address'><i class='mdi mdi-map-marker-outline'></i> "+n.place+"</p>"
 		                +"</div>"
 		            +"</div>");

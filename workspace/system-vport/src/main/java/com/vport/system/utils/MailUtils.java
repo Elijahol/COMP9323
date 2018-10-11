@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import com.vport.system.exception.MessageException;
 
+import aj.org.objectweb.asm.Type;
+
 /**
  * 发送邮件的工具类:
  * @author admin
@@ -29,7 +31,7 @@ import com.vport.system.exception.MessageException;
 public class MailUtils {
     
     @Async
-    public  void sendMail(String to, String name, String code) throws MessageException{
+    public  void sendMail(String to, String name, String code,String type) throws MessageException{
         //为了体现效果，邮件发送延迟5秒钟
         
         try {
@@ -59,7 +61,11 @@ public class MailUtils {
             // 主题:
             message.setSubject("Vport Email!");
             // 正文: Hi, name
-            message.setContent("<h1>Hi," + name + ", please click the link below to active your vport account</h1><h3><a href='http://www.vport.com/rest/user/activate?code="+code+"'>http://www.vport.com/rest/user/activate?code="+code+"</a></h3>", "text/html;charset=UTF-8");
+            if ("reg".equals(type)) {
+                message.setContent("<h1>Hi," + name + ", please click the link below to active your vport account</h1><h3><a href='http://www.vport.com/rest/user/activate?code="+code+"'>http://www.vport.com/rest/user/activate?code="+code+"</a></h3>", "text/html;charset=UTF-8");
+            }else if ("rec".equals(type))
+                message.setContent("<h1>Hi," + name + 
+                                    ", please click the link below to reset your vport password</h1><h3><a href='http://www.vport.com/rest/user/resetPassword?code="+code+"'><button class='btn btn-primary'>Reset Password</button></a></h3>", "text/html;charset=UTF-8");
             // 发送邮件:
            
             Transport.send(message);
