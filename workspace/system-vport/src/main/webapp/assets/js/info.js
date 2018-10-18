@@ -39,7 +39,7 @@ $(function(){
 					$.post("http://www.vport.com/rest/info/changeInfo",{"id":id},function(res){},"json");
 				});
 			}else{
-				$("#link").append("<div class='dropdown-item notify-item'>"+
+				$("#link").html("<div class='dropdown-item notify-item'>"+
 	                    "<p class='text-muted'><strong>No New Info</strong></p>"+
 	                "</div>");
 			}
@@ -49,15 +49,16 @@ $(function(){
 	$("#clearAll").click(function(){
 		$.post("http://www.vport.com/rest/info/deleteInfo",{},function(res){
 			if(res == 1){
-				$("#link").children().remove();
-				$("#link").append("<div class='dropdown-item notify-item'>"+
+				/*$("#link").children().remove();*/
+				$("#link").html("<div class='dropdown-item notify-item'>"+
                                         "<p class='text-muted'><strong>No New Info</strong></p>"+
                                     "</div>");
-				window.location.reload();
+				$("#info .arrow-none").html("<i class='fi-bell noti-icon'></i>");
+				/*window.location.reload();*/
 			}
 		},"json");
 	});
-	return false;
+	/*return false;*/
 	
 });
 //<small class="text-muted">1 min ago</small>

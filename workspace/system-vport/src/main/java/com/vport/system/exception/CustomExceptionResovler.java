@@ -1,5 +1,9 @@
 package com.vport.system.exception;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,16 +22,18 @@ public class CustomExceptionResovler implements HandlerExceptionResolver{
             Object handler, Exception ex) {
         //判断异常类型
         ModelAndView modelAndView = new ModelAndView();
-        if (ex instanceof MessageException) {
-            MessageException messageException = (MessageException) ex;
-            System.out.println(messageException.getmString());
-            modelAndView.addObject("msg", messageException.getmString());
-        }else{
-            ex.printStackTrace();
+        System.out.println("error: " + ex.getMessage());
+        File file = new File("E://comp9323_pro/error/", "msg.txt");
+        PrintWriter s = null;
+        try {
+            s = new PrintWriter(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        
-        
-        modelAndView.setViewName("msg");
+        ex.printStackTrace(s);
+        s.flush();
+        s.close();
+        modelAndView.setViewName("error");
         
         return modelAndView;
     }

@@ -39,7 +39,7 @@
 
                                 <div class="card-box p-5 bg-dark">
                                     <h2 class="text-uppercase text-center pb-4">
-                                        <a href="index.html" class="text-success">
+                                        <a href="${pageContext.request.contextPath }/" class="text-success">
                                             <span><img src="${pageContext.request.contextPath }/assets/images/vport.png" alt="" height="50"></span>
                                         </a>
                                     </h2>

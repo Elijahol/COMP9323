@@ -2,19 +2,20 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+	UserMapper.xml is the SQL file of the interface UserMapper
+ -->
 <mapper namespace="com.vport.system.mapper.UserMapper">
 	<sql id="selector">
 		select * from user
 	</sql>
-	<!-- 通过邮箱和密码查询用户 -->
+	
 	<select id="findUserByEmailAndPassword" parameterType="User" resultType="User">
 		<include refid="selector"/> 
 		<where>
 			email = #{email}
-			
-			<if test="password != null and password != ''">
-				and password = #{password}
-			</if>
+			and password = #{password}
 		</where>
 	</select>
 	<select id="findUserByCode" parameterType="String" resultType="User">

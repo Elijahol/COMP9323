@@ -28,6 +28,7 @@ public class TrainingClass implements Serializable{
     @Column(name = "id")
     private Long classId;
     private String className;
+    private String address;
     private String place;
     private String period;
     private String hourTo;
@@ -51,6 +52,12 @@ public class TrainingClass implements Serializable{
     
     
    
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
     public List<String> getTrainingDay() {
         return trainingDay;
     }

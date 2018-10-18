@@ -9,6 +9,16 @@ import com.vport.system.pojo.person.Reward;
 import com.vport.system.pojo.person.User;
 import com.vport.system.pojo.person.UserWithReward;
 
+/**
+ * UserMapper is dynamic mapper which can be implemented by the framework mybatis.
+ * This project applied the plugin jar "com.github.abel533.mapper" which is general mapper
+ * encapsulating a series of functions to interact with database 
+ * 
+ * The github of "com.github.abel533.mapper" is an open source site
+ * Gitbub address of the plugin is https://github.com/abel533/Mapper
+ * 
+ * @author Chaoyi Zhou
+ */
 public interface UserMapper extends Mapper<User>{
     User findUserByEmailAndPassword(User user);
 
@@ -27,8 +37,4 @@ public interface UserMapper extends Mapper<User>{
     void insertRecoverCode(@Param("userId")Long id, @Param("code")String code);
 
     User findUserByRecoverCode(String code);
-
-    /*void insertTrainer(Long id);
-
-    void insertPlayer(Long id);*/
 }

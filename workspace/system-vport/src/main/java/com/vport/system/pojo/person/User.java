@@ -12,6 +12,13 @@ import javax.persistence.Transient;
 
 import com.vport.system.utils.DateUtil;
 
+
+/**
+ * this class map to the table "user" of database
+ * 
+ * 
+ * @author Cahoyi Zhou
+ */
 public class User implements Serializable{
     /**
      * 
@@ -31,8 +38,8 @@ public class User implements Serializable{
     private String city;
     private String icon;
     private String introduction;
-    private Integer status; //1.已经激活 0.未激活
-    private Integer role; //1.教练 2.成年人 3.未成年人
+    private Integer status; //1.activated 0.unactivated
+    private Integer role; //1.instructor 2.player 3.admin
     private String code;
     private Date createtime;
     private Date updatetime;

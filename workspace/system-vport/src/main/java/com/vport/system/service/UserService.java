@@ -24,4 +24,5 @@ public interface UserService {
     List<User> findTrainer();
     void sendRecoverEmail(User user) throws MessageException;
     User findUserbyRecoverCode(String code);
+    User findUserByEmail(User user);
 }

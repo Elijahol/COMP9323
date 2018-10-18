@@ -56,29 +56,7 @@
 		<!-- 每个分区最小的连接数 -->
 		<property name="minConnectionsPerPartition" value="5" />
 	</bean>
- 	<!-- SET default mail properties -->
-<!--     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="smtp.gmail.com"/>
-        <property name="protocol" value="smtp" /> 
-        465 for Gamil
-        <property name="port" value="587"/>
-        <property name="username" value="wangsy0808km@gmail.com"/>
-        <property name="password" value="UNSW17vsCD07"/>
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.transport.protocol">smtp</prop>
-                <prop key="mail.smtp.auth">true</prop>
-                true for Gamil
-                <prop key="mail.smtp.starttls.enable">false</prop>
-                <prop key="mail.debug">true</prop>
-            </props>
-        </property>
-    </bean> -->
-    <!--Asyn send Eamil--> 
-<!--     <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">  
-       <property name="corePoolSize" value="10"/>  
-       <property name="maxPoolSize" value="30"/>  
-    </bean> -->
+ 
     <task:executor id="myexecutor" pool-size="5"/>
     <task:annotation-driven executor="myexecutor"/>
 </beans>

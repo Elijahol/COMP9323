@@ -2,6 +2,11 @@ package com.vport.system.pojo.person;
 
 import java.util.Date;
 
+/**
+ * Reward informatin maps to the table "reward" of database
+ * @author Chaoyi Zhou
+ *
+ */
 public class Reward {
     
     private Long id;

@@ -2,6 +2,12 @@ package com.vport.system.pojo.person;
 
 import java.util.List;
 
+
+/**
+ * The user object containing the reward information
+ * 
+ * @author Chaoyi Zhou
+ */
 public class UserWithReward extends User{
 
     /**

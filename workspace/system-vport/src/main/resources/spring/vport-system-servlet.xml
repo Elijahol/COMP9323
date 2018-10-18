@@ -34,12 +34,12 @@
 	</bean>
 	
 	<!-- 拦截器 -->
-<!-- 	<mvc:interceptors>
+	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<bean class="com.vport.system.interceptor.Interceptor"/>
 		</mvc:interceptor>
-	</mvc:interceptors> -->
+	</mvc:interceptors>
 	
 	<!-- spirngmvc 异常处理器 -->
 	<bean class="com.vport.system.exception.CustomExceptionResovler"/>

@@ -251,7 +251,9 @@
 			                	+"<a href='http://www.vport.com/rest/course/classInfoByClassIdForStu?classId="+n.classId+"'>"
 			                    +"<p class='name'><strong>"+n.className+"</strong></p>"
 			                    +"</a>"
+			                    +"<a href='http://www.vport.com/rest/location/toMap?classId="+n.classId+"&place="+n.place+"'>"
 			                    +"<p class='address'><i class='mdi mdi-map-marker-outline'></i> "+n.place+"</p>"
+			                    +"<a/>"
 			                +"</div>"
 			            +"</div>");
 				});
@@ -280,8 +282,10 @@
 		                	+"<a href='http://www.vport.com/rest/course/classInfoByClassIdForStu?classId="+n.classId+"'>"
 		                    +"<p class='name'><strong>"+n.className+"</strong></p>"
 		                    +"</a>"
+		                    +"<a href='http://www.vport.com/rest/location/toMap?classId="+n.classId+"&place="+n.place+"'>"
 		                    +"<p class='address'><i class='mdi mdi-map-marker-outline'></i> "+n.place+"</p>"
-		                +"</div>"
+		                	+"<a/>"
+	                    +"</div>"
 		            +"</div>");
 			});
 		});

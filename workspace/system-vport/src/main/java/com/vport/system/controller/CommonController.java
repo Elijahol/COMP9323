@@ -76,16 +76,12 @@ public class CommonController {
     
     @RequestMapping(value="updateIcon",method=RequestMethod.POST,consumes = {"multipart/form-data"})
     @ResponseBody
-    public ResponseData updateIcon(@RequestPart("icon") MultipartFile pictureFile){
+    public ResponseData updateIcon(@RequestPart("icon") MultipartFile pictureFile) throws Exception{
         ResponseData responseData = null;
         String fileName = null;
         User existUser = (User) session.getAttribute("existUser");
         if (pictureFile.getSize() != 0) {
-            try {
                 fileName = checkTheFile(pictureFile);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             if (fileName == null) {
                 responseData = new ResponseData(1, "上传文件不合法", null);
                 return responseData;

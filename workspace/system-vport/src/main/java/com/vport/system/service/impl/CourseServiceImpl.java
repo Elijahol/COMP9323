@@ -345,6 +345,15 @@ public class CourseServiceImpl implements CourseService {
         }
         return new ResponseData(code, msg, null);
     }
+    /**
+     * 根据班级id和place查找具体地址
+     */
+    @Override
+    public String findFullAddress(String classId, String place) {
+        Example example = new Example(TrainingClass.class);
+        example.createCriteria().andEqualTo("classId", classId).andEqualTo("place", place);
+        return courseMapper.selectByExample(example).get(0).getAddress();
+    }
     
     
     

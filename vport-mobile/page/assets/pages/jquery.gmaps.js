@@ -107,9 +107,9 @@
       $('#start_travel').click(function(e){
         e.preventDefault();
         map.travelRoute({
-          origin: [-12.044012922866312, -77.02470665341184],
-          destination: [-12.090814532191756, -77.02271108990476],
-          travelMode: 'driving',
+          origin: [-33.917657399999996, 151.2268039],
+          destination: "Sydney Airport, Sydney, NSW",
+          travelMode: 'transit',
           step: function(e){
             $('#instructions').append('<li>'+e.instructions+'</li>');
             $('#instructions li:eq('+e.step_number+')').delay(450*e.step_number).fadeIn(200, function(){

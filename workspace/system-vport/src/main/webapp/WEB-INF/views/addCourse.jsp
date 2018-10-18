@@ -69,6 +69,10 @@
                                     </div>
                                     <div class="form-group mt-3">
                                         <label class="col-form-label">Course Address</label>
+                                        <input name="address" type="text" class="form-control">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="col-form-label">Club Name</label>
                                         <input name="place" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">

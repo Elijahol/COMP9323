@@ -96,7 +96,7 @@
                                 </li>
                                 <li style="width: 100%">
                                     <h5 class="m-b-5">Address</h5>
-                                    <p> <span class="mdi mdi-map-marker-outline"></span>${classInfo.place }</p>
+                                    <a href="${pageContext.request.contextPath }/rest/location/toMap?classId=${classInfo.classId}&place=${classInfo.place}"><p> <span class="mdi mdi-map-marker-outline"></span>${classInfo.place }</p></a>
                                 </li>
                                 
                             </ul>

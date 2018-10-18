@@ -39,6 +39,9 @@
   			border-left: 1px solid #eee;
   			padding: 10px;
 		}
+		a{
+			color:#fff;
+		}
 	</style>
 </head>
 
@@ -77,7 +80,7 @@
                                     <h4>${classInfo.className }&nbsp;&nbsp;${classInfo.rank }</h4>
                                     <input type="hidden" id="classId" value="${classInfo.classId }">
                                 <p><i class="mdi mdi-calendar-clock"></i> ${classInfo.hourTo }</p>
-                                <p><i class="mdi mdi-map-marker-outline"></i> ${classInfo.place }</p>
+                                <a href="${pageContext.request.contextPath }/rest/location/toMap?classId=${classInfo.classId}&place=${classInfo.place }"><p><i class="mdi mdi-map-marker-outline"></i> ${classInfo.place }</p></a>
                                 </div>
                                 </a>
                             </div>

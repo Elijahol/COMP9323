@@ -16,12 +16,16 @@ public class Interceptor implements HandlerInterceptor{
         
         String requestURI = request.getRequestURI();
         System.out.println(requestURI);
-        if (requestURI.contains("/page")) {
+        if (requestURI.contains("/page/login")
+                ||requestURI.contains("/page/recover")
+                ||requestURI.contains("/page/register")
+                ||requestURI.contains("/page/error")) {
             return true;
         }else if(!requestURI.contains("/user")){
             System.out.println("拦截=====");
             User existUser = (User) request.getSession().getAttribute("existUser");
             if (existUser == null) {
+                response.sendRedirect("/");
                 return false;
             }
         }

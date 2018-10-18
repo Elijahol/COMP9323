@@ -32,6 +32,9 @@
 		.share img{
 			height: 30px;
 		}
+		.carousel-item img{
+			min-height: 150px;
+		}
 	</style>
 </head>
 

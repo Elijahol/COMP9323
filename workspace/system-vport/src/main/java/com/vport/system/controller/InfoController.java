@@ -43,7 +43,6 @@ public class InfoController {
     @ResponseBody
     public List<Info> getAllInfo(){
         User user = (User) session.getAttribute("existUser");
-        System.out.println(111111111);
         return infoService.getAllInfoByUser(user.getId());
         
     }

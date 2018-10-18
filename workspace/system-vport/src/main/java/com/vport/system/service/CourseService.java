@@ -24,4 +24,5 @@ public interface CourseService {
     List<ClassInfoForStu> getClassInfoForStu(User player);
     ClassInfoForStu getClassInfoByClassIdForStu(Long classId);
     ResponseData joinTheClass(User student, Long classId) throws ParseException ;
+    String findFullAddress(String classId, String place);
 }
