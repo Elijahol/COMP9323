@@ -31,7 +31,12 @@ import com.vport.system.pojo.person.UserWithReward;
 import com.vport.system.service.EvaluateService;
 import com.vport.system.service.UserService;
 import com.vport.system.utils.UUIDUtils;
-
+/**
+ * This controller handles the requests from both players and instructors,
+ * and provides functions such as update the profile info, showing the performance data.
+ * To request this controller the url has to start with "/rest/common/"
+ * @author Siyu Wang, Chaoyi Zhou
+ */
 @Controller
 @RequestMapping(value="common")
 public class CommonController {
@@ -52,18 +57,26 @@ public class CommonController {
     @Autowired
     private EvaluateService evaluateService;
     
-    // 允许上传的格式
+    // the valid extension of file upload from front end
     private static final String[] IMAGE_TYPE = new String[] { "bmp", "jpg", "jpeg", "gif", "png" };
     
+    /**
+     * This method is to handle the profile update.
+     * After receiving the user info and the picture if the request has,
+     * this method will use the method "checkTheFile" to check the validation of the picture
+     * and complete the upload process and return the filePath.
+     * Then, using userService to update the user information in the database
+     * and also the user object in the session domain. 
+     * @param user
+     * @param pictureFile
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value="updateUser",method=RequestMethod.POST)
     public String updateUser(User user, MultipartFile pictureFile) throws Exception{
         String fileName = null;
         if (pictureFile.getSize() != 0) {
-            try {
-                fileName = checkTheFile(pictureFile);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            fileName = checkTheFile(pictureFile);
             if (fileName != null) {
                 user.setIcon(fileName);
             }
@@ -73,37 +86,28 @@ public class CommonController {
         session.setAttribute("existUser", existUser);
         return "redirect:/rest/common/showProfile?id="+user.getId();
     }
-    
-    @RequestMapping(value="updateIcon",method=RequestMethod.POST,consumes = {"multipart/form-data"})
-    @ResponseBody
-    public ResponseData updateIcon(@RequestPart("icon") MultipartFile pictureFile) throws Exception{
-        ResponseData responseData = null;
-        String fileName = null;
-        User existUser = (User) session.getAttribute("existUser");
-        if (pictureFile.getSize() != 0) {
-                fileName = checkTheFile(pictureFile);
-            if (fileName == null) {
-                responseData = new ResponseData(1, "上传文件不合法", null);
-                return responseData;
-            }else{
-                existUser.setIcon(fileName);
-                userService.updateUserSelective(existUser);
-                responseData = new ResponseData(0, "", null);
-                return responseData;
-            }
-        }
-        responseData = new ResponseData(0, "上传文件为空", null);
-        return responseData;
-    }
+    /**
+     * This method is to use the service to find the user information
+     * according to user id and response the profile back to front end
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value="showProfile",method=RequestMethod.GET)
     public String showProfile(Long id,Model model){
         UserWithReward user = userService.findUserWithRewardById(id);
         model.addAttribute("user", user);
         return "profile";
     }
+    /**
+     * This method is to use service to find a player information
+     * including the training data and response to front end
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value="showStu",method=RequestMethod.GET)
     public String showStu(Long id, Model model){
-        System.out.println(111111);
         User user = userService.findUserById(id);
         user.setPassword(null);
         model.addAttribute("student", user);
@@ -113,7 +117,8 @@ public class CommonController {
     }
     
     /**
-     * 根据学生id查询该学生的评估数据
+     * This method is also using service find a player information
+     * including the training data but it is for the request from the trainer
      * @param id
      * @param model
      * @return
@@ -131,7 +136,9 @@ public class CommonController {
     
     
     /**
-     * 对reward进行增删改
+     * This method is to get the uploaded reward info from the user,
+     * and complete the relevant operation such as update, delete, or add
+     * according to the option the user has choosen
      * @param reward
      * @param operation
      * @param model
@@ -139,11 +146,6 @@ public class CommonController {
      */
     @RequestMapping(value="editReward",method=RequestMethod.POST)
     public String editReward(Reward reward,String operation,Model model){
-        /**
-         * 1.判断是哪一种操作
-         * 2.增删改
-         * 3.重新查出而牺牲User
-         */
         switch (operation) {
         case "Edit":
             userService.updateReward(reward);
@@ -160,14 +162,19 @@ public class CommonController {
         return "redirect:/rest/common/showProfile?id="+exsitUser.getId();
     }
     
-    
+    /**
+     * the private method support the file upload
+     * @param pictureFile
+     * @return
+     * @throws Exception
+     */
     private String checkTheFile(MultipartFile pictureFile) throws Exception{
-      //保存图片
+        //generate the unique filename
         String fileName = UUIDUtils.getUUID();
-        
+        //get the extension
         String extension = FilenameUtils.getExtension(pictureFile.getOriginalFilename());
         
-        //校验图片
+        //validate the file
         boolean isLegal = false;
         for(String type: IMAGE_TYPE){
             if (extension.equalsIgnoreCase(type)) {
@@ -184,16 +191,16 @@ public class CommonController {
                 if (image != null) {
                    int height = image.getHeight();
                    int width = image.getWidth();
-                   System.out.println(height + "------------" + width);
+                   
                 }else{
                     isLegal = false;
                 }
             }catch(IOException e){
-                System.out.println("不是图片");
+                System.out.println("not pic");
                 isLegal = false;
             }
             if(!isLegal){
-                // 不合法，将磁盘上的文件删除
+                // invalidation and delete it
                 newFile.delete();
                 return null;
             }
