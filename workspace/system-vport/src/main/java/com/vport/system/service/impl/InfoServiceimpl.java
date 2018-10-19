@@ -16,7 +16,17 @@ import com.vport.system.pojo.Info;
 import com.vport.system.pojo.person.User;
 import com.vport.system.service.InfoService;
 import com.vport.system.utils.DateUtil;
-
+/**
+ * InfoServiceImpl is an implementation of the interface InfoService.
+ * it completes the business logic of notification function and interact with 
+ * database through the relevant dynamic mappers like courseMapper, userMapper and infoMapper.
+ * 
+ * The methods that starts with "add", are responsible for add some new notifications
+ * according to the relevant logic. To add a new notification must contain fields such as
+ * "content", "url", "userId"
+ * 
+ * @author Liling Zhang
+ */
 @Service
 public class InfoServiceimpl implements InfoService {
     
@@ -28,7 +38,11 @@ public class InfoServiceimpl implements InfoService {
     
     @Autowired
     private InfoMapper infoMapper;
-
+    /**
+     * This method is to add a notification about 
+     * new plan to all players in the system.
+     * 
+     */
     @Override
     public void addNewPlanInfoToStu(Long schemaId, Long classId) {
         List<User> students = courseMapper.findStudentsByClass(classId);
@@ -41,7 +55,10 @@ public class InfoServiceimpl implements InfoService {
         }
 
     }
-    
+    /**
+     * This method is to add a notification about
+     * reminding the player that his training data has been updated
+     */
     @Override
     public void addNewEvalInfo(Long player) {
         String content = "Training Data Updated";
@@ -51,7 +68,10 @@ public class InfoServiceimpl implements InfoService {
         infoMapper.insert(info);
         
     }
-    
+    /**
+     * This method is to add a notification about
+     * new course.
+     */
     @Override
     public void addNewCourseInfo(Long classId) {
         String content = "New Course Open";
@@ -64,7 +84,10 @@ public class InfoServiceimpl implements InfoService {
         }
         
     }
-    
+    /**
+     * The method is to add a notification about
+     * there is a new player joined into a course
+     */
     @Override
     public void addNewJoinInfo(Long id, Long classId) {
         String content = "Joined New Class";
@@ -87,6 +110,10 @@ public class InfoServiceimpl implements InfoService {
         }
         
     }
+    /**
+     * This method is to get all notifications of a user
+     * including the unread notifications and read notifications
+     */
     @Override
     public List<Info> getAllInfoByUser(Long userId) {
         Example example = new Example(Info.class);
@@ -100,7 +127,10 @@ public class InfoServiceimpl implements InfoService {
         }
         return list;
     }
-
+    /**
+     * This method is to change the notification status
+     * from unread to read.
+     */
     @Override
     public void changeInfoStatus(Long id) {
         Info info = new Info();
@@ -109,7 +139,10 @@ public class InfoServiceimpl implements InfoService {
         infoMapper.updateByPrimaryKeySelective(info);
         
     }
-
+    
+    /**
+     * This method is to delete all notifications of a user.
+     */
     @Override
     public void deleteInfoByUser(Long id) {
         Example example = new Example(Info.class);

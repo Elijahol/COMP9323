@@ -22,8 +22,9 @@ import com.vport.system.exception.MessageException;
 import aj.org.objectweb.asm.Type;
 
 /**
- * 发送邮件的工具类:
- * @author admin
+ * This is an util tool to support sending email function.
+ * This is asynchronous tool.
+ * @author Siyu Wang
  *
  */
 @Service
@@ -32,7 +33,7 @@ public class MailUtils {
     
     @Async
     public  void sendMail(String to, String name, String code,String type) throws MessageException{
-        //为了体现效果，邮件发送延迟5秒钟
+        
         
         try {
             Properties props = new Properties();
@@ -40,7 +41,7 @@ public class MailUtils {
             props.setProperty("mail.smtp.port", "587"); //TLS Port
             props.setProperty("mail.smtp.auth", "true"); //enable authentication
             props.setProperty("mail.smtp.starttls.enable", "true"); //enable STARTTLS
-            // 创建Session实例对象
+            // Create Session instance
             Authenticator auth = new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -50,28 +51,26 @@ public class MailUtils {
         Session session = Session.getInstance(props, auth);
 
             session.setDebug(true);
-            // 构建邮件:
+            // format the mail:
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("vport_official@163.com"));
-            // 设置收件人:Vport Activation Email
-            // TO:收件人   CC:抄送   BCC:暗送,密送.
             message.addRecipient(RecipientType.CC, new InternetAddress("wangsy0808km@gmail.com"));
             message.addRecipient(RecipientType.TO, new InternetAddress(to));
             
-            // 主题:
+            // Subject:
             message.setSubject("Vport Email!");
-            // 正文: Hi, name
+            // Content: Hi, name
             if ("reg".equals(type)) {
                 message.setContent("<h1>Hi," + name + ", please click the link below to active your vport account</h1><h3><a href='http://www.vport.com/rest/user/activate?code="+code+"'>http://www.vport.com/rest/user/activate?code="+code+"</a></h3>", "text/html;charset=UTF-8");
             }else if ("rec".equals(type))
                 message.setContent("<h1>Hi," + name + 
                                     ", please click the link below to reset your vport password</h1><h3><a href='http://www.vport.com/rest/user/resetPassword?code="+code+"'><button class='btn btn-primary'>Reset Password</button></a></h3>", "text/html;charset=UTF-8");
-            // 发送邮件:
+            // send mail:
            
             Transport.send(message);
         } catch (Exception e) {
 //            e.printStackTrace();
-            throw new MessageException("邮件发送失败！！");
+            throw new MessageException("mail failed！！");
         }
     }
 }

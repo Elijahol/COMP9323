@@ -33,7 +33,13 @@ import com.vport.system.pojo.training.TrainingPlan;
 import com.vport.system.service.CourseService;
 import com.vport.system.service.InfoService;
 import com.vport.system.utils.DateUtil;
-
+/**
+ * This Class is an implementation of the interface CourseService.
+ * The main function of this class is to complete the business logic 
+ * relating to training courses and training class.
+ * @author Siyu Wang
+ *
+ */
 @Service
 public class CourseServiceImpl implements CourseService {
     
@@ -42,7 +48,11 @@ public class CourseServiceImpl implements CourseService {
     
     @Autowired
     private PlanMapper planMapper;
-    
+    /**
+     * infoService injection
+     * The purpose of using infoService is to send the notification
+     * after the relevant operation
+     */
     @Autowired
     private InfoService infoService;
     
@@ -50,7 +60,9 @@ public class CourseServiceImpl implements CourseService {
     private UserMapper userMapper;
     
     /**
-     * 根据教练员提取与之有关的课程信息
+     * Get the information of the classes which currently 
+     * the instructor is responsible for according to the instructor id
+     * 
      */
     @Override
     public List<TrainingClassInfo> getClassInfo(User trainer) {
@@ -66,8 +78,6 @@ public class CourseServiceImpl implements CourseService {
                     students.add(student);
                 }
                 trainingClassInfo.setStudents(students);
-               /* List<TrainingPlan> plans = courseMapper.findPlanByClass(classId);
-                trainingClassInfo.setPlans(plans);*/
             }
            
         }
@@ -76,15 +86,13 @@ public class CourseServiceImpl implements CourseService {
         return list;
     }
     /**
-     * 根据班级id查询班级信息包括历史训练计划
+     * Get the class information containing the historical plans for the instructor
+     *  1. get the basic class info according to the class id
+     *  2. get the players information of the class
+     *  3. get the historical plans information 
      */
     @Override
     public TrainingClassInfo getClassInfoByClassId(Long classId) {
-        /**
-         * 1.根据id查询班级信息
-         * 2.查询学生信息
-         * 3.查询历史训练计划
-         */
         TrainingClassInfo classInfo = (TrainingClassInfo) courseMapper.findClassInfoByClassId(classId);
         List<User> stuList = courseMapper.findStudentsByClass(classId);
         List<Student> students = new ArrayList<Student>();
@@ -100,15 +108,13 @@ public class CourseServiceImpl implements CourseService {
         return classInfo;
     }
     /**
-     * 根据班级id查询班级信息包括历史训练计划（2）
+     * Get the class information containing the historical plans for the player
+     *  1. get the basic class info according to the class id
+     *  2. get the players information of the class
+     *  3. get the historical plans information 
      */
     @Override
     public ClassInfoForStu getClassInfoByClassIdForStu(Long classId) {
-        /**
-         * 1.根据id查询班级信息包含教练
-         * 2.查询学生信息
-         * 3.查询历史训练计划
-         */
         ClassInfoForStu classInfoForStu = courseMapper.findClassInfoForStuByClassId(classId);
         String[] days = classInfoForStu.getPeriod().split("-");
         List<String> daysOfTraining = new ArrayList<>();
@@ -129,7 +135,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     /**
-     * 根据教练员获取课程时间信息
+     * Get the timetable according to the user id
+     * 
      */
     @Override
     public Map<String, Object> getTimeTable(Long id,Integer role) {
@@ -141,42 +148,38 @@ public class CourseServiceImpl implements CourseService {
         }
                 
         /**
-         * 1.得到当前周的日期map
-         *      map里面的是<19，对象> 对象里面有对应的全时间，及List《timetable》 这一步是为空
-         * 2.计算每个课程在本周内的时间，得到对应的19，放到map里相应的位置里
+         * 1. Get the current week days:
+         *      the key is the day of the current week;
+         *      the value is the object TimeTableWithWeek which initially is null
+         * 2. Calculate the time of each course and put it into the relevant week day
          */
-        //1.得到当前周的日期map
+        //1.Get the current week days
         Map<String, Object> weekDays = DateUtil.getWeekDays(0);
-        
+        //2.Calculate the time 
         for (TrainingClassInfo trainingClassInfo : list) {
             if(trainingClassInfo.getIsOpen() == false){
                 String[] trainingDays = trainingClassInfo.getPeriod().split("-");
                 String hourTo = trainingClassInfo.getHourTo();
                 for (String day : trainingDays) {
                     int dayOfWeek = Integer.parseInt(day);
-                    //根据星期几获得当前周的时间
                     Date futureDate = DateUtil.getDateByWeekday(dayOfWeek);
-                    //根据当前周的时间获得当月是哪天
                     String DayOfMonth = DateUtil.getDayOfMonth(futureDate);
-                    
                     String dateToString = DateUtil.dateToString(futureDate);
                     String dateToString2 = dateToString +" "+hourTo.split("-")[0];
                     futureDate = DateUtil.stringToDate(dateToString2);
                     TimeTable timeTable = new TimeTable(trainingClassInfo.getClassId(),trainingClassInfo.getClassName(),
                                                         futureDate, trainingClassInfo.getPlace(),hourTo);
-    //                String visualTime = dateToString+ " " + hourTo+" "+DateUtil.getWeekDay(futureDate);
-    //                timeTable.setVisualTime(visualTime);
+
                     
-                    //加入map
+                    
                     ((TimeTableWithWeek) weekDays.get(DayOfMonth)).getTimeTables().add(timeTable);
                     Collections.sort(((TimeTableWithWeek) weekDays.get(DayOfMonth)).getTimeTables(),new MyComparator());
                 
                 }
             }
         }
-        //对字典排序按照日期
         
-        
+        //Find the nearest class time
         Date currTime = new Date();
         long curr = currTime.getTime();
         Long min = Long.MAX_VALUE;
@@ -199,7 +202,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     /**
-     * 根据班级id获取训练时间
+     * Get the training time according to the class id
+     * 
      */
     @Override
     public List<CourseTime> getClassTimeByClassId(Long classId) {
@@ -224,7 +228,7 @@ public class CourseServiceImpl implements CourseService {
     }
     
     /**
-     * 前加课程信息
+     * Add a new course
      */
     @Override
     public void addCourse(TrainingClass trainingClass, Long trainer) {
@@ -237,7 +241,8 @@ public class CourseServiceImpl implements CourseService {
         
     }
     /**
-     * 获取宣传的课程信息详情
+     * Get the class detail which this class is free to join
+     * 
      */
     @Override
     public TrainingClassToDisPlay getOpenCourseDetail(Long classId) {
@@ -255,7 +260,7 @@ public class CourseServiceImpl implements CourseService {
         return trainingClassToDisPlay;
     }
     /**
-     * 获取宣传课程列表
+     * Get the list of the classes that are free to join
      */
     @Override
     public List<TrainingClassToDisPlay> getOpenCourse() {
@@ -272,7 +277,7 @@ public class CourseServiceImpl implements CourseService {
         return res;
     }
     /**
-     * 得到关于这个学生主页面的课程信息
+     * Get the classes for the player according the player
      */
     @Override
     public List<ClassInfoForStu> getClassInfoForStu(User player) {
@@ -281,9 +286,13 @@ public class CourseServiceImpl implements CourseService {
     }
     
     /**
-     * 学生申请加入课程
-     * 1.校验年龄
-     * 2.根据年龄是否符合返回结果
+     * Complete the process of joining class
+     * 1.check if the age of the player meets the requirements of the class
+     * 2.Return the result according the checking
+     *     The returning type "ResponseData" contains three fields:
+     *          1. code: join successfully == true? 1:0
+     *          2. msg: contain the message to info the user
+     *          3. data: the response data
      * @throws ParseException 
      */
     @Override
@@ -297,16 +306,14 @@ public class CourseServiceImpl implements CourseService {
         Integer start = Integer.parseInt(ageRange[0]);
         Integer end = Integer.parseInt(ageRange[1]);
         /**
-         * 1.比较年龄是否符合
-         * 2.比较上课时间是否冲突
-         *      a.先比较上课天是否有重合，如果有：
-         *              b.比较具体时间是否重叠
+         * 1.check the age of the user
+         * 2.check if the class time conflict the current class times of the player  
          */
         if (stuAge >= start && stuAge <= end) {
             
-            //1.查出关于这个学生有关的课程信息
+            
             List<TrainingClassInfo> stuClassList = courseMapper.findClassByPlayer(student.getId());
-            //2.比较上课时间
+            
             for (TrainingClassInfo stuClass : stuClassList) {
                 List<String> stuTimes = Arrays.asList(stuClass.getPeriod().split("-"));
                 List<String> tartTimes = Arrays.asList(trainingClass.getPeriod().split("-"));
@@ -346,6 +353,8 @@ public class CourseServiceImpl implements CourseService {
         return new ResponseData(code, msg, null);
     }
     /**
+     * Get the full address name of the training class
+     * according to the class id and short name of the address
      * 根据班级id和place查找具体地址
      */
     @Override

@@ -11,7 +11,16 @@ import com.vport.system.pojo.person.User;
 import com.vport.system.pojo.training.TrainingClass;
 import com.vport.system.pojo.training.TrainingClassInfo;
 import com.vport.system.pojo.training.TrainingPlan;
-
+/**
+ * CourseMapper is dynamic mapper which can be implemented by the framework mybatis.
+ * This project applied the plugin jar "com.github.abel533.mapper" which is general mapper
+ * encapsulating a series of functions to interact with database 
+ * 
+ * The github of "com.github.abel533.mapper" is an open source site
+ * Gitbub address of the plugin is https://github.com/abel533/Mapper
+ * 
+ * @author Siyu Wang
+ */
 public interface CourseMapper extends Mapper<TrainingClass> {
     List<TrainingClassInfo> findClassByTrainer(Long id);
 

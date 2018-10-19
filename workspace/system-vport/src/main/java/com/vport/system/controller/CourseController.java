@@ -42,7 +42,15 @@ import com.vport.system.service.CourseService;
 import com.vport.system.service.PlanService;
 import com.vport.system.service.UserService;
 import com.vport.system.utils.UUIDUtils;
-
+/**
+ * This controller is mainly to handle the requests relating to
+ * training course, training time, training plan and so on.
+ * It will use the relevant service such as planService, courseService and so on
+ * to complete the relevant operations.
+ * To access this controller, the url has to start with "/rest/course/".
+ * @author Siyu Wang
+ *
+ */
 @Controller
 @RequestMapping("course")
 public class CourseController {
@@ -58,7 +66,9 @@ public class CourseController {
         this.response = response;
         this.session = request.getSession();
     }
-    
+    /**
+     * Service injection
+     */
     @Autowired
     private PlanService planService;
     
@@ -69,7 +79,12 @@ public class CourseController {
     private UserService userService;
     
     
-    
+    /**
+     * Forward the request to the planDetail page according to plan id
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping(value="toEachPlan",method=RequestMethod.GET)
     public String returnEachPlanPage(Long id, Model model){
         model.addAttribute("schemaId", id);
@@ -77,7 +92,9 @@ public class CourseController {
     }
     
     /**
-     * 根据schemaId得到训练计划详细
+     * Get a plan data by using planService according the plan id from 
+     * front end.
+     * This method returns the json format of the data since the request is async.
      * @param id
      * @return
      */
@@ -91,7 +108,8 @@ public class CourseController {
     
     
     /**
-     * 返回制定训练计划页面
+     * Get the user id and class id from the session domain and request domain,
+     * and forward the request to makeplan page
      * @param classId
      * @param model
      * @return
@@ -105,7 +123,10 @@ public class CourseController {
     }
     
     /**
-     * 得到训练计划数据及班级上课时间
+     * Get the plan structure or framework data by using service,
+     * and the current week training time of this class,
+     * and return the data in format with json 
+     * 
      * @param classId
      * @return
      */
@@ -121,7 +142,7 @@ public class CourseController {
     }
     
     /**
-     * 新增一个训练计划
+     * Use planService to add a new plan
      */
     @RequestMapping(value = "addNewPlan",method = RequestMethod.POST)
     @ResponseBody
@@ -137,8 +158,9 @@ public class CourseController {
     
     
     /**
-     * 获得教练页面的班级信息
-     * @return
+     * Get the class information for the instructor
+     * return the data in format with json
+     * @return json
      */
     @RequestMapping(value="classInfo",method = RequestMethod.GET)
     @ResponseBody
@@ -151,7 +173,11 @@ public class CourseController {
         List<TrainingClassInfo> classInfo = courseService.getClassInfo(trainer);
         return classInfo;
     }
-    
+    /**
+     * Get the class information for the player
+     * return the data in format with json
+     * @return json
+     */
     @RequestMapping(value = "classInfoForStu",method = RequestMethod.GET)
     @ResponseBody
     public List<ClassInfoForStu> classInfoForStu(){
@@ -161,8 +187,8 @@ public class CourseController {
     }
     
     /**
-     * 查询所有教练
-     * @return
+     * Get all instructors in the system
+     * @return json
      */
     @RequestMapping(value="getTrainerList",method = RequestMethod.GET)
     @ResponseBody
@@ -172,7 +198,8 @@ public class CourseController {
     }
     
     /**
-     * 根据班级Id得到班级相关信息
+     * Get the class information or details according to the class id,
+     * return to the course detail page 
      * @param classId
      * @return
      */
@@ -182,7 +209,13 @@ public class CourseController {
         model.addAttribute("classInfo", classInfo);
         return "courseDetails";
     }
-    
+    /**
+     * Get the class information or details for the player according to the class id,
+     * return to the stuCourseDetails page
+     * @param classId
+     * @param model
+     * @return
+     */
     @RequestMapping(value="classInfoByClassIdForStu",method = RequestMethod.GET)
     public String getClassInfoByClassIdForStu(Long classId,Model model){
         ClassInfoForStu classInfoForStu = courseService.getClassInfoByClassIdForStu(classId);
@@ -190,7 +223,11 @@ public class CourseController {
         return "stuCourseDetals";
     }
     
-    
+    /**
+     * Get the time table according to the user id and the user role
+     * @param id
+     * @return json
+     */
     @RequestMapping(value="timeTable",method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> getTimeTable(Long id){
@@ -201,7 +238,7 @@ public class CourseController {
     
     
     /**
-     * 上传班级图片
+     * Upload the pictures of the new training class by the the private method "checkTheFile"
      * @param model
      * @return
      * @throws Exception
@@ -220,7 +257,7 @@ public class CourseController {
     }
     
     /**
-     * 添加课程信息
+     * Using the service to add a new class information
      * @param trainingClass
      * @param hourTo1
      * @param hourTo2
@@ -244,7 +281,8 @@ public class CourseController {
     }
     
     /**
-     * 查看当前开班的信息
+     * Get the information of the open class which is currently free to join,
+     * return to the course list page
      * @return
      */
     @RequestMapping(value="showOpenCourse",method = RequestMethod.GET)
@@ -254,7 +292,8 @@ public class CourseController {
         return "courseListPage";
     }
     /**
-     * 获取具体某一个班级的宣传信息
+     * Get the details of the opened course, 
+     * and check whether the current user had joined into this class
      * @param classId
      * @return
      */
@@ -275,8 +314,9 @@ public class CourseController {
         return "courseAdDetail";
     }
     /**
-     * 学生申请加入课程
-     * @return
+     * Handle the request of the application of joining the class from the player
+     * 
+     * @return json
      * @throws ParseException 
      */
     @RequestMapping(value="joinTheClass",method=RequestMethod.POST)
@@ -287,7 +327,8 @@ public class CourseController {
         return courseService.joinTheClass(stu,classId);
     }
     /**
-     * 获得最近的未来训练计划
+     * Using the service to get the closest future plan,
+     * and return the data in format with json
      * @param pictureFile
      * @return
      * @throws Exception
@@ -315,7 +356,7 @@ public class CourseController {
                 System.out.println(height + "------------" + width);
              }
         }catch(IOException e){
-              System.out.println("不是图片");
+              System.out.println("not pic");
         }
         return fileName;
     }

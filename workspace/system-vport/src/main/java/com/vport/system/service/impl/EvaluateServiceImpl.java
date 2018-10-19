@@ -28,7 +28,13 @@ import com.vport.system.pojo.eval.PerformanceScore;
 import com.vport.system.pojo.eval.PerformanceScoreWithTime;
 import com.vport.system.service.EvaluateService;
 import com.vport.system.service.InfoService;
-
+/**
+ * This Class is an implementation of the interface EvaluateService.
+ * The main function of this class is to complete the business logic 
+ * relating to training data and performance assessment.
+ * @author Siyu Wang
+ *
+ */
 @Service
 public class EvaluateServiceImpl implements EvaluateService {
     
@@ -39,12 +45,16 @@ public class EvaluateServiceImpl implements EvaluateService {
     private InfoService infoService;
     
     /**
-     * 获取评估内容
+     * This method is to get the performance assessment types and contents
+     * by using the dynamic mapper "evaluateMapper" to get the data from
+     * database.
      */
     @Override
     public EvaluateData getEvaluateType() {
+        // get all types from database
         List<EvaluateType> list = evaluateMapper.geEvaluateType();
         EvaluateData evaluateData = new EvaluateData();
+        //separate the types into "Cognitive Techniques" and "Physical ability"
         for (EvaluateType evaluateType : list) {
             if ("Cognitive Techniques".equals(evaluateType.getName())) {
                 evaluateData.setCognitiveTechniques(evaluateType);
@@ -55,12 +65,15 @@ public class EvaluateServiceImpl implements EvaluateService {
         return evaluateData;
     }
     /**
-     * 存储针对一个学生的评估数据
+     * This method is to store a performance assessment data of a player
+     * 
      */
     @Override
     public void storePerfomanceData(PerformanceAssess performanceAssess) {
         performanceAssess.setTime(new Date());
+        //insert this data into the table "performance_assess"
         evaluateMapper.insertPerformanceAssess(performanceAssess);
+        //insert each specific performance assessment content into the table "performance content"
         List<PerformanceContent> performanceContents = performanceAssess.getPerformanceContents();
         for (PerformanceContent performanceContent : performanceContents) {
             performanceContent.setAssessId(performanceAssess.getId());
@@ -71,11 +84,14 @@ public class EvaluateServiceImpl implements EvaluateService {
         
     }
     /**
-     * 得到关于一个学生的平均值训练数据,放到map中
+     * This method is to get the avg performance data of a player
+     * and put the data into a map 
      */
     @Override
     public void getAvgPerformanceDataByPlayer(Long id,Map<String, List<?>> data) {
+        //get the avg data from database according to player id
         List<PerformanceScore> list = evaluateMapper.findAvgPerformanceByPlayerId(id);
+        //separate the data into skill part and physical part
         List<PerformanceScore>  skillsAverageData = new ArrayList<>();
         List<PerformanceScore> physicalAverageData = new ArrayList<>();
         for (PerformanceScore performanceScore : list) {
@@ -90,11 +106,14 @@ public class EvaluateServiceImpl implements EvaluateService {
     }
     
     /**
-     * 得到关于一个学生最近一个的训练数据，放到map中
+     * This method is to get the most recent performance assessment data of a player,
+     * and put the data into the map
      */
     @Override
     public void getLastPerformanceDataByPlayer(Long id, Map<String, List<?>> data) {
+        //get the most recent data according the player id
         List<PerformanceScore> list = evaluateMapper.findLastPerformanceByPlayerId(id);
+        //separate the data into skill part and physical part
         List<PerformanceScore>  skillsLastTimeData = new ArrayList<>();
         List<PerformanceScore> physicalLastTimeData = new ArrayList<>();
         for (PerformanceScore performanceScore : list) {
@@ -109,7 +128,7 @@ public class EvaluateServiceImpl implements EvaluateService {
         
     }
     /**
-     * 按照时间顺序，得到球员每次的总体平均分
+     * This method is to get the general performance score of a player with asc time order
      */
     @Override
     public List<GeneralPerformanceDataOrderByTime> getGeneralPerformanceWithTimeOrder(Long id) {
@@ -118,18 +137,22 @@ public class EvaluateServiceImpl implements EvaluateService {
     }
     
     /**
-     * 按照时间孙旭，得到球员每次的平均分
+     * This method is to get the avg performance with the time order 
      */
     @Override
     public void getAvgPerformanceDataWithTimeOrder(Long id, Map<String, List<?>> data) {
+        //get the score of each performance type in skill part
         List<PerformanceScoreWithTime> skillsByTimeData = evaluateMapper.findAvgPerfomanceWithTimeOrder(id,1L);
+        //get the score of each performance type in physical part
         List<PerformanceScoreWithTime> physicalByTimeData = evaluateMapper.findAvgPerfomanceWithTimeOrder(id,2L);
         data.put("skillsByTimeData", skillsByTimeData);
         data.put("physicalByTimeData", physicalByTimeData);
         
     }
     /**
-     * 按照时间顺序，得到学员全部的评估数据
+     * This method is to get the whole performance data of a player by the time order
+     * and separate these data into the same type array
+     * eg: front hand [4,5,3,2,1] with time order
      */
     @Override
     public void getPerformanceScoreByTimeOrder(Long id, Map<String, List<?>> data) {
@@ -167,11 +190,12 @@ public class EvaluateServiceImpl implements EvaluateService {
     }
     
     /**
-     * 获得班级训练建议
-     *  1.文字部分：技术部分那一项最低，体能部分那一项最低
-     *  2.技术部分的平均分：6项
-     *  3.技术部分的平均：5项
-     *  结果集用map
+     * This method is to get the suggestion to support the trainer to learn
+     * the training effect of the class
+     *  1.text part：find the two lowest types in skill and physical
+     *  2.avg score of skill part：6 types
+     *  3.avg score of physical part：5 types
+     *  put the data into map
      * @throws IOException 
      */
     @Override
@@ -194,7 +218,23 @@ public class EvaluateServiceImpl implements EvaluateService {
         map.put("advice", msg);
         return map;
     }
-    
+    /**
+     * Find the most recent comment that the trainer provide to the player
+     */
+    @Override
+    public String getRecentCommet(Long userId) {
+        List<String> comments = evaluateMapper.findRecentCommentByPlayer(userId);
+        if (comments != null && comments.size() != 0) {
+            return comments.get(0);
+        }
+        return "";
+        
+    }
+    /**
+     * find the lowest score from the list containing the performance data
+     * @param list
+     * @return
+     */
     private List<PerformanceForClass> getLowest(List<PerformanceForClass> list){
         List<PerformanceForClass> list2 = new ArrayList<>();
         for (PerformanceForClass performanceForClass : list) {
@@ -207,13 +247,5 @@ public class EvaluateServiceImpl implements EvaluateService {
         Collections.sort(list2);
         return list2;
     }
-    @Override
-    public String getRecentCommet(Long userId) {
-        List<String> comments = evaluateMapper.findRecentCommentByPlayer(userId);
-        if (comments != null && comments.size() != 0) {
-            return comments.get(0);
-        }
-        return "";
-        
-    }
+   
 }

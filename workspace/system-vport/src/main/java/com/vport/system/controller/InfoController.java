@@ -16,7 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.vport.system.pojo.Info;
 import com.vport.system.pojo.person.User;
 import com.vport.system.service.InfoService;
-
+/**
+ * InfoController is the entrance of the notification module.
+ * This controller provides the operations of notification
+ * such as get the notifications of a user, change the status of a notification
+ * from unread to read and so on.
+ * Since the notification function of the front end apply async loading, the 
+ * responses of the methods in this class is mainly asynchronous or void
+ * 
+ * @author Liling Zhang
+ *
+ */
 @Controller
 @RequestMapping("info")
 public class InfoController {
@@ -36,7 +46,8 @@ public class InfoController {
     
     
     /**
-     * 得到所有通知
+     * Handle the request to get the all notifications of a user
+     * and response the information in the format with json 
      * @return
      */
     @RequestMapping(value="allInfo",method=RequestMethod.GET)
@@ -47,14 +58,17 @@ public class InfoController {
         
     }
     /**
-     * 改变通知状态
+     * If the user click the notification, the request will asyncly 
+     * send the request to apply change the status of the notification
      */
     @RequestMapping(value="changeInfo",method=RequestMethod.POST)
     public void changeInfo(Long id) {
         infoService.changeInfoStatus(id);
     }
     /**
-     * 清空通知
+     * If the user click the "clear all", the reuqest will asyncly
+     * send the request to apply delete all the current notifications
+     *  
      */
     @RequestMapping(value="deleteInfo",method=RequestMethod.POST)
     @ResponseBody

@@ -147,7 +147,7 @@
 		                                        				<div class="ribbon ribbon-danger">
 			                                                		<span>Skill AVG</span>
 			                                                	</div>
-		                                                   	 	<canvas id="classSkills" height="350" class=""></canvas>
+		                                                   	 	<canvas id="classSkills" style="max-height:350px" height="350" class=""></canvas>
 		                                                	</div>
 		                                                </div>
 	                                                </div>
@@ -157,7 +157,7 @@
 	                                                			<div class="ribbon ribbon-purple">
 		                                                			<span>Physical AVG</span>
 		                                                		</div>
-	                                                   		 	<canvas id="classPhysical" height="350" class=""></canvas>
+	                                                   		 	<canvas id="classPhysical" style="max-height:350px" height="350" class=""></canvas>
 	                                                		</div>
 	                                                	</div>
                                                 	</div>

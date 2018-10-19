@@ -75,10 +75,9 @@ public class UserController {
      * @param user
      * @param model
      * @return
-     * @throws MessageException
      */
     @RequestMapping(value="register",method = RequestMethod.POST)
-    public String register(User user,Model model) throws MessageException{
+    public String register(User user,Model model){
         try{
             userService.register(user);
             return "redirect:/rest/page/login";

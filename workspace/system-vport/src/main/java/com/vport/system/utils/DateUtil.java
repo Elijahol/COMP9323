@@ -13,7 +13,12 @@ import java.util.TreeMap;
 import org.omg.PortableServer.ServantActivator;
 
 import com.vport.system.bean.TimeTableWithWeek;
-
+/**
+ * This is a data tool that provides some method to calculate
+ * and format the time
+ * @author Siyu Wang
+ *
+ */
 public class DateUtil {
     
     private static final String YYYY_MM_DD = "yyyy-MM-dd";
@@ -28,7 +33,7 @@ public class DateUtil {
     public static final String YMDHMS_BREAK_HALF = "yyyy-MM-dd HH:mm";
 
     /**
-    * 计算时间差
+    * calculate delta-T
     */
     public static final int CAL_MINUTES = 1000 * 60;
     public static final int CAL_HOURS = 1000 * 60 * 60;
@@ -48,7 +53,7 @@ public class DateUtil {
         return new SimpleDateFormat(pattern);
     }
     /**
-    * 获取时间戳
+    * get the timestamp
     * @param date
     * @return
     */
@@ -56,10 +61,10 @@ public class DateUtil {
     return date.getTime();
     }
     /**
-    * 计算时间差
+    * calculate the diff between two times
     * @param startDate
     * @param endDate
-    * @param calType 计算类型,按分钟、小时、天数计算
+    * @param calType 
     * @return
     */
     public static int calDiffs(Date startDate, Date endDate, int calType){
@@ -70,8 +75,7 @@ public class DateUtil {
     }
     
     /**
-    * 获取日期格式化后的值
-    * 
+    * Format the time with the specific pattern
     * @param date
     * @param pattern
     * @return
@@ -81,8 +85,7 @@ public class DateUtil {
     return sdf.format(date);
     }
     /**
-    * 计算时间差值以某种约定形式显示
-    * 
+    * Calculate and get the past time in a specific format 
     * @param startDate
     * @param endDate
     * @return
@@ -108,18 +111,12 @@ public class DateUtil {
     return DateUtil.getDateText(startDate, DateUtil.YMDHMS_BREAK_HALF);
     }
 
-    /**
-    * 显示某种约定后的时间值,类似微信朋友圈发布说说显示的时间那种
-    * 
-    * @param date
-    * @return
-    */
     public static String showTimeText(Date date){
     return DateUtil.timeDiffText(date, new Date());
     }
     
     /**
-     * 查找当前日期是一周中的第几天，星期几
+     * find the day of the week according to the date
      */
     public static long getWhitchDay(Date today){
         Calendar calendar = Calendar.getInstance();
@@ -127,9 +124,7 @@ public class DateUtil {
         //1=Sunday,2=Monday...7=Saturday
         return calendar.get(Calendar.DAY_OF_WEEK)-1;
     }
-    /**
-     * 查找当前日期是一周中的第几天，星期几
-     */
+    
     public static String getWeekDay(Date today){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(today);
@@ -137,10 +132,7 @@ public class DateUtil {
         Integer k = (calendar.get(Calendar.DAY_OF_WEEK)-1);
         return dayOfWeek.get(k.longValue());
     }
-    /**
-     * 判断日期是否相等 年月日相等就相等
-     * @param args
-     */
+   
     public static boolean isDateEqualToday(Date day1, Date day2){
         Calendar calendar = Calendar.getInstance();
         Calendar calendar2 = Calendar.getInstance();
@@ -150,15 +142,7 @@ public class DateUtil {
                 && calendar.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH)
                 && calendar.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH);
     }
-    /**
-     * 计算距离baseDate 若干天的 日期
-     * days=2 表示2天后
-     * days=-1 一天前
-     *
-     * @param baseDate 日期 null 表示当前日期
-     * @param days     日期
-     * @return
-     */
+    
     public static Date daysBetweenWeeks(Date baseDate, int days) {
         Calendar c = Calendar.getInstance();
         if (baseDate != null)
@@ -168,17 +152,21 @@ public class DateUtil {
         return c.getTime();
     }
 
-    
+    /**
+     * Calculate the age according to the birthday
+     * @param birthday
+     * @return
+     */
     public static Integer getAgeByBirth(Date birthday) {
         Integer age = 0;
         try {
             Calendar now = Calendar.getInstance();
-            now.setTime(new Date());// 当前时间
+            now.setTime(new Date());
 
             Calendar birth = Calendar.getInstance();
             birth.setTime(birthday);
 
-            if (birth.after(now)) {//如果传入的时间，在当前时间的后面，返回0岁
+            if (birth.after(now)) {
                 age = 0;
             } else {
                 age = now.get(Calendar.YEAR) - birth.get(Calendar.YEAR);
@@ -187,15 +175,11 @@ public class DateUtil {
                 }
             }
             return age;
-        } catch (Exception e) {//兼容性更强,异常后返回数据
+        } catch (Exception e) {
            return 0;
         }
     }
-    /**
-     * 日期转字符串
-     * @param date
-     * @return
-     */
+   
     public static String dateToString(Date date) {
  
         try {
@@ -208,12 +192,6 @@ public class DateUtil {
     }
     
 
-    /**
-     * 字符串转换为日期类型
-     *
-     * @param dateString
-     * @return
-     */
     public static Date stringToDate(String dateString) {
  
         try {
@@ -224,11 +202,7 @@ public class DateUtil {
         return null;
     }
     
-    /**
-     * 得到本周某天对应的date
-     * @param dayOfWeek
-     * @return
-     */
+   
     public static Date getDateByWeekday(Integer dayOfWeek){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -247,25 +221,29 @@ public class DateUtil {
         calendar.add(Calendar.DATE, dayofMonth - i - lastMonthMaxDay);
         return calendar.getTime();
     }
-  //获取当前(上，下)周的日期范围如：...,-1上一周，0本周，1下一周...
+    
+    /**
+     * Calculate the days of the current week i==0
+     * Calculate the days of the last week i==-1
+     * Calculate the days of the next week i==1
+     * @param i
+     * @return
+     */
     public static Map<String, Object> getWeekDays(int i) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd");
-            // getTimeInterval(sdf);
     
             Calendar calendar1 = Calendar.getInstance();
-            // 设置一个星期的第一天，一个星期的第一天是星期日
             calendar1.setFirstDayOfWeek(Calendar.SUNDAY);
             
-            // 判断要计算的日期是否是周日，如果是则减一天计算周六的，否则会出问题，计算到下一周去了
-            int dayOfWeek = calendar1.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
+            int dayOfWeek = calendar1.get(Calendar.DAY_OF_WEEK);
             /*if (1 == dayOfWeek) {
                     calendar1.add(Calendar.DAY_OF_MONTH, -1);
             }*/
     
-            // 获得当前日期是一个星期的第几天
+            
             int day = calendar1.get(Calendar.DAY_OF_WEEK);
     
-            //获取当前日期前（下）x周同星几的日期
+            
             calendar1.add(Calendar.DATE, 7*i);
     
             calendar1.add(Calendar.DATE, calendar1.getFirstDayOfWeek() - day);

@@ -33,90 +33,54 @@ import com.vport.system.service.PlanService;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
-
+/**
+ * This Class is an implementation of the interface PlanService.
+ * The main function of this class is to complete the business logic 
+ * relating to training plan including add, get the plan framework, 
+ * get a specific plan detail and so on
+ * @author Siyu Wang
+ *
+ */
 @Service
 public class PlanServiceImpl implements PlanService {
     
     @Autowired
     private PlanMapper planMapper;
+    /**
+     * infoService injection
+     * The purpose of using infoService is to send the notification
+     * after the relevant operation
+     */
     @Autowired
     private InfoService infoService;
     
     
-    private PlanType searchChildren(PlanType planType, Map<Long, List<PlanType>> typeMap) {
-        if (typeMap.get(planType.getId())!=null) {
-            List<PlanType> children = typeMap.get(planType.getId());
-            for (PlanType child : children) {
-                child.setChildren(new ArrayList<PlanType>());
-                planType.getChildren().add(searchChildren(child, typeMap));
-            }
-        }
-        return planType;
-    }
     
-    private void setPhysicalContent(Long schemaId, TrainingPlanInfo trainingPlanInfo) {
-        //体能类
-        PhysicalContent physicalPart = new PhysicalContent();
-        //热身
-        List<PhysicalDetailNonSpecilized> warmUp = planMapper.selectWarmUpBySchemaId(schemaId);
-        physicalPart.setWarmUp(warmUp);
-        
-        //专项训练
-        
-        List<PhysicalDetailSpecilized> specializedTrainingInit = planMapper.selectSpecilizedBySchemaId(schemaId);
-        Map<String,List<PhysicalDetailSpecilized>> specializedTraining = new HashMap<String,List<PhysicalDetailSpecilized>>();
-        for (PhysicalDetailSpecilized physicalDetailSpecilized : specializedTrainingInit) {
-            String parentName = physicalDetailSpecilized.getParentName();
-            if (!specializedTraining.containsKey(parentName)) {
-                List<PhysicalDetailSpecilized> list = new ArrayList<PhysicalDetailSpecilized>();
-                list.add(physicalDetailSpecilized);
-                specializedTraining.put(parentName, list);
-            }else{
-                specializedTraining.get(parentName).add(physicalDetailSpecilized);
-            }
-        }
-        physicalPart.setSpecializedTraining(specializedTraining);
-        //放松
-        List<PhysicalDetailNonSpecilized> relaxiation = planMapper.selectRelaxiationBySchemaId(trainingPlanInfo.getId());
-        physicalPart.setRelaxiation(relaxiation);
-        trainingPlanInfo.setPhysicalPart(physicalPart);
-    }
-    
-    private void setSkillContent(Long schemaId, TrainingPlanInfo trainingPlanInfo) {
-        List<SkillDetailWithFullInfo> list = planMapper.selectSkillDetailWithFullInfo(schemaId);
-        Map<String, List<SkillDetailWithFullInfo>> map = new HashMap<String, List<SkillDetailWithFullInfo>>();
-        for (SkillDetailWithFullInfo skillDetailWithFullInfo : list) {
-            String parentName = skillDetailWithFullInfo.getParentName();
-            if (!map.containsKey(parentName)) {
-                List<SkillDetailWithFullInfo> newList = new ArrayList<SkillDetailWithFullInfo>();
-                newList.add(skillDetailWithFullInfo);
-                map.put(parentName, newList);
-            }else{
-                map.get(parentName).add(skillDetailWithFullInfo);
-            }
-        }
-        trainingPlanInfo.setSkillPart(map);
-    }
     /**
-     * 获取训练计划树形结构
+     * Get the tree structure of the plan types
+     * by using depth first search
      */
     public PlanTree getPlanTree(){
         /**
-         * 使用缓存优化程序，先从缓存中获取数据
-         *      获取到：直接返回
-         *      获取不到，再去查数据库，存到缓存中
+         * Using the cache to store the plan types
+         * to avoid frequently access to the database.
+         * Firstly, if the container of the Ehcache has the plan types,
+         * the method will directly return the data.
+         * Secondly, if the container does not have the data,
+         * apply the algorithm to get and format the data.
          */
         PlanTree result = null;
         CacheManager cacheManager = CacheManager.create(PlanServiceImpl.class.getClassLoader().getResourceAsStream("ehcache.xml"));
         Cache cache = cacheManager.getCache("planTypeCache");
-        //判断缓存中是否有集合
+        //check if the cache has the data 
         Element element = cache.get("planTree");
         if (element == null) {
-            System.out.println("没有缓存，查询数据库=======");
+            System.out.println("no cache,access the database=======");
             result = new PlanTree();
-            //所有的训练内容
+            //Get all plan types
             List<PlanType> types = planMapper.selectTypeWithUnit();
             //key=parentid, value=chlidrenList
+            //put each plan type into the map with parent id as the key
             Map<Long, List<PlanType>> typeMap = new HashMap<Long, List<PlanType>>();
             for (PlanType planType : types) {
                 if(!typeMap.containsKey(planType.getParentId())){
@@ -124,24 +88,28 @@ public class PlanServiceImpl implements PlanService {
                 }
                 typeMap.get(planType.getParentId()).add(planType);
             }
-            //得到最顶层的两个训练项目：体能和技战术
+            //get the root elements of the plan tree
             List<PlanType> list = typeMap.get(0L);
             for (PlanType planType : list) {
                 planType.setChildren(new ArrayList<PlanType>());
+                //DFS
+                //using the private method "searchChildren" to get the children of each node 
                 planType = searchChildren(planType,typeMap);
                 result.getData().add(planType);
             }
             element = new Element("planTree", result);
             cache.put(element);
         }else{
-            System.out.println("有缓存，没有查询数据库=======");
+            System.out.println("has cache，not access the database=======");
             result = (PlanTree) element.getObjectValue();
         }
         
         return result;
     }
     /**
-     * 创建新的训练计划
+     * make a new plan.
+     * store the data into relevant tables of the database.
+     * 
      */
     @Override
     public void makeNewPlan(MakeTrainingPlan newPlan) {
@@ -164,7 +132,8 @@ public class PlanServiceImpl implements PlanService {
         infoService.addNewPlanInfoToStu(plan.getId(), plan.getClassId());
     }
     /**
-     * 根据训练计划id提取训练计划内容
+     * Get the specific plan detail according to the plan id.
+     * 
      */
     public TrainingPlanInfo getTrainingPlanInfo(Long schemaId){
         
@@ -175,7 +144,9 @@ public class PlanServiceImpl implements PlanService {
         setSkillContent(schemaId, trainingPlanInfo);
         return trainingPlanInfo;
     }
-
+    /**
+     * Get the closest future plan according to the class id
+     */
     @Override
     public TrainingPlan getClosestPlan(Long classId) {
         List<TrainingPlan> list = planMapper.findFuturePlan(classId);
@@ -190,7 +161,60 @@ public class PlanServiceImpl implements PlanService {
     }
 
     
-
+    private PlanType searchChildren(PlanType planType, Map<Long, List<PlanType>> typeMap) {
+        if (typeMap.get(planType.getId())!=null) {
+            List<PlanType> children = typeMap.get(planType.getId());
+            for (PlanType child : children) {
+                child.setChildren(new ArrayList<PlanType>());
+                planType.getChildren().add(searchChildren(child, typeMap));
+            }
+        }
+        return planType;
+    }
+    
+    private void setPhysicalContent(Long schemaId, TrainingPlanInfo trainingPlanInfo) {
+        //Physical content
+        PhysicalContent physicalPart = new PhysicalContent();
+        //Warm up part
+        List<PhysicalDetailNonSpecilized> warmUp = planMapper.selectWarmUpBySchemaId(schemaId);
+        physicalPart.setWarmUp(warmUp);
+        
+        //Specialized part
+        
+        List<PhysicalDetailSpecilized> specializedTrainingInit = planMapper.selectSpecilizedBySchemaId(schemaId);
+        Map<String,List<PhysicalDetailSpecilized>> specializedTraining = new HashMap<String,List<PhysicalDetailSpecilized>>();
+        for (PhysicalDetailSpecilized physicalDetailSpecilized : specializedTrainingInit) {
+            String parentName = physicalDetailSpecilized.getParentName();
+            if (!specializedTraining.containsKey(parentName)) {
+                List<PhysicalDetailSpecilized> list = new ArrayList<PhysicalDetailSpecilized>();
+                list.add(physicalDetailSpecilized);
+                specializedTraining.put(parentName, list);
+            }else{
+                specializedTraining.get(parentName).add(physicalDetailSpecilized);
+            }
+        }
+        physicalPart.setSpecializedTraining(specializedTraining);
+        //Relaxation
+        List<PhysicalDetailNonSpecilized> relaxiation = planMapper.selectRelaxiationBySchemaId(trainingPlanInfo.getId());
+        physicalPart.setRelaxiation(relaxiation);
+        trainingPlanInfo.setPhysicalPart(physicalPart);
+    }
+    
+    private void setSkillContent(Long schemaId, TrainingPlanInfo trainingPlanInfo) {
+        List<SkillDetailWithFullInfo> list = planMapper.selectSkillDetailWithFullInfo(schemaId);
+        Map<String, List<SkillDetailWithFullInfo>> map = new HashMap<String, List<SkillDetailWithFullInfo>>();
+        for (SkillDetailWithFullInfo skillDetailWithFullInfo : list) {
+            String parentName = skillDetailWithFullInfo.getParentName();
+            if (!map.containsKey(parentName)) {
+                List<SkillDetailWithFullInfo> newList = new ArrayList<SkillDetailWithFullInfo>();
+                newList.add(skillDetailWithFullInfo);
+                map.put(parentName, newList);
+            }else{
+                map.get(parentName).add(skillDetailWithFullInfo);
+            }
+        }
+        trainingPlanInfo.setSkillPart(map);
+    }
     
     
   

@@ -10,6 +10,12 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 
+/**
+ * Provide the methods to encrypt a field by using DES algorithm
+ * and decrypt the code to a readable string field
+ * @author Siyu Wang
+ *
+ */
 public class EncryptUtil {
     private static final String KEY = "0123456789";
 

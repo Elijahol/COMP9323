@@ -18,7 +18,7 @@ $(function () {
 	var physicalData = totalPlanType[0][0].children;
 	var skillData = totalPlanType[0][1].children;
 	var trainingTime = totalPlanType[1];
-    //初始化弹框
+    // init modal
     var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
     elems.forEach(function(html) {
@@ -33,13 +33,9 @@ $(function () {
     	plan["trainingTime"] = $(this).val();
     });
 
-    
     var targetParent = null;
     var targetTypeId = null;
     var index = null;
-
-    
-
 
     var choosedSkillData = {};
     var choosedPhysicalData = {};
@@ -64,10 +60,10 @@ $(function () {
         "Non-Target":"",
     };
     var specialTraining = [];
-    //加载技能类大项的子项
-    //1.获得所有plan-content
+    // load the children of skill class
+    // 1.get all plan-content
     $(".plan-content").each(function (i,n) {
-        //2.获得index
+        // 2. get index
         var index = $(n).find("h5").attr("name");
 
         var contents = skillData[index].children;
@@ -77,14 +73,14 @@ $(function () {
                                                 "</label>");
         }
     });
-    //为add按钮绑定事件
+    // bind event to add button
     $(".btn-addcourse").click(function () {
-        //1. 找到选中的那些项目
+        // 1. find the selected items
         var flag = true;
         var labels = $(this).siblings(".btn-group").find("label");
         $(labels).each(function (i,n) {
             if ($(this).hasClass("active") == true && $(this).hasClass("disabled") == false){
-                //2. 加入到div里
+                //2. put into div
                 var typeName = $(this).children().attr("name");
                 var typeOfSkill = $(this).children().val();
                 $(this).parents(".card-body").append("<div id='tuple"+typeOfSkill+"' class='card'>"+
@@ -97,27 +93,27 @@ $(function () {
                                                                 "</div>"+
                                                             "</a>"+
                                                         "</div>");
-                //3. 禁用选中的checkbox class='btn btn-success waves-light waves-effect disabled'
+                //3. disable checkbox class='btn btn-success waves-light waves-effect disabled'
                 $(this).attr("class","btn btn-success waves-light waves-effect disabled");
 
-                //4.绑定删除事件
+                //4. bind delete envent
                 $(".delete-icon").click(function () {
                     $(this).parent("div").parent("div").remove();
-                    //5. 解禁禁用选中的checkbox class='btn btn-success waves-light waves-effect disabled'
-                    //并且删除choosedData中的数据，如果有
+                    //5. enabled selected checkbox class='btn btn-success waves-light waves-effect disabled'
+                    // and delete date in choosedData
                     var id = $(this).siblings("a").children("input[type=hidden]").val();
                     $("#"+id).attr("class","btn btn-outline-success waves-light waves-effect");
                     delete choosedSkillData[id];
                 });
 
-                //6. 绑定弹框事件
+                //6. bind modal event
                 $(".pop-up").click(function () {
                     var typeName = $(this).find("input[type=hidden]").attr("name");
                     var typeOfSkill = $(this).find("input[type=hidden]").val();
 
-                    //目标内容的id
+                    // target id
                     targetTypeId = typeOfSkill;
-                    if ((targetTypeId in choosedSkillData )) {//如果之前选过，数据回显
+                    if ((targetTypeId in choosedSkillData )) {// show data if selected before
                         var data = choosedSkillData[targetTypeId];
                         var clickCheckbox = Array.prototype.slice.call(document.querySelectorAll('.js-check-click'));
                         $(clickCheckbox).each(function (i,n) {
@@ -148,7 +144,7 @@ $(function () {
                             else
                                 $(n).prop("checked",false);
                         });
-                    }else{//否则初始化modal
+                    }else{// else init moda,
                         var clickCheckbox = Array.prototype.slice.call(document.querySelectorAll('.js-check-click'));
                         $(clickCheckbox).each(function (i,n) {
                             if(n.checked == true){
@@ -170,7 +166,7 @@ $(function () {
 
 
     });
-    //checkbox绑定事件
+    // bind event of checkbox
     $("#myModal input[type=checkbox]").change(function(){
         var key = $(this).attr("name");
         if($(this).is(":checked") == true){
@@ -191,15 +187,15 @@ $(function () {
             $(this).val(isEle[key][1]);
         }
     });
-    //教练选择完具体内容后，绑定点击事件
+    // bind click event after selecting specific content by coach
     $("#storeDataBtn").click(function () {
         var data = {};
         var isLimit = false;
         var isTarget = false;
-        //得到选项的id
+        // get id of option
         var typeOfSkill = $("#myModal input[name=typeOfSkill]").val();
 
-        //得到is什么那些checkbox的k,v
+        // get key and value of boolean checkbox
         var checkbox = $("#myModal input[type=checkbox]");
         $(checkbox).each(function(i,n){
             var k = $(n).attr("name");
@@ -208,7 +204,7 @@ $(function () {
             if (k == "isLimitedTime" && v == "Limited Time") isLimit = true;
             if (k == "isTarget" && v == "Target") isTarget = true;
         });
-        //得到数字标签
+        // get number tags
         var complete = true;
         var numbers = $("#myModal input[type=number]");
         $(numbers).each(function (i,n) {
@@ -237,14 +233,14 @@ $(function () {
                 data[k] = v;
             }
         });
-        //获得isCombine
+        // get isCombine
         var type = $("#myModal input[type=radio]:checked").attr("name");
         var typeV = $("#myModal input[type=radio]:checked").val();
         data[type] = typeV;
 
         data["typeOfSkill"] = typeOfSkill;
 
-        //保存到choosedData中
+        // save into choosedData
         if (complete == true) {
             choosedSkillData[typeOfSkill] = data;
             $("#myModal .close").click();
@@ -252,9 +248,8 @@ $(function () {
             $("#tuple"+typeOfSkill).children("div").css("background-color","#0acf97");
         }
     });
-
-    //加载体能类大项的子项
-    //1.获得技能类大项的子项
+    // load children of physical class
+    // 1.get children of physical class
     $(".physical-content").each(function (i,n) {
         var index = $(n).find("h5").attr("name");
         if (index == 1) specialTraining = physicalData[index].children;
@@ -296,7 +291,7 @@ $(function () {
 
 
 
-                //加载子内容
+                // load subitems
                 var sonsOfson  = specialTraining[i].children;
                 for(var j in sonsOfson) {
                     $("#"+specialTraining[i].id).find("div.btn-group").append("<label id=" + sonsOfson[j].id + " class='btn btn-outline-success waves-light waves-effect'>" +
@@ -306,7 +301,7 @@ $(function () {
                         "</label>");
                 }
             }
-            //绑定下拉点击事件
+            // bind dropdown event
             $(".special-training-content a.text-dark").click(function () {
                 if($(this).siblings("div").hasClass("show"))
                     $(this).children("div").children("i:last-child").attr("class","mdi mdi-arrow-right-drop-circle");
@@ -316,13 +311,13 @@ $(function () {
             });
         }
     });
-    //2.为add按钮绑定事件
+    //2. bind event to add
     $(".btn-addPhysical").click(function () {
-        //1. 找到选中的那些项目
+        //1. find selected items
         var labels = $(this).siblings(".btn-group").find("label");
         $(labels).each(function (i,n) {
             if ($(this).hasClass("active") == true && $(this).hasClass("disabled") == false){
-                //2. 加入到div里
+                //2. add into div
                 var typeName = $(this).children("input[type=checkbox]").attr("name");
                 var typeOfSkill = $(this).children("input[type=checkbox]").val();
                 var unitName = $(this).children("input[name=unit]").val();
@@ -336,11 +331,11 @@ $(function () {
                                                                 "<input name='"+typeOfSkill+"' type='number' class='form-control' placeholder='0-100' min='0' max='100'>" +
                                                             "</div>" +
                                                         "</div>");
-                    //5.绑定删除事件
+                    //5.delete binding event
                     $(".delete-icon").click(function () {
 
-                        //5. 解禁禁用选中的checkbox class='btn btn-success waves-light waves-effect disabled'
-                        //并且删除choosedData中的数据，如果有
+                        //5. enable selected checkbox class='btn btn-success waves-light waves-effect disabled'
+                        // and delete data in chooseData
                         var id = $(this).siblings("div.inputNumber").children("input[type=number]").attr("name");
                         $("#"+id).attr("class","btn btn-outline-success waves-light waves-effect");
                         delete choosedPhysicalData[id];
@@ -358,7 +353,7 @@ $(function () {
                     });
                 }
 
-                //3.为input绑定blur和focus事件
+                // 3. bind blur and focus event to input
                 $(".inputNumber input[type=number]").focus(function () {
                     $(this).css("background-color","#FFFFCC");
                     $(this).parent("div").css("background-color","#FFFFCC");
@@ -373,7 +368,7 @@ $(function () {
                         $(this).parents(".physical-level1").children(".fa-check").removeAttr("hidden");
 
 
-                        //记录数据
+                        // record data
                         var data = {"physicalType":id,"count":$(this).val()};
 
 
@@ -399,7 +394,7 @@ $(function () {
                         }
                     }
                 });
-                //4. 禁用选中的checkbox class='btn btn-success waves-light waves-effect disabled'
+                //4. disable selected checkbox class='btn btn-success waves-light waves-effect disabled'
                 $(this).attr("class","btn btn-success waves-light waves-effect disabled");
             }
         });
